@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "520068867571",
+    "project_id": "medical-assistent-e5c11",
+    "storage_bucket": "medical-assistent-e5c11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520068867571:android:bb516a30c6d3dc2143de86",
+        "android_client_info": {
+          "package_name": "com.example.patient_assistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520068867571-101ek106u3poqs4kbm2k7dhqa4oc936c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4_WYLVazEM3wjzRsadyUWLJWgvjuBPAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520068867571-101ek106u3poqs4kbm2k7dhqa4oc936c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

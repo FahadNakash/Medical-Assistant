@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:patient_assistant/components/app_button.dart';
-import 'package:patient_assistant/screens/auth/widgets/login_form.dart';
-import '../../constant.dart';
 import '../auth/widgets/auth_forms.dart';
 import '../auth/widgets/logo_text_appbar.dart';
 class  AuthScreen extends StatelessWidget {
@@ -16,17 +13,21 @@ class  AuthScreen extends StatelessWidget {
     // print(MediaQuery.of(context).viewPadding.vertical);  top and bottom
     return Scaffold(
       body:SafeArea(
-        child: Container(
-          height: size.height,
-          child: SingleChildScrollView(
-            physics: (screenOrientation==Orientation.portrait)?NeverScrollableScrollPhysics():null,
-            child: Container(
-              height: size.height,
-              child: Column(
-                children: [
-                  TextLogoAppBar(),
-                ],
-              ),
+        child: SingleChildScrollView(
+          physics: (screenOrientation==Orientation.portrait)?NeverScrollableScrollPhysics():null,
+          child: Container(
+            height: (screenOrientation==Orientation.portrait)?size.height:500,
+           // color: Colors.tealAccent,
+            child: Column(
+              children: [
+                TextLogoAppBar(),
+                Container(
+                    height: (screenOrientation==Orientation.portrait)?size.height*0.82:size.height,
+                    //color: Colors.red,
+                    child: AuthForms()
+                ),
+
+              ],
             ),
           ),
         ),
