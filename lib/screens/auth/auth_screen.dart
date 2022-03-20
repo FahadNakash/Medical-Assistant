@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../auth/widgets/auth_forms.dart';
 import '../auth/widgets/logo_text_appbar.dart';
@@ -12,18 +13,20 @@ class  AuthScreen extends StatelessWidget {
     // print(MediaQuery.of(context).viewPadding.top); pnly top
     // print(MediaQuery.of(context).viewPadding.vertical);  top and bottom
     return Scaffold(
+      backgroundColor: Colors.white,
       body:SafeArea(
         child: SingleChildScrollView(
-          physics: (screenOrientation==Orientation.portrait)?NeverScrollableScrollPhysics():null,
+          //physics: (screenOrientation==Orientation.portrait)?NeverScrollableScrollPhysics():null,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Container(
-            height: (screenOrientation==Orientation.portrait)?size.height:500,
-           // color: Colors.tealAccent,
+           // height: (screenOrientation==Orientation.portrait)?size.height:500,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextLogoAppBar(),
                 Container(
-                    height: (screenOrientation==Orientation.portrait)?size.height*0.82:size.height,
-                    //color: Colors.red,
+                    height: (screenOrientation==Orientation.portrait)?size.height*0.82:500,
+
                     child: AuthForms()
                 ),
 

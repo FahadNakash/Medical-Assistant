@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:patient_assistant/constant.dart';
 class AppButton extends StatelessWidget {
-  final VoidCallback onPressend;
+  final VoidCallback onPressed;
   final String text;
   final double height;
   final double width;
-  AppButton({required this.height,required this.width,required this.onPressend,required this.text});
+  final double textSize;
+  final bool defaulLinearGridient;
+  AppButton({required this.height,required this.width,required this.onPressed,required this.text,required this.textSize,required this.defaulLinearGridient});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,11 +17,11 @@ class AppButton extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            kInputTextColor.withOpacity(0.7),
+            Color(0xff037E87F),
             kPrimaryColor,
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.centerRight
+          begin:defaulLinearGridient?Alignment.topLeft:Alignment.topRight,
+          end:  defaulLinearGridient?Alignment.topRight:Alignment.topLeft,
         ),
         boxShadow: [
           BoxShadow(
@@ -37,10 +38,13 @@ class AppButton extends StatelessWidget {
         ],
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
-      child: TextButton(
-        onPressed: onPressend,
-        style: ButtonStyle(shape: MaterialStateProperty.all(StadiumBorder())),
-        child: Text(text,style: TextStyle(color: Colors.white,fontFamily: 'Comfortaa'),),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onPressed,
+        child: Padding(
+          padding: const EdgeInsets.all(3),
+          child: Center(child: Text(text,textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontFamily: 'Comfortaa',fontSize: textSize),)),
+        ),
       ),
     );
   }

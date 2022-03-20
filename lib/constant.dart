@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 //final kPrimaryColor=Color(0xff46a98c);
-final kPrimaryColor=Color(0xff15aaaf);
+final kPrimaryColor=Color(0xff47A896);
 final kErrorColor=Color(0xffe75c5c);
-final kInputTextColor=Color(0xff5bd350);
+final kHeading2Color=Color(0xff37E87F);
 final kHeadingColor=Color(0xff2d6fa2);
 final kInputBgColor=Color(0xfff6fdf6);
-final kBodytextColor=Color(0xff0aa7ab);
+final kBodytextColor=Color(0xff09A6AB);
 final kTextColor=Color(0xff7b939f);
+final kInputFieldColor=Color(0xfff6fdf6);
 final kDefaulPadding=20.0;

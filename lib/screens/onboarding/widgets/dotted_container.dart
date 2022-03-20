@@ -17,7 +17,7 @@ class DottedContainer extends StatelessWidget {
           width: (currentindex==index)?14:8,
           margin: EdgeInsets.all(kDefaulPadding/4),
           decoration: BoxDecoration(
-            color:(currentindex==index)? kInputTextColor:kPrimaryColor.withOpacity(0.3),
+            color:(currentindex==index)? kHeading2Color:kPrimaryColor.withOpacity(0.3),
             borderRadius: BorderRadius.circular(10)
           )
           ,

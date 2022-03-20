@@ -4,7 +4,11 @@ import 'binding/all_controller_binding.dart';
 import 'screens/onboarding/onbaording_screen.dart';
 import 'screens/auth/auth_screen.dart';
 import 'package:get/get.dart';
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'screens/role/role_screen.dart';
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -19,7 +23,8 @@ class MyApp extends StatelessWidget {
       home: OnBoardingScreen(),
       getPages: [
         GetPage(name: '/auth_screen', page: ()=>AuthScreen(),transition: Transition.rightToLeft),
-        GetPage(name: '/onboarding_screen', page: ()=>OnBoardingScreen(),transition: Transition.rightToLeft)
+        GetPage(name: '/onboarding_screen', page: ()=>OnBoardingScreen(),transition: Transition.rightToLeft),
+        GetPage(name: '/role_screen', page: ()=>RoleScreen(),transition: Transition.fade),
       ],
     );
   }
