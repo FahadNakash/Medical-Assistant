@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'constant.dart';
 
@@ -7,9 +8,10 @@ ThemeData lightTheme(BuildContext context) {
       splashColor: kPrimaryColor,
       textTheme: Theme.of(context).textTheme.copyWith(
           headline5: TextStyle(
-              color: kHeadingColor,
+              color: kHeading1Color,
               fontFamily: 'Comfortaa',
-              fontWeight: FontWeight.w600
+              fontSize: 30,
+              fontWeight: FontWeight.normal
           ),
           bodyText1: TextStyle(
               color: kPrimaryColor,
@@ -19,8 +21,14 @@ ThemeData lightTheme(BuildContext context) {
           bodyText2: TextStyle(
           color: kHeading2Color,
           fontFamily: 'Comfortaa',
-          fontSize: 30
-      )
+          fontSize: 30,
+            fontStyle: FontStyle.normal,
+      ),
+        subtitle1: TextStyle(
+          color: kTextColor,
+          fontFamily: 'Comfortaa',
+          fontSize: 12,
+        )
       )
   );
 }

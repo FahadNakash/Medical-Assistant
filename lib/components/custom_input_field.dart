@@ -19,12 +19,14 @@ class CustomInputField extends StatelessWidget {
   final String? hintText;
   final Widget? suffixIcon;
   final FocusNode? focusNode;
+  final double? fieldwidth;
   final List<TextInputFormatter>? inputFormatters;
   final String? counterText;
   CustomInputField(
       {Key? key,
       required this.label,
       this.controller,
+      this.fieldwidth,
       this.onChanged,
       this.onSaved,
       this.onFieldSubmitted,
@@ -45,6 +47,7 @@ class CustomInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 70,
+      width:fieldwidth,
       child: Stack(
         children: [
           Container(
@@ -54,7 +57,7 @@ class CustomInputField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
                 boxShadow: [
                   BoxShadow(
-                      color: kHeadingColor.withOpacity(0.6),
+                      color: kHeading2Color.withOpacity(0.6),
                       spreadRadius: -2,
                       offset: Offset(0, 2),
                       blurRadius: 5),
@@ -63,28 +66,28 @@ class CustomInputField extends StatelessWidget {
           ),
           TextFormField(
             textAlign: TextAlign.center,
-            style: TextStyle(color: (errorText == null) ? kPrimaryColor : kErrorColor),
+            style: TextStyle(color: (errorText == null) ? kInputTextColor: kErrorColor,fontFamily: 'Comfortaa'),
             showCursor: true,
-            cursorColor: (errorText == null) ? kPrimaryColor : kErrorColor,
+            cursorColor: (errorText == null) ? kInputTextColor : kErrorColor,
             autocorrect: true,
             enableSuggestions: true,
             decoration: InputDecoration(
                 counterText: counterText,
-                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)), borderSide: BorderSide(color: kHeading2Color)),
-                focusColor: kHeading2Color,
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)), borderSide: BorderSide(color: kInputTextColor)),
+                focusColor: kHeading1Color,
                 focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: kErrorColor)),
                 //border:OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)),borderSide: BorderSide(color: Colors.yellow)),
                 enabled: true,
-                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide:BorderSide(color: kHeading2Color.withOpacity(0.2))),
+                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide:BorderSide(color: kHeading1Color.withOpacity(0.2))),
                 filled: true,
-                fillColor:(errorText == null) ? kInputFieldColor : Color(0xffFDF7F6),
+                fillColor:(errorText == null) ? kInputBgColor : Color(0xffFDF7F6),
                 errorStyle: TextStyle(fontFamily: 'Comfortaa', fontSize: 10,),
                 errorBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: kErrorColor)),
-                hintStyle:TextStyle(color: kHeading2Color, fontFamily: 'Comfortaa'),
+                hintStyle:TextStyle(color: kHeading1Color, fontFamily: 'Comfortaa'),
                 label: Text(label,style: TextStyle(color: kPrimaryColor,fontFamily: 'Comfortaa',fontSize: 13),
                 ),
                 helperText: helperText,
-                helperStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 10),
+                helperStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 9),
                 errorText: errorText,
                 hintText: hintText,
                 suffix: suffixIcon,

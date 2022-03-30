@@ -13,7 +13,7 @@ class TextLogoAppBar extends StatelessWidget {
       width: size.width,
       child: Stack(
         children: [
-          AppIcon(height:100),
+          AppIcon(height:90),
           Positioned(
             top: (screenOreitation==Orientation.portrait)?40:25,
             child: Padding(

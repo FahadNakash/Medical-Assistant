@@ -27,7 +27,7 @@ class _CustomPageViewState extends State<CustomPageView> {
             itemBuilder: (context,index)=>Column(
           children: [
             SizedBox(height: (screenOrientation==Orientation.portrait)?kDefaulPadding/2:0,),
-            Text('${onBoardingItems[index].title}',style: Theme.of(context).textTheme.headline5),
+            Text('${onBoardingItems[index].title}',style: Theme.of(context).textTheme.bodyText2),
             SizedBox(height:(screenOrientation==Orientation.portrait)?kDefaulPadding*2:0,),
             Text('${onBoardingItems[index].descriptions}',style: Theme.of(context).textTheme.bodyText1,textAlign: TextAlign.center,),
             SizedBox(height: kDefaulPadding,),

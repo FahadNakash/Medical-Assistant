@@ -28,13 +28,13 @@ class FooterBar extends StatelessWidget {
                   TextButton(onPressed: (){
                     pagecontroller.animateToPage(6,duration: Duration(milliseconds: 2000,),curve: Curves.fastLinearToSlowEaseIn);
                   },
-                    child: Text('Skip',style: Theme.of(context).textTheme.headline5!.copyWith(
+                    child: Text('Skip',style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: 12
                     ),),),
                   TextButton(onPressed: (){
                     pagecontroller.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn);
                   },
-                      child: Text('Next',style: Theme.of(context).textTheme.headline5!.copyWith(
+                      child: Text('Next',style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 12
                       ),)
                   ),

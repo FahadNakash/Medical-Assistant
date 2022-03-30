@@ -3,7 +3,7 @@ import '../../../constant.dart';
 import '../../../components/app_button.dart';
 import '../../../components/custom_input_field.dart';
 import '../../../controllers/auth_controller.dart';
-import 'package:get/get.dart';
+import '../../../components/custom_circle_progress_indicator.dart';
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
   @override
@@ -25,11 +25,12 @@ class _SignUpFormState extends State<SignUpForm> {
       color: Colors.white,
       child: Column(
         children: [
-          Text('Create an Account to get started',style: Theme.of(context).textTheme.headline5!.copyWith(
+          Text('Create an Account to get started',style: Theme.of(context).textTheme.bodyText2!.copyWith(
             fontSize: 15,
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w500
           )),
           SizedBox(height: kDefaulPadding/2,),
+          //email filed
           CustomInputField(
             label: 'Email',
             keyboardType: TextInputType.emailAddress,
@@ -48,16 +49,18 @@ class _SignUpFormState extends State<SignUpForm> {
             },
           ),
           SizedBox(height: kDefaulPadding/2,),
+          //password field
           CustomInputField(
             controller: _password,
             label: 'Password',
+            helperText: 'at least 6 characters long Whitespaces not allowed',
             suffixIcon: InkWell(
               onTap: (){
                 setState(() {
                   authController.isEyeFlag=!authController.isEyeFlag;
                 });
               },
-                child: Icon(Icons.remove_red_eye,color: !authController.isEyeFlag?kPrimaryColor:kPrimaryColor.withOpacity(0.3),)),
+                child: Icon(Icons.remove_red_eye,color: !authController.isEyeFlag?kInputTextColor:kInputTextColor.withOpacity(0.3),)),
             textInputAction: TextInputAction.next,
             obscureText:authController.isEyeFlag,
             errorText: authController.passErr,
@@ -75,16 +78,18 @@ class _SignUpFormState extends State<SignUpForm> {
             },
           ),
           SizedBox(height: kDefaulPadding/2,),
+          //confrom password field
           CustomInputField(
               controller: _conformPassword,
               label: 'Password',
+            helperText: 'Confirm your password',
             suffixIcon: InkWell(
                 onTap: (){
                   setState(() {
                     authController.isEyeconformFlag=!authController.isEyeconformFlag;
                   });
                 },
-                child: Icon(Icons.remove_red_eye,color: !authController.isEyeconformFlag?kPrimaryColor:kPrimaryColor.withOpacity(0.3),)),
+                child: Icon(Icons.remove_red_eye,color: !authController.isEyeconformFlag?kInputTextColor:kInputTextColor.withOpacity(0.3),)),
               obscureText: authController.isEyeconformFlag,
               errorText: conpassErr,
               onChanged: (value){
@@ -95,11 +100,18 @@ class _SignUpFormState extends State<SignUpForm> {
                 }},
                 ),
           SizedBox(height: kDefaulPadding/2,),
-          isLoading?Text('..Loading..',style: TextStyle(fontSize: 15),):AppButton(
+          isLoading?Column(
+            children: [
+              CustomCircleProgressIndicator(),
+              SizedBox(height: 5,),
+              Text('..Signing Up..',style: TextStyle(fontSize: 10),),
+            ],
+          ):AppButton(
               textSize: 15,
               defaulLinearGridient: true,
               height: 35,
-              width: 100, onPressed: ()async{
+              width: 90,
+              onPressed: ()async{
             print('1');
            FormSubmitted(authController.email,authController.password);
            setState(() {
@@ -109,6 +121,7 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
+
   emailValidator(){
   if ( authController.email.isEmpty) {
   authController.emailErr='Email field cannot be empty';
@@ -136,7 +149,6 @@ class _SignUpFormState extends State<SignUpForm> {
       conpassErr=null;
     }
   }
-
   Future<void> FormSubmitted(String email,String password)async{
     emailValidator();
     passwordValidator();

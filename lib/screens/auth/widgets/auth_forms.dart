@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:patient_assistant/components/app_button.dart';
+import 'package:patient_assistant/controllers/auth_controller.dart';
+import 'package:patient_assistant/models/auth_user.dart';
 import 'package:patient_assistant/screens/auth/widgets/login_form.dart';
 import '../widgets/signup_form.dart';
 import 'package:animations/animations.dart' as ani;
 import '../../../constant.dart';
 class AuthForms extends StatefulWidget {
-  const AuthForms({Key? key}) : super(key: key);
+
+  const AuthForms({Key? key,}) : super(key: key);
   @override
   _AuthFormsState createState() => _AuthFormsState();
 }
@@ -16,6 +18,7 @@ bool isLogin=true;
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
     final orientation=MediaQuery.of(context).orientation;
+    final authControlle=AuthController.authGetter;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: kDefaulPadding),
       constraints: BoxConstraints(
@@ -37,9 +40,17 @@ bool isLogin=true;
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(isLogin?'Need an Account?':'Already have an Account',style: TextStyle(fontSize: 10,color: Colors.black.withOpacity(0.5)),),
-              AppButton(textSize: 10,defaulLinearGridient: false,height: 20, width: 95, onPressed: (){
+              Text(isLogin?'Need an Account?':'Already have an Account',style: TextStyle(fontSize: 10,color: kTextColor),),
+              AppButton(
+                  textSize: 10,defaulLinearGridient: false,
+                  height: 20,
+                  width: 80,
+                  onPressed: (){
                 isLogin=!isLogin;
+                authControlle.emailErr=null;
+                authControlle.passErr=null;
+                authControlle.email='';
+                authControlle.password='';
                 setState(() {
                 });
               }, text: isLogin?'SignUp':'LogIn')
@@ -74,10 +85,11 @@ class FormType extends StatelessWidget {
   Widget build(BuildContext context) {
     final orientation=MediaQuery.of(context).orientation;
     return Container(
+      color: Colors.white,
       height: kDefaulPadding*3,
       child: Column(
         children: [
-          Text(isLogin?'Login':'Sign Up',style: Theme.of(context).textTheme.bodyText2),
+          Text(isLogin?'Login':'Sign Up',style: Theme.of(context).textTheme.headline5),
           Divider(color: kTextColor,endIndent: (orientation==Orientation.portrait)?40:0,indent: (orientation==Orientation.portrait)?40:0,),
         ],
       ),

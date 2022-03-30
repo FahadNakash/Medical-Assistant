@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:patient_assistant/components/app_button.dart';
-import 'package:patient_assistant/models/onboarding.dart';
 import 'package:patient_assistant/screens/onboarding/widgets/dotted_container.dart';
 import 'package:patient_assistant/screens/onboarding/widgets/footer_bar.dart';
 import '../../components/app_icon.dart';
 import '../onboarding/widgets/custom_page_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key,}) : super(key: key);
-
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
+class _OnBoardingScreenState extends State<OnBoardingScreen>{
   final pageController=PageController(initialPage: 0);
   int index=0;
   onPageChanged(value){
@@ -20,20 +18,30 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     });
   }
   @override
+  void initState(){
+    firstLogin();
+    super.initState();
+  }
+  Future<void> firstLogin()async{
+    final prefs=await SharedPreferences.getInstance();
+    final firstLogin=await prefs.setBool('firstRun', true);
+    print(firstLogin);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            AppIcon(height: 90,),
-            CustomPageView(onPageChanged: onPageChanged,pageController: pageController,size: size,),
-            SizedBox(height: 10,),
-            DottedContainer(currentindex: index,),
-            Expanded(flex: 2,child: FooterBar(pagecontroller: pageController,size: size,index: index,)),
-          ],
-        ),
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 10),
+          AppIcon(height: 90,),
+          CustomPageView(onPageChanged: onPageChanged,pageController: pageController,size: size,),
+          SizedBox(height: 10,),
+          DottedContainer(currentindex: index,),
+          Expanded(flex: 2,child: FooterBar(pagecontroller: pageController,size: size,index: index,)),
+        ],
       ),
     );
   }

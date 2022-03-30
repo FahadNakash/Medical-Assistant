@@ -1,13 +1,15 @@
-import 'package:flutter/gestures.dart';
+import '../../models/auth_user.dart';
 import 'package:flutter/material.dart';
 import '../auth/widgets/auth_forms.dart';
 import '../auth/widgets/logo_text_appbar.dart';
+import 'package:get/get.dart';
 class  AuthScreen extends StatelessWidget {
   const  AuthScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
     final screenOrientation=MediaQuery.of(context).orientation;
+    //print('login screen data${data}');
     // print(MediaQuery.of(context).viewInsets.top); all points
     // print(MediaQuery.of(context).viewInsets.vertical);
     // print(MediaQuery.of(context).viewPadding.top); pnly top
@@ -26,7 +28,6 @@ class  AuthScreen extends StatelessWidget {
                 TextLogoAppBar(),
                 Container(
                     height: (screenOrientation==Orientation.portrait)?size.height*0.82:500,
-
                     child: AuthForms()
                 ),
 
