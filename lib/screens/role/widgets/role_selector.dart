@@ -16,59 +16,58 @@ class _RoleSelectorState extends State<RoleSelector> {
   @override
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
-    return Container(
-      child: Column(
-        children: [
-          SizedBox(height: kDefaulPadding,),
-          //role Selector Button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                splashColor: Colors.white,
-                onTap: (){
-                  _isPatient=false;
-                  _isDoctor=true;
-                  setState(() {
-                  });
-                },
-                child: RoleSelectorButton(
-                  icon: Icon(FontAwesomeIcons.userDoctor,size: 40,color:_isDoctor?Colors.white:kTextColor),
-                  text: 'Doctor',
-                  isSelect: _isDoctor,
-                ),
+    return Column(
+      children: [
+        SizedBox(height: kDefaultHeight,),
+        //role Selector Button
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              splashColor: Colors.white,
+              onTap: (){
+                _isPatient=false;
+                _isDoctor=true;
+                setState(() {
+                });
+              },
+              child: RoleSelectorButton(
+                icon: Icon(FontAwesomeIcons.userDoctor,size: 40,color:_isDoctor?Colors.white:kTextColor),
+                text: 'Doctor',
+                isSelect: _isDoctor,
               ),
-              InkWell(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                splashColor: Colors.white,
-                onTap: (){
-                  setState(() {
-                    _isDoctor=false;
-                    _isPatient=true;
-                  });
-                },
-                child: RoleSelectorButton(
-                  icon: Icon(FontAwesomeIcons.userInjured,size: 40,color: _isPatient?Colors.white:kTextColor,),
-                  text: 'Patient', isSelect:_isPatient,
-                ),
+            ),
+            InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              splashColor: Colors.white,
+              onTap: (){
+                setState(() {
+                  _isDoctor=false;
+                  _isPatient=true;
+                });
+              },
+              child: RoleSelectorButton(
+                icon: Icon(FontAwesomeIcons.userInjured,size: 40,color: _isPatient?Colors.white:kTextColor,),
+                text: 'Patient', isSelect:_isPatient,
               ),
-            ],
+            ),
+          ],
+        ),
+        //current form
+        SizedBox(height: kDefaultHeight,),
+        Container(
+          constraints: BoxConstraints(
           ),
-          //current form
-          SizedBox(height: kDefaulPadding,),
-          Container(
-              height: size.height,
-              child: currentFormTransition())
+            child: currentFormTransition()
+        )
 
-
-        ],
-      ),
+      ],
     );
   }
   Widget currentFormTransition(){
     return PageTransitionSwitcher(
-      duration: Duration(milliseconds: 1500),
+      duration: Duration(milliseconds: 1200),
       reverse: _isDoctor,
       transitionBuilder: (child,animation,secondaryAnimation)=>SharedAxisTransition(
           child: child,

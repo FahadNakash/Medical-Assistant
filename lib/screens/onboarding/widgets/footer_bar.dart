@@ -14,7 +14,7 @@ class FooterBar extends StatelessWidget {
       child:AnimatedSwitcher(
         duration: Duration(milliseconds: 1500),
         child:(index==onBoardingItems.length-1)
-            ?AppButton( textSize: 15,defaulLinearGridient: true,text: 'Get Started',height: 40,width: 110,onPressed: (){
+            ?AppButton( textSize: 15,defaultLinearGradient: true,text: 'Get Started',height: 40,width: 110,onPressed: (){
               Get.toNamed('/auth_screen');
         },)
             :Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patient_assistant/constant.dart';
 import 'package:patient_assistant/screens/onboarding/widgets/dotted_container.dart';
 import 'package:patient_assistant/screens/onboarding/widgets/footer_bar.dart';
 import '../../components/app_icon.dart';
@@ -35,10 +36,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>{
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 10),
-          AppIcon(height: 90,),
+          SizedBox(height: kDefaultHeight/2),
+          //AppIcon(height: 90,),
+          AppIcon(height: kDefaultHeight*3+10,),
           CustomPageView(onPageChanged: onPageChanged,pageController: pageController,size: size,),
-          SizedBox(height: 10,),
+          SizedBox(height: kDefaultHeight/2,),
           DottedContainer(currentindex: index,),
           Expanded(flex: 2,child: FooterBar(pagecontroller: pageController,size: size,index: index,)),
         ],

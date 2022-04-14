@@ -13,11 +13,11 @@ class TextLogoAppBar extends StatelessWidget {
       width: size.width,
       child: Stack(
         children: [
-          AppIcon(height:90),
+          AppIcon(height:kDefaultHeight*4+10),
           Positioned(
             top: (screenOreitation==Orientation.portrait)?40:25,
             child: Padding(
-              padding: const EdgeInsets.only(left: 5),
+              padding:  EdgeInsets.only(left: kDefaultPadding/4),
               child: InkWell(
                 onTap: (){
                   Get.toNamed('/onboarding_screen/');

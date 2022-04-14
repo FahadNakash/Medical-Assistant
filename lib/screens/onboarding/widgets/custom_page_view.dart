@@ -18,7 +18,7 @@ class _CustomPageViewState extends State<CustomPageView> {
     return Container(
       height: (screenOrientation==Orientation.portrait)?widget.size.height*0.60:widget.size.height*0.40,
       child: Padding(
-        padding:EdgeInsets.symmetric(horizontal: kDefaulPadding*0.3),
+        padding:EdgeInsets.symmetric(horizontal: kDefaultPadding*0.3),
         child: PageView.builder(
           controller: widget.pageController,
           onPageChanged:widget.onPageChanged,
@@ -26,11 +26,11 @@ class _CustomPageViewState extends State<CustomPageView> {
             itemCount:onBoardingItems.length,
             itemBuilder: (context,index)=>Column(
           children: [
-            SizedBox(height: (screenOrientation==Orientation.portrait)?kDefaulPadding/2:0,),
+            SizedBox(height: (screenOrientation==Orientation.portrait)?kDefaultHeight/2:0,),
             Text('${onBoardingItems[index].title}',style: Theme.of(context).textTheme.bodyText2),
-            SizedBox(height:(screenOrientation==Orientation.portrait)?kDefaulPadding*2:0,),
+            SizedBox(height:(screenOrientation==Orientation.portrait)?kDefaultHeight*2:0,),
             Text('${onBoardingItems[index].descriptions}',style: Theme.of(context).textTheme.bodyText1,textAlign: TextAlign.center,),
-            SizedBox(height: kDefaulPadding,),
+            SizedBox(height: kDefaultHeight,),
             // SvgPicture.asset(onBoardingItems[index].imageUrl!,height: (screenOrientation==Orientation.portrait)?kDefaulPadding*11:kDefaulPadding*2,),
             SvgPicture.asset(onBoardingItems[index].imageUrl!,height:(screenOrientation==Orientation.portrait)?widget.size.height*0.30:widget.size.height*0.20,),
           ],

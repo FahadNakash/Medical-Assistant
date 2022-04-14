@@ -6,8 +6,8 @@ class AppButton extends StatelessWidget {
   final double height;
   final double width;
   final double textSize;
-  final bool defaulLinearGridient;
-  AppButton({required this.height,required this.width,required this.onPressed,required this.text,required this.textSize,required this.defaulLinearGridient});
+  final bool defaultLinearGradient;
+  AppButton({required this.height,required this.width,required this.onPressed,required this.text,required this.textSize,required this.defaultLinearGradient});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,8 +20,8 @@ class AppButton extends StatelessWidget {
             Color(0xff037E87F),
             kPrimaryColor,
           ],
-          begin:defaulLinearGridient?Alignment.topLeft:Alignment.topRight,
-          end:  defaulLinearGridient?Alignment.topRight:Alignment.topLeft,
+          begin:defaultLinearGradient?Alignment.topLeft:Alignment.topRight,
+          end:  defaultLinearGradient?Alignment.topRight:Alignment.topLeft,
         ),
         boxShadow: [
           BoxShadow(

@@ -1,4 +1,4 @@
-class PracticeData {
+class CountryData {
  static Map<String, Map<String, dynamic>> countriesData = {
     "AD": {
       "name": "Andorra",
@@ -2251,7 +2251,6 @@ class PracticeData {
       "languages": ["en", "sn", "nd"]
     }
   };
-
  static Map<String, List<dynamic>> getCountryNameFromMap() {
    Map<String, List<dynamic>> map = Map();
    countriesData.forEach((key, value) {
@@ -2262,6 +2261,5 @@ class PracticeData {
    });
    return map;
  }
-
  static Map<String, List<dynamic>> countryInfo = getCountryNameFromMap();
 }

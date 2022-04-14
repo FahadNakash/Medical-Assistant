@@ -7,7 +7,7 @@ class DottedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20,
+      height: kDefaultHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(onBoardingItems.length,(index)=>AnimatedContainer(
@@ -15,7 +15,7 @@ class DottedContainer extends StatelessWidget {
           curve: Curves.easeIn,
           height:(currentindex==index)?12:8,
           width: (currentindex==index)?14:8,
-          margin: EdgeInsets.all(kDefaulPadding/4),
+          margin: EdgeInsets.all(5),
           decoration: BoxDecoration(
             color:(currentindex==index)? kHeading1Color:kPrimaryColor.withOpacity(0.3),
             borderRadius: BorderRadius.circular(10)

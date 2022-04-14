@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:patient_assistant/constant.dart';
 import 'package:patient_assistant/screens/splash/splash_screen.dart';
 import 'package:patient_assistant/theme.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       initialBinding: AllControllerBinding(),
       title: 'Medical Assistant',
-      color: Colors.white,
       debugShowCheckedModeBanner: false,
       theme: lightTheme(context),
       home: SplashScreen(),

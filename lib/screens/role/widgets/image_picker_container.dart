@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:io';
 import '../../../constant.dart';
 import '../../../components/circle_icon_button.dart';
@@ -14,8 +15,7 @@ class ImagePickerContainer extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      margin: EdgeInsets.only(top: kDefaulPadding * 2),
-      color: Colors.white,
+      margin: EdgeInsets.only(top: kDefaultPadding * 2),
       height: (orientation == Orientation.portrait)
           ? size.height * 0.3
           : size.height * 0.5,
@@ -23,44 +23,57 @@ class ImagePickerContainer extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              color: Colors.white,
               child: Stack(
                 children: [
                   Center(
-                    child: Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xffc2e59c).withOpacity(0.8),
-                                Color(0xff64b3f4),
+                    child: Obx(
+                  ()=>Container(
+                          height: 150,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: kTextColor,
+                              offset: Offset(5, 5),
+                              blurRadius: 5,
+                                ),
+                                BoxShadow(
+                                  color: kTextColor.withOpacity(0.4),
+                                  offset: Offset(-2, -2),
+                                  blurRadius: 5,
+                                )
                               ],
-                            )),
-                        child:roleController.selectImage.value != ''
-                              ?Obx(()=>ClipRRect(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(20)),
-                            child: Image.file(File(roleController.selectImage.value),
-                                 fit: BoxFit.cover)
-                        ))
-                               :Icon(Icons.account_box_rounded,
-                                  size: (orientation == Orientation.portrait)
-                                      ? 140
-                                      : 110,
-                                  color: Colors.white
-                        ),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xffc2e59c).withOpacity(0.8),
+                                  Color(0xff64b3f4),
+                                ],
+                              )),
+                          child:roleController.selectImage.value != ''
+                                ?ClipRRect(
+                              borderRadius:BorderRadius.all(Radius.circular(20)),
+                              child: Image.file(File(roleController.selectImage.value),
+                                   fit: BoxFit.cover
+                              )
+                          )
+                                :Icon(Icons.account_box_rounded,
+                                    size: (orientation == Orientation.portrait)
+                                        ? 140
+                                        : 110,
+                                    color: Colors.white
+                          ),
 
+                      ),
                     ),
                   ),
                   Positioned(
                     top: (orientation == Orientation.portrait)
-                        ? kDefaulPadding * 7
-                        : kDefaulPadding * 6,
+                        ? kDefaultPosition * 7
+                        : kDefaultPosition * 6,
                     right: (orientation == Orientation.portrait)
-                        ? kDefaulPadding * 4.9
-                        : kDefaulPadding * 14,
+                        ? kDefaultPosition * 4.9
+                        : kDefaultPosition * 14,
                     //right: kDefaulPadding*5,
                     child: CircleIconButton(
                       onTap: () {
@@ -88,7 +101,7 @@ class ImagePickerContainer extends StatelessWidget {
     );
   }
 
-  Widget customBottomSheet() {
+  Widget customBottomSheet(){
     return Container(
       height: 150,
       padding: EdgeInsets.all(20),
@@ -121,7 +134,7 @@ class ImagePickerContainer extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(width: kDefaulPadding),
+              SizedBox(width: kDefaultPadding),
               Column(
                 children: [
                   CircleIconButton(
@@ -140,7 +153,28 @@ class ImagePickerContainer extends StatelessWidget {
                   )
                 ],
               ),
-
+              SizedBox(width: kDefaultPadding),
+              Column(
+                children: [
+                  CircleIconButton(
+                        onTap: ()async {
+                        roleController.selectImage.value='';
+                        Get.back();
+                      },
+                      colors: [
+                        Color.fromRGBO(102, 0, 0, 1),
+                        kErrorColor
+                      ],
+                      icon: Icon(
+                        FontAwesomeIcons.trash,
+                        color: Colors.white,
+                      )),
+                  Text(
+                    'Delete',
+                    style: TextStyle(color: Colors.black, fontSize: 10),
+                  )
+                ],
+              ),
               //IconButton(onPressed: (){}, icon: Icon(Icons.camera),color: Colors.red),
             ],
           )

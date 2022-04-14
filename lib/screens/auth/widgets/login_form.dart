@@ -15,6 +15,7 @@ class LoginInForm extends StatefulWidget {
 class _LoginInFormState extends State<LoginInForm> {
   final authController = AuthController.authGetter;
   bool _isloading = false;
+
   @override
   Widget build(BuildContext context){
     return Container(
@@ -26,10 +27,12 @@ class _LoginInFormState extends State<LoginInForm> {
                     fontSize: 15,
                   )),
           SizedBox(
-            height: kDefaulPadding,
+            height: kDefaultHeight,
           ),
           CustomInputField(
+            height: kDefaultHeight*3.5,
             label: 'Email',
+            textAlign: TextAlign.center,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             errorText: authController.emailErr,
@@ -45,11 +48,13 @@ class _LoginInFormState extends State<LoginInForm> {
             },
           ),
           SizedBox(
-            height: kDefaulPadding,
+            height: kDefaultHeight,
           ),
           CustomInputField(
+            height: kDefaultHeight*3.5,
             label: 'Password',
-            suffixIcon: InkWell(
+            textAlign: TextAlign.center,
+            suffix: InkWell(
                 onTap: () {
                   setState(() {
                     authController.isEyeFlag = !authController.isEyeFlag;
@@ -76,23 +81,23 @@ class _LoginInFormState extends State<LoginInForm> {
             },
           ),
           SizedBox(
-            height: kDefaulPadding,
+            height: kDefaultHeight,
           ),
           _isloading
               ? Column(
                   children: [
                     CustomCircleProgressIndicator(),
                     SizedBox(
-                      height: 10,
+                      height: kDefaultHeight/2,
                     ),
                     Obx(()=>Text('${authController.login}',style: TextStyle(fontSize: 10),))
                   ],
                 )
               : AppButton(
                   textSize: 15,
-                  defaulLinearGridient: true,
-                  height: 35,
-                  width: 100,
+                  defaultLinearGradient: true,
+                  height: (kDefaultHeight*2),
+                  width: kDefaultWidth*5,
                   onPressed: () async {
                     setState(() {
                       _isloading = true;
@@ -120,9 +125,7 @@ class _LoginInFormState extends State<LoginInForm> {
   emailValidation() {
     if (authController.email.isEmpty) {
       authController.emailErr = 'please enter the email';
-    } else if (!RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(authController.email)) {
+    } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(authController.email)) {
       authController.emailErr = 'Please enter the correct email';
     } else {
       authController.emailErr = null;

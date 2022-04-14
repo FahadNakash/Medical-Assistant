@@ -21,18 +21,20 @@ class _SplashScreenState extends State<SplashScreen> {
   }
    initialPage(){
     Future.delayed(Duration(seconds: 2),()async{
-      final authController=AuthController.authGetter;
-      final prefs=await SharedPreferences.getInstance();
-       final getData=prefs.getString('userData');
-       final firstRun=prefs.getBool('firstRun');
-        print(getData);
-       print(firstRun);
-       if (firstRun!=true && getData==null){
-         Get.toNamed('/onboarding_screen');
-       }else{
-         Get.toNamed('/auth_screen');
-       }
-
+      //Get.toNamed('/auth_screen');
+       Get.toNamed('/role_screen');
+      // final authController=AuthController.authGetter;
+      // final prefs=await SharedPreferences.getInstance();
+      //  final getData=prefs.getString('userData');
+      //  final firstRun=prefs.getBool('firstRun');
+      //   print(getData);
+      //  print(firstRun);
+      //  if (firstRun!=true && getData==null){
+      //    Get.toNamed('/onboarding_screen');
+      //  }else{
+      //
+      //  }
+       //work on later
        // if (getData!=null){
        //     //print('userData is not null so the data is ${getData}');
        //     final decodeData=json.decode(getData);

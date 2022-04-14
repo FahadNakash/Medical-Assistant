@@ -20,7 +20,8 @@ bool isLogin=true;
     final orientation=MediaQuery.of(context).orientation;
     final authControlle=AuthController.authGetter;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: kDefaulPadding),
+      color: Colors.white,
+      margin: EdgeInsets.symmetric(horizontal: 20),
       constraints: BoxConstraints(
         maxWidth: 500,
         minWidth: 300
@@ -28,7 +29,7 @@ bool isLogin=true;
       child: Column(
         children: [
           FormType(isLogin: isLogin,),
-          SizedBox(height: kDefaulPadding*2,),
+          SizedBox(height: kDefaultHeight*2,),
           Expanded(
             child: Container(
               constraints: BoxConstraints(maxWidth: 500,minWidth: 350),
@@ -42,7 +43,7 @@ bool isLogin=true;
             children: [
               Text(isLogin?'Need an Account?':'Already have an Account',style: TextStyle(fontSize: 10,color: kTextColor),),
               AppButton(
-                  textSize: 10,defaulLinearGridient: false,
+                  textSize: 10,defaultLinearGradient: false,
                   height: 20,
                   width: 80,
                   onPressed: (){
@@ -86,7 +87,7 @@ class FormType extends StatelessWidget {
     final orientation=MediaQuery.of(context).orientation;
     return Container(
       color: Colors.white,
-      height: kDefaulPadding*3,
+      height: kDefaultHeight*3,
       child: Column(
         children: [
           Text(isLogin?'Login':'Sign Up',style: Theme.of(context).textTheme.headline5),

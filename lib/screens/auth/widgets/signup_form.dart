@@ -29,10 +29,12 @@ class _SignUpFormState extends State<SignUpForm> {
             fontSize: 15,
             fontWeight: FontWeight.w500
           )),
-          SizedBox(height: kDefaulPadding/2,),
+          SizedBox(height: kDefaultHeight/2,),
           //email filed
           CustomInputField(
+            height: kDefaultHeight*3.5,
             label: 'Email',
+            textAlign: TextAlign.center,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             errorText: authController.emailErr,
@@ -48,13 +50,15 @@ class _SignUpFormState extends State<SignUpForm> {
                 authController.email=value!.trim();
             },
           ),
-          SizedBox(height: kDefaulPadding/2,),
-          //password field
+          SizedBox(height: kDefaultHeight/2,),
+         // password field
           CustomInputField(
+            height: kDefaultHeight*3.5,
             controller: _password,
             label: 'Password',
+            textAlign: TextAlign.center,
             helperText: 'at least 6 characters long Whitespaces not allowed',
-            suffixIcon: InkWell(
+            suffix: InkWell(
               onTap: (){
                 setState(() {
                   authController.isEyeFlag=!authController.isEyeFlag;
@@ -77,13 +81,15 @@ class _SignUpFormState extends State<SignUpForm> {
               authController.password=value!.trim();
             },
           ),
-          SizedBox(height: kDefaulPadding/2,),
+          SizedBox(height: kDefaultHeight/2,),
           //confrom password field
           CustomInputField(
+            height: kDefaultHeight*3.5,
               controller: _conformPassword,
               label: 'Password',
+            textAlign: TextAlign.center,
             helperText: 'Confirm your password',
-            suffixIcon: InkWell(
+            suffix: InkWell(
                 onTap: (){
                   setState(() {
                     authController.isEyeconformFlag=!authController.isEyeconformFlag;
@@ -99,18 +105,18 @@ class _SignUpFormState extends State<SignUpForm> {
                   setState(() {});
                 }},
                 ),
-          SizedBox(height: kDefaulPadding/2,),
+          SizedBox(height: kDefaultHeight/2,),
           isLoading?Column(
             children: [
               CustomCircleProgressIndicator(),
-              SizedBox(height: 5,),
+              SizedBox(height: kDefaultHeight/4,),
               Text('..Signing Up..',style: TextStyle(fontSize: 10),),
             ],
           ):AppButton(
               textSize: 15,
-              defaulLinearGridient: true,
-              height: 35,
-              width: 90,
+              defaultLinearGradient: true,
+              height: kDefaultHeight*2,
+              width: kDefaultWidth*4+10,
               onPressed: ()async{
             print('1');
            FormSubmitted(authController.email,authController.password);

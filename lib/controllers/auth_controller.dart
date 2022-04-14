@@ -1,13 +1,10 @@
-import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:patient_assistant/constant.dart';
-import 'package:patient_assistant/models/auth_user.dart';
 import '../components/app_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../screens/role/role_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 class AuthController extends GetxController{
   static AuthController get authGetter=>Get.find<AuthController>();
@@ -68,7 +65,7 @@ class AuthController extends GetxController{
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                AppButton( textSize: 10,defaulLinearGridient: true,height: 50, width: 50, onPressed:(){
+                AppButton( textSize: 10,defaultLinearGradient: true,height: 50, width: 50, onPressed:(){
                   Get.back();
                 },
                     text: 'Ok'),
@@ -100,7 +97,7 @@ class AuthController extends GetxController{
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  AppButton(textSize: 10,defaulLinearGridient: true,height: 50, width: 50, onPressed:(){
+                  AppButton(textSize: 10,defaultLinearGradient: true,height: 50, width: 50, onPressed:(){
                     Get.back();
                   },
                       text: 'Ok'),
@@ -124,7 +121,7 @@ class AuthController extends GetxController{
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                AppButton(textSize: 10,defaulLinearGridient: true,height: 50, width: 50, onPressed:(){
+                AppButton(textSize: 10,defaultLinearGradient: true,height: 50, width: 50, onPressed:(){
                   Get.back();
                 },
                     text: 'Ok'),

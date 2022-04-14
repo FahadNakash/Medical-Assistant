@@ -8,9 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:image_cropper/image_cropper.dart';
 class RoleController extends GetxController{
  static RoleController get roleGetter=>Get.find<RoleController>();
- Rx<File>? image;
  var selectImage=''.obs;
-
  Future<void> getImage(ImageSource source)async{
   try {
    final galleryStatus=await Permission.storage.status;
@@ -20,12 +18,12 @@ class RoleController extends GetxController{
      await Permission.camera.request();
    }
    if (await Permission.storage.isGranted) {
-     print('run 1');
+    // print('run 1');
      final pickImage=await ImagePicker.platform.getImage(source: source);
-     print('run 2');
-     print(pickImage);
+     // print('run 2');
+     // print(pickImage);
     if (pickImage!=null) {
-      print('run 3');
+      // print('run 3');
       File? croppedFile = await ImageCropper().cropImage(
           sourcePath: pickImage.path,
           aspectRatioPresets: [
@@ -36,7 +34,7 @@ class RoleController extends GetxController{
           CropAspectRatioPreset.ratio16x9
          ],
          androidUiSettings: AndroidUiSettings(
-             toolbarTitle: 'Cropper',
+             toolbarTitle: 'Medical Assistant Cropper',
              toolbarColor: kPrimaryColor,
              toolbarWidgetColor: Colors.white,
              initAspectRatio: CropAspectRatioPreset.original,
@@ -45,12 +43,12 @@ class RoleController extends GetxController{
           minimumAspectRatio: 1.0,
          )
      );
-      print('run 4');
+      // print('run 4');
       //image=Rx(File(croppedFile!.path));
       selectImage.value=croppedFile!.path;
-      print('run 5');
+      // print('run 5');
       print(selectImage.value);
-      print('run 6');
+      // print('run 6');
     }
    }
   }on PlatformException catch(e){
