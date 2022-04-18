@@ -16,6 +16,13 @@ class PatientForm extends StatefulWidget {
 }
 
 class _PatientFormState extends State<PatientForm> {
+  String name='';
+  String? nameError;
+  String age='';
+  String? ageError;
+
+  String city='';
+
   TextEditingController disease=TextEditingController();
   final List<String> diseaseList = [];
   final countryData = CountryData.countryInfo;
@@ -39,10 +46,19 @@ class _PatientFormState extends State<PatientForm> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: CustomInputField(
+                textInputAction: TextInputAction.next,
                 height: kDefaultHeight * 3,
                 label: 'Name',
                 textAlign: TextAlign.center,
-                helperText: 'Enter your full name'),
+                helperText: 'Enter your full name',
+                errorText: nameError,
+                onFieldSubmitted:(string){
+                  name=string!;
+                  nameValidation(name);
+                  setState(() {
+                  });
+              },
+            ),
           ),
           SizedBox(height: kDefaultHeight / 2),
           // age field
@@ -51,8 +67,8 @@ class _PatientFormState extends State<PatientForm> {
             child: Row(
               children: [
                 Text(
-                  'Enter Your age:',
-                  style: TextStyle(color: kPrimaryColor, fontSize: 17),
+                  ageError??"Enter Your Age",
+                  style: TextStyle(color:ageError==null?kPrimaryColor:kErrorColor, fontSize: 17),
                 ),
                 Spacer(),
                 Container(
@@ -62,7 +78,18 @@ class _PatientFormState extends State<PatientForm> {
                     label: '',
                     textAlign: TextAlign.start,
                     keyboardType: TextInputType.number,
-                    onChanged: (string) {},
+                    textInputAction: TextInputAction.next,
+                    onChanged:(string){
+                      ageValidation(string);
+                      setState(() {
+                      });
+                    },
+                    onSaved: (string){
+                      if (ageError==null){
+                        age=string!;
+                        print(age);
+                      }
+                    },
                   ),
                 ),
               ],
@@ -151,4 +178,25 @@ class _PatientFormState extends State<PatientForm> {
       ),
     );
   }
+  nameValidation(String name){
+    if (name.isEmpty) {
+      nameError='This is a required field';
+    }else if (name.length<3) {
+      nameError='name is too short';
+    }else{
+      nameError=null;
+    }
+  }
+  ageValidation(String age){
+    if (age.isEmpty) {
+      ageError='Age is required';
+    }else if (age.length<2){
+      ageError ='age is to small';
+    }else if (age.length>2) {
+      ageError='age is too large';
+    }else{
+      ageError=null;
+    }
+  }
 }
+

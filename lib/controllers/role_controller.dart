@@ -55,6 +55,11 @@ class RoleController extends GetxController{
   }
  }
 
+ Future<void> doctorForm()async{
+
+
+ }
+
 
 
 

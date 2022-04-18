@@ -1,5 +1,5 @@
 import '../../../components/custom_circle_progress_indicator.dart';
-import '../../../../models/auth_user.dart';
+import '../../../../models/user.dart';
 import '../../../controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import '../../../components/custom_input_field.dart';
@@ -37,14 +37,15 @@ class _LoginInFormState extends State<LoginInForm> {
             textInputAction: TextInputAction.next,
             errorText: authController.emailErr,
             onChanged: (value) {
-              authController.email = value;
-              if (authController.emailErr != null) {
+              authController.email = value.trim();
+              if (authController.email.isEmpty){
+                authController.emailErr='This field cannot be left empty';
+                setState(() {
+                });
+              }else if (authController.emailErr != null) {
                 emailValidation();
                 setState(() {});
               }
-            },
-            onSaved: (value) {
-              authController.email = value!.trim();
             },
           ),
           SizedBox(
@@ -63,21 +64,22 @@ class _LoginInFormState extends State<LoginInForm> {
                 child: Icon(
                   Icons.remove_red_eye,
                   color: !authController.isEyeFlag
-                      ? kInputTextColor
-                      : kInputTextColor.withOpacity(0.3),
+                      ?authController.passErr==null?kInputTextColor:kErrorColor
+                      :authController.passErr==null?kInputTextColor.withOpacity(0.3):kErrorColor.withOpacity(0.3),
                 )),
             textInputAction: TextInputAction.next,
             obscureText: authController.isEyeFlag,
             errorText: authController.passErr,
             onChanged: (value) {
               authController.password = value;
-              if (authController.passErr != null) {
+              if (authController.password.isEmpty) {
+                authController.passErr='This field cannot be left empty';
+                setState(() {
+                });
+              }else if (authController.passErr!= null) {
                 passwordValidation();
                 setState(() {});
               }
-            },
-            onFieldSubmitted: (value) {
-              authController.password = value!.trim();
             },
           ),
           SizedBox(
@@ -113,21 +115,23 @@ class _LoginInFormState extends State<LoginInForm> {
     );
   }
 
-  Future<void> submitForm(String email, String password) async {
+  Future<void> submitForm(String email, String password) async{
     emailValidation();
     passwordValidation();
-    if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email) && password.length > 5) {
-      await authController.logIn(email, password, setState,);
-
+    if (authController.emailErr==null && authController.passErr==null) {
+      print(email);
+      print(password);
+     // await authController.logIn(email, password, setState,);
     }
   }
-
-  emailValidation() {
+  emailValidation(){
     if (authController.email.isEmpty) {
       authController.emailErr = 'please enter the email';
-    } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(authController.email)) {
+    }else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(authController.email)) {
       authController.emailErr = 'Please enter the correct email';
-    } else {
+    }else if (authController.email.contains(' ')) {
+      authController.emailErr = 'White-Spaces does not allow';
+    }else {
       authController.emailErr = null;
     }
   }
@@ -136,7 +140,9 @@ class _LoginInFormState extends State<LoginInForm> {
       authController.passErr = 'Please enter the password';
     } else if (authController.password.length < 6) {
       authController.passErr = 'Password must at least 6 character';
-    } else {
+    }else if(authController.password.contains(' ')){
+      authController.passErr='White-Spaces does not allowed';
+    }else {
       authController.passErr = null;
     }
   }

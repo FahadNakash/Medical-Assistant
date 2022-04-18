@@ -154,6 +154,7 @@ class ImagePickerContainer extends StatelessWidget {
                 ],
               ),
               SizedBox(width: kDefaultPadding),
+              if (roleController.selectImage.value!='')
               Column(
                 children: [
                   CircleIconButton(

@@ -10,6 +10,7 @@ class CustomInputField extends StatelessWidget {
   final Function(String?)? onSaved;
   final Function(String?)? onFieldSubmitted;
   final String? Function(String?)? validator;
+  final VoidCallback? onEditingComplete;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final bool obscureText;
@@ -46,6 +47,7 @@ class CustomInputField extends StatelessWidget {
       this.onChanged,
       this.onSaved,
       this.onFieldSubmitted,
+        this.onEditingComplete,
       this.validator,
       this.keyboardType,
       this.textInputAction,
@@ -125,6 +127,7 @@ class CustomInputField extends StatelessWidget {
         textInputAction: textInputAction,
         obscureText: obscureText,
         onFieldSubmitted: onFieldSubmitted,
+        onEditingComplete:onEditingComplete,
         initialValue: initialValue,
         focusNode: focusNode,
         inputFormatters: inputFormatters,

@@ -15,6 +15,8 @@ class _RoleSelectorState extends State<RoleSelector> {
   bool _isPatient=false;
   @override
   Widget build(BuildContext context) {
+    // print(_isDoctor);
+    // print(_isPatient);
     final size=MediaQuery.of(context).size;
     return Column(
       children: [
@@ -81,5 +83,6 @@ class _RoleSelectorState extends State<RoleSelector> {
 
   }
 }
+
 
 

@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart' as svg;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import '../../../controllers/auth_controller.dart';
-import '../../models/auth_user.dart';
+import '../../models/user.dart';
 import '../onboarding/onbaording_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
    initialPage(){
     Future.delayed(Duration(seconds: 2),()async{
-      //Get.toNamed('/auth_screen');
+     //Get.toNamed('/auth_screen');
        Get.toNamed('/role_screen');
       // final authController=AuthController.authGetter;
       // final prefs=await SharedPreferences.getInstance();

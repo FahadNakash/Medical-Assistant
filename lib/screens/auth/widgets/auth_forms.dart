@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:patient_assistant/components/app_button.dart';
 import 'package:patient_assistant/controllers/auth_controller.dart';
-import 'package:patient_assistant/models/auth_user.dart';
+import 'package:patient_assistant/models/user.dart';
 import 'package:patient_assistant/screens/auth/widgets/login_form.dart';
 import '../widgets/signup_form.dart';
 import 'package:animations/animations.dart' as ani;

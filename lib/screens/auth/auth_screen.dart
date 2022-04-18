@@ -1,4 +1,4 @@
-import '../../models/auth_user.dart';
+import '../../models/user.dart';
 import 'package:flutter/material.dart';
 import '../auth/widgets/auth_forms.dart';
 import '../auth/widgets/logo_text_appbar.dart';

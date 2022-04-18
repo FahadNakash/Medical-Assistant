@@ -39,15 +39,15 @@ class _SignUpFormState extends State<SignUpForm> {
             textInputAction: TextInputAction.next,
             errorText: authController.emailErr,
             onChanged: (value){
-                authController.email=value;
-                if (authController.emailErr!=null) {
-                  emailValidator();
+                authController.email=value.trim();
+                if (authController.email.isEmpty) {
+                  authController.emailErr='This field cannot be left empty';
                   setState(() {
                   });
+                }else if (authController.emailErr != null) {
+                  emailValidaton();
+                  setState(() {});
                 }
-            },
-            onSaved: (value){
-                authController.email=value!.trim();
             },
           ),
           SizedBox(height: kDefaultHeight/2,),
@@ -63,22 +63,19 @@ class _SignUpFormState extends State<SignUpForm> {
                 setState(() {
                   authController.isEyeFlag=!authController.isEyeFlag;
                 });
-              },
-                child: Icon(Icons.remove_red_eye,color: !authController.isEyeFlag?kInputTextColor:kInputTextColor.withOpacity(0.3),)),
+              }, 
+                child: Icon(Icons.remove_red_eye,color: !authController.isEyeFlag?authController.passErr==null?kInputTextColor:kErrorColor:authController.passErr==null?kInputTextColor.withOpacity(0.3):kErrorColor.withOpacity(0.3),)),
             textInputAction: TextInputAction.next,
             obscureText:authController.isEyeFlag,
             errorText: authController.passErr,
             onChanged: (value){
-                 authController.password=value;
+                 authController.password=value.trim();
               if (authController.passErr!=null) {
-                passwordValidator();
+                passwordValidaton();
                 setState(() {
                   authController.password=value;
                 });
               }
-            },
-            onFieldSubmitted: (value){
-              authController.password=value!.trim();
             },
           ),
           SizedBox(height: kDefaultHeight/2,),
@@ -95,13 +92,13 @@ class _SignUpFormState extends State<SignUpForm> {
                     authController.isEyeconformFlag=!authController.isEyeconformFlag;
                   });
                 },
-                child: Icon(Icons.remove_red_eye,color: !authController.isEyeconformFlag?kInputTextColor:kInputTextColor.withOpacity(0.3),)),
+                child: Icon(Icons.remove_red_eye,color: !authController.isEyeconformFlag?conpassErr==null?kInputTextColor:kErrorColor:conpassErr==null?kInputTextColor.withOpacity(0.3):kErrorColor.withOpacity(0.3),)),
               obscureText: authController.isEyeconformFlag,
               errorText: conpassErr,
               onChanged: (value){
-                conpass=value;
+                conpass=value.trim();
                 if (conpassErr!=null) {
-                  conformpasswordValidator();
+                  conformpasswordValidaton();
                   setState(() {});
                 }},
                 ),
@@ -118,7 +115,6 @@ class _SignUpFormState extends State<SignUpForm> {
               height: kDefaultHeight*2,
               width: kDefaultWidth*4+10,
               onPressed: ()async{
-            print('1');
            FormSubmitted(authController.email,authController.password);
            setState(() {
            });
@@ -128,46 +124,53 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  emailValidator(){
+  emailValidaton(){
   if ( authController.email.isEmpty) {
   authController.emailErr='Email field cannot be empty';
   }else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(authController.email)) {
   authController.emailErr='Please enter the valid email';
+  }else if (authController.email.contains(' ')) {
+  authController.emailErr = 'White-Spaces does not allow';
   }else{
    authController.emailErr=null;
   }
   }
-  passwordValidator(){
+  passwordValidaton(){
     if (authController.password.isEmpty) {
       authController.passErr='Password re-enter the password';
     }else if (authController.password.length<6){
       authController.passErr='Password Must be at least 6 charactor';
-    }else{
+    }else if (authController.password.contains(' ')){
+      authController.passErr='White-Spaces does not allowed';
+    } else{
       authController.passErr=null;
     }
   }
-  conformpasswordValidator(){
+  conformpasswordValidaton(){
     if (conpass.isEmpty) {
       conpassErr='Please re-enter the password';
     }else if(_password.text !=_conformPassword.text){
       conpassErr='Password does not match';
+    }else if (conpass.contains(' ')){
+      conpassErr='White-Spaces does not allowed';
     }else{
       conpassErr=null;
     }
   }
   Future<void> FormSubmitted(String email,String password)async{
-    emailValidator();
-    passwordValidator();
-    conformpasswordValidator();
-    if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email) && password.length>5 && conpassErr==null){
+    emailValidaton();
+    passwordValidaton();
+    conformpasswordValidaton();
+    if (authController.emailErr==null && authController.passErr==null && conpassErr==null){
+      print(email);
+      print(password);
       setState(() {
         isLoading=true;
       });
-      await authController.createNewAccount(email,password,setState);
+       await authController.createNewAccount(email,password,setState);
       setState(() {
         isLoading=false;
       });
-
     }
 
 
