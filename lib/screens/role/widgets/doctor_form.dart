@@ -37,6 +37,8 @@ class _DoctorFormState extends State<DoctorForm> {
   String? workPlaceNameError;
   String workPlaceAddress = '';
   String? workPlaceAddressError;
+  String? countryCode;
+  String? currency;
   final countryData = CountryData.countryInfo;
   final practiceData = PracticeData.practiceType;
   final practiceSubTypes = PracticeData.practiceSubtypes;
@@ -67,9 +69,6 @@ class _DoctorFormState extends State<DoctorForm> {
                 name = string.trim();
                 nameValidation();
                 setState(() {});
-                if (nameError==null) {
-                  print(name);
-                }
               },
               textAlign: TextAlign.center,
               helperText: 'Enter your full name'),
@@ -85,6 +84,10 @@ class _DoctorFormState extends State<DoctorForm> {
                   child: CountryDropDown(
                     onChanged: (data) {
                       selectCountry = data!;
+                      if (selectCountry!=null) {
+                        countryCode=countryData[selectCountry]![0];
+                        currency=countryData[selectCountry]![1][0];
+                      }
                       setState(() {});
                     },
                     selectItems: selectCountry,
@@ -101,8 +104,8 @@ class _DoctorFormState extends State<DoctorForm> {
                   keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.next,
                   errorText: cityError,
-                  onFieldSubmitted: (string) {
-                    city = string!;
+                  onChanged: (string) {
+                    city = string.trim();
                     cityValidation();
                     setState(() {});
                   },
@@ -118,8 +121,8 @@ class _DoctorFormState extends State<DoctorForm> {
             cursorHeight: 15,
             keyboardType: TextInputType.number,
             errorText: phoneError,
-            onFieldSubmitted: (string) {
-              phoneNum = string!;
+            onChanged: (string) {
+              phoneNum = string.trim();
               phoneValidation();
               setState(() {});
             },
@@ -214,11 +217,12 @@ class _DoctorFormState extends State<DoctorForm> {
                   width: (orientation == Orientation.portrait) ? 100 : 200,
                   child: CustomInputField(
                     height: kDefaultHeight * 3.5,
-                    label: '',
+                    label: 'Experience',
                     textAlign: TextAlign.start,
                     keyboardType: TextInputType.number,
                     onChanged: (string) {
-                      experienceValidation(string);
+                      workExperience=string.trim();
+                      experienceValidation();
                       setState(() {});
                     },
                   ),
@@ -244,7 +248,7 @@ class _DoctorFormState extends State<DoctorForm> {
                   width: (orientation == Orientation.portrait) ? 150 : 250,
                   child: CustomInputField(
                     height: kDefaultHeight * 3.5,
-                    label: '',
+                    label: 'Appointment Fee',
                     textAlign: TextAlign.start,
                     keyboardType: TextInputType.number,
                     suffix: (selectCountry == null)
@@ -259,8 +263,8 @@ class _DoctorFormState extends State<DoctorForm> {
                                 fontWeight: FontWeight.bold),
                           ),
                     onChanged: (string) {
-                      appointmentValidation(string);
-                      print(appointmentFee);
+                      appointmentFee=string.trim();
+                      appointmentValidation();
                       setState(() {});
                     },
                   ),
@@ -272,13 +276,16 @@ class _DoctorFormState extends State<DoctorForm> {
           CustomInputField(
               height: kDefaultHeight * 3.5,
               textInputAction: TextInputAction.next,
-              onFieldSubmitted: (string) {
-                workPlaceName = string!.trim();
+              errorText: workPlaceNameError,
+              onChanged: (string) {
+                workPlaceName = string.trim();
+                workPlaceNameValidation();
+                setState(() {
+                });
               },
               label: 'WorkPlace Name',
               textAlign: TextAlign.start,
-              helperText:
-                  'Enter the name of your Workplace(e.g Hospital/Clinic)'),
+              helperText:'Enter the name of your Workplace(e.g Hospital/Clinic)'),
           SizedBox(
             height: kDefaultHeight / 2,
           ),
@@ -286,63 +293,75 @@ class _DoctorFormState extends State<DoctorForm> {
           CustomInputField(
               height: kDefaultHeight * 3.5,
               textInputAction: TextInputAction.next,
-              onFieldSubmitted: (string) {
-                workPlaceAddress = string!.trim();
+              errorText: workPlaceAddressError,
+              onChanged: (string) {
+                workPlaceAddress = string.trim();
+                workPlaceAddressValidation();
+                setState(() {
+                });
               },
               label: 'WorkPlace Address',
               textAlign: TextAlign.start,
               helperText: 'Enter the address of your workplace'),
           SizedBox(height: kDefaultHeight / 2),
-          // if (name.isNotEmpty && selectCountry !=null &&  selectCountry!.isNotEmpty && city.isNotEmpty && (phoneNum.isNotEmpty && phoneNum.length>5) && selectPractice!=null &&  selectPractice!.isNotEmpty && specialities.isNotEmpty && workExperience.isNotEmpty && appointmentFee.isNotEmpty && workPlaceName.isNotEmpty && workPlaceAddress.isNotEmpty)
-          //(name.isNotEmpty && selectCountry!=null && city.isNotEmpty && phoneNum.isNotEmpty && selectPractice!=null && specialities.isNotEmpty && workExperience.isNotEmpty && appointmentFee.isNotEmpty && workPlaceName.isNotEmpty && workPlaceAddress.isNotEmpty && roleController.selectImage.value!='')
-          // Obx(() => (name.isNotEmpty &&
-          //         selectCountry != null &&
-          //         city.isNotEmpty &&
-          //         phoneNum.isNotEmpty &&
-          //         selectPractice != null &&
-          //         specialities.isNotEmpty &&
-          //         workExperience.isNotEmpty &&
-          //         appointmentFee.isNotEmpty &&
-          //         workPlaceName.isNotEmpty &&
-          //         workPlaceAddress.isNotEmpty &&
-          //         roleController.selectImage.value != '')
-          //     ? Container(
-          //         child: Column(
-          //           children: [
-          //             SizedBox(height: kDefaultHeight / 2),
-          //             Divider(
-          //               color: kTextColor,
-          //             ),
-          //             SizedBox(height: kDefaultHeight / 2),
-          //             ButtonWithIcon(
-          //               width: 100,
-          //               height: 30,
-          //               defaultLinearGradient: true,
-          //               textSize: 15,
-          //               text: 'Next',
-          //               icon: Icons.arrow_forward,
-          //               iconSize: 25,
-          //               onPressed: () {
-          //                 nameValidation();
-          //                 phoneValidation();
-          //                 workPlaceNameValidation();
-          //                 formSubmit(
-          //                     name,
-          //                     selectCountry,
-          //                     city,
-          //                     phoneNum,
-          //                     selectPractice,
-          //                     specialities,
-          //                     workExperience,
-          //                     appointmentFee,
-          //                     workPlaceName,
-          //                     workPlaceAddress);
-          //               },
-          //             )
-          //           ],
-          //         ),
-          //       )
-          //     : SizedBox()),
+          Obx(()=>(
+               roleController.selectImage.isEmpty
+              || name.isEmpty
+              || selectCountry==null
+              || city.isEmpty
+              || phoneNum.isEmpty
+              || selectPractice==null
+              || specialities.isEmpty
+              || workExperience.isEmpty
+              || appointmentFee.isEmpty
+              || workPlaceName.isEmpty
+              || workPlaceAddress.isEmpty
+          )
+                      ?SizedBox()
+                      :Column(
+            children: [
+              SizedBox(height: kDefaultHeight / 2),
+              Divider(
+                color: kTextColor,
+              ),
+              SizedBox(height: kDefaultHeight / 2),
+              ButtonWithIcon(
+                width: 100,
+                height: 30,
+                defaultLinearGradient: true,
+                textSize: 15,
+                text: 'Next',
+                icon: Icons.arrow_forward,
+                iconSize: 25,
+                onPressed: () {
+                  nameValidation();
+                  cityValidation();
+                  phoneValidation();
+                  experienceValidation();
+                  appointmentValidation();
+                  workPlaceNameValidation();
+                  workPlaceAddressValidation();
+                  setState(() {});
+                  formSubmit(
+                    name,
+                    selectCountry,
+                    city,
+                    phoneNum,
+                    selectPractice,
+                    specialities,
+                    workExperience,
+                    appointmentFee,
+                    workPlaceName,
+                    workPlaceAddress,
+                    countryCode,
+                    currency,
+                  );
+                },
+              )
+            ],
+          )
+
+          )
         ],
       ),
     );
@@ -360,7 +379,9 @@ class _DoctorFormState extends State<DoctorForm> {
   cityValidation() {
     if (city.isEmpty) {
       cityError = 'This is a required field';
-    } else {
+    }else if (city.contains(' ')){
+      cityError='White-Spaces does not allow';
+    }else {
       cityError = null;
     }
   }
@@ -369,46 +390,69 @@ class _DoctorFormState extends State<DoctorForm> {
       phoneError = 'Please provide contact number';
     } else if (phoneNum.length < 5) {
       phoneError = 'phone number is to short';
+    }else if (phoneNum.contains(' ')){
+      phoneError='White-Spaces does not allow';
     } else {
       phoneError = null;
     }
   }
-  experienceValidation(String string) {
-    if (string.isEmpty) {
+  experienceValidation() {
+    if (workExperience.isEmpty) {
       workError = 'This field is required';
-    } else if (string.length > 2) {
+    } else if (workExperience.length > 2) {
       workError = 'Experience is too large';
-    } else {
-      workExperience = string;
+    }else if(workExperience.contains(' ')){
+      workError='White-Spaces does not allowed';
+    }else{
       workError = null;
     }
   }
-  appointmentValidation(String string) {
-    if (string.isEmpty) {
+  appointmentValidation() {
+    if (appointmentFee.isEmpty) {
       appointmentError = 'This  is  a required field';
-    } else if (string.length >= 5) {
+    } else if (appointmentFee.length > 3) {
       appointmentError = 'Fee cannot be this much';
-    } else {
-      appointmentFee = string;
+    }else if(appointmentFee.contains(' ')){
+      appointmentError='White-Spaces does not allowed';
+    }else {
       appointmentError = null;
     }
   }
-  workPlaceNameValidation() {}
-  formSubmit(
-      String name,
-      String? country,
-      String city,
-      String phoneNumber,
-      String? practice,
-      List specialities,
-      String workExperience,
-      String appointmentFee,
-      String workplaceName,
-      String workplaceAddress) {
-    nameValidation();
-    phoneValidation();
-    setState(() {});
-    if (nameError==null) {
+  workPlaceNameValidation(){
+    if (workPlaceName.isEmpty) {
+      workPlaceNameError='This is a required field';
+    }else if(workPlaceName.contains(' ')){
+      workPlaceNameError='White-Spaces does not allowed';
+    }
+    else{
+      workPlaceNameError=null;
+    }
+
+  }
+  workPlaceAddressValidation(){
+    if (workPlaceAddress.isEmpty) {
+      workPlaceAddressError='This is a required field';
+    }else{
+      workPlaceAddressError=null;
+    }
+
+  }
+  formSubmit(String name,String? country,String city,String phoneNumber,String? practice,List specialities,String workExperience,String appointmentFee,String workplaceName, String workplaceAddress,String? countryCode,String? currency) {
+    if (
+            nameError==null
+            && cityError==null
+            && selectCountry!=null
+            && selectCountry!.isNotEmpty
+            && phoneError==null
+            && selectPractice!=null
+            && selectPractice!.isNotEmpty
+            && specialities.isNotEmpty
+            && workError==null
+            && appointmentError==null
+            && workPlaceNameError==null
+            && workPlaceAddressError==null
+            && currency!=null
+            && countryCode!=null){
       print(name);
       print(country);
       print(city);
@@ -419,6 +463,8 @@ class _DoctorFormState extends State<DoctorForm> {
       print(appointmentFee);
       print(workplaceName);
       print(workplaceAddress);
+      print(countryCode);
+      print(currency);
     }
   }
 }

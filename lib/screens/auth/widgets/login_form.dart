@@ -114,7 +114,6 @@ class _LoginInFormState extends State<LoginInForm> {
       ),
     );
   }
-
   Future<void> submitForm(String email, String password) async{
     emailValidation();
     passwordValidation();

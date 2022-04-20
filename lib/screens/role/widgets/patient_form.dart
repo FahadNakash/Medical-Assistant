@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:patient_assistant/components/selection_chip.dart';
+import 'package:get/get.dart';
 import '../../../components/button_with_icon.dart';
 import '../../../components/custom_input_field.dart';
 import '../../../constant.dart';
 import '../../../data/country_data.dart';
 import '../widgets/form_heading.dart';
 import 'country_dropdown.dart';
+import '../../../controllers/role_controller.dart';
 
 class PatientForm extends StatefulWidget {
   const PatientForm({Key? key}) : super(key: key);
@@ -16,13 +18,13 @@ class PatientForm extends StatefulWidget {
 }
 
 class _PatientFormState extends State<PatientForm> {
+  final roleController = RoleController.roleGetter;
   String name='';
   String? nameError;
   String age='';
   String? ageError;
-
   String city='';
-
+  String? cityError;
   TextEditingController disease=TextEditingController();
   final List<String> diseaseList = [];
   final countryData = CountryData.countryInfo;
@@ -52,9 +54,9 @@ class _PatientFormState extends State<PatientForm> {
                 textAlign: TextAlign.center,
                 helperText: 'Enter your full name',
                 errorText: nameError,
-                onFieldSubmitted:(string){
-                  name=string!;
-                  nameValidation(name);
+                onChanged:(string){
+                  name=string.trim();
+                  nameValidation();
                   setState(() {
                   });
               },
@@ -75,20 +77,15 @@ class _PatientFormState extends State<PatientForm> {
                   width: (orientation == Orientation.portrait) ? 100 : 200,
                   child: CustomInputField(
                     height: kDefaultHeight * 3,
-                    label: '',
+                    label: 'Age',
                     textAlign: TextAlign.start,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
                     onChanged:(string){
-                      ageValidation(string);
+                      age=string.trim();
+                      ageValidation();
                       setState(() {
                       });
-                    },
-                    onSaved: (string){
-                      if (ageError==null){
-                        age=string!;
-                        print(age);
-                      }
                     },
                   ),
                 ),
@@ -119,6 +116,13 @@ class _PatientFormState extends State<PatientForm> {
                   height: kDefaultHeight * 3.2,
                   label: 'City',
                   textAlign: TextAlign.center,
+                      errorText: cityError,
+                      onChanged: (string){
+                      city=string.trim();
+                      cityValidation();
+                      setState(() {
+                      });
+                      },
                 )),
               ],
             ),
@@ -166,37 +170,92 @@ class _PatientFormState extends State<PatientForm> {
             children:diseaseList.map((e) => SelectionChip(label: e)).toList()
           ),
           SizedBox(height: kDefaultHeight/2),
-          Column(
-            children: [
-              SizedBox(height: kDefaultHeight/2),
-              Divider(color: kTextColor,),
-              SizedBox(height: kDefaultHeight/2),
-              ButtonWithIcon(width: 100,height: 30,defaultLinearGradient: true, textSize: 15, onPressed: (){}, text: 'Next', icon: Icons.arrow_forward, iconSize: 25)
-            ],
-          )
+          Obx(
+                  ()=>(
+                      roleController.selectImage.isNotEmpty
+                      && name.isNotEmpty
+                      && age.isNotEmpty
+                      && selectCountry!=null
+                      && city.isNotEmpty
+
+                  )
+                      ?Column(
+                     children: [
+                      SizedBox(height: kDefaultHeight / 2),
+                      Divider(
+                        color: kTextColor,
+                      ),
+                      SizedBox(height: kDefaultHeight / 2),
+                      ButtonWithIcon(
+                        width: 100,
+                        height: 30,
+                        defaultLinearGradient: true,
+                        textSize: 15,
+                        text: 'Next',
+                        icon: Icons.arrow_forward,
+                        iconSize: 25,
+                        onPressed: () {
+                          nameValidation();
+                          cityValidation();
+                          ageValidation();
+                          setState(() {});
+                          formSubmit(
+                            name,
+                            age,
+                            selectCountry,
+                            city,
+                              diseaseList
+                          );
+                        },
+                      )
+                    ],
+                  )
+                      :SizedBox())
+
         ],
       ),
     );
   }
-  nameValidation(String name){
+  nameValidation() {
     if (name.isEmpty) {
-      nameError='This is a required field';
-    }else if (name.length<3) {
-      nameError='name is too short';
-    }else{
-      nameError=null;
+      nameError = 'This is a required field';
+    } else if (!RegExp('^[a-zA-Z\s]+\$').hasMatch(name)) {
+      nameError = 'This is not valid';
+    } else {
+      nameError = null;
     }
   }
-  ageValidation(String age){
+  ageValidation(){
     if (age.isEmpty) {
       ageError='Age is required';
-    }else if (age.length<2){
-      ageError ='age is to small';
-    }else if (age.length>2) {
+    }else if (int.parse(age)<16){
+      ageError ='age is too small';
+    }else if (int.parse(age)>=100) {
       ageError='age is too large';
     }else{
       ageError=null;
     }
+  }
+  cityValidation() {
+    if (city.isEmpty) {
+      cityError = 'This is a required field';
+    }else if (city.contains(' ')){
+      cityError='White-Spaces does not allow';
+    }else {
+      cityError = null;
+    }
+  }
+  formSubmit(String name,String age,String? country,String city,[List<String>? disease]){
+    if (nameError==null && ageError==null && selectCountry!=null && cityError==null){
+      print(roleController.selectImage);
+      print(name);
+      print(age);
+      print(country);
+      print(city);
+      print(disease);
+    }
+
+
   }
 }
 
