@@ -21,36 +21,17 @@ class _SplashScreenState extends State<SplashScreen> {
   }
    initialPage(){
     Future.delayed(Duration(seconds: 2),()async{
-     //Get.toNamed('/auth_screen');
-       Get.toNamed('/role_screen');
-      // final authController=AuthController.authGetter;
-      // final prefs=await SharedPreferences.getInstance();
-      //  final getData=prefs.getString('userData');
-      //  final firstRun=prefs.getBool('firstRun');
-      //   print(getData);
-      //  print(firstRun);
-      //  if (firstRun!=true && getData==null){
-      //    Get.toNamed('/onboarding_screen');
-      //  }else{
-      //
-      //  }
-       //work on later
-       // if (getData!=null){
-       //     //print('userData is not null so the data is ${getData}');
-       //     final decodeData=json.decode(getData);
-       //     //print(decodeData);
-       //     if (decodeData['formid']!=null){
-       //       final AuthUser userData=AuthUser.fromJson(decodeData);
-       //       Get.toNamed('/home_screen',arguments: userData);
-       //     }else{
-       //       Get.toNamed('/role_screen');
-       //     }
-       //     //print(decodeData);
-       //    //print(userData);
-       // }else{
-       //   //print('User Data is null');
-       //  Get.to(()=>OnBoardingScreen(),transition: Transition.fade);
-       // }
+      final prefs=await SharedPreferences.getInstance();
+      final firstRun=prefs.getBool('firstRun');
+      final getData=prefs.getString('userData');
+      // if (firstRun==null || firstRun==false){
+      //      Get.toNamed('/onboarding_screen');
+      // }else if (getData==null) {
+      //      Get.toNamed('/auth_screen');
+      // }else{
+      //     Get.toNamed('/home_screen');
+      // }
+      Get.toNamed('/auth_screen');
     },);
   }
   @override

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:patient_assistant/controllers/auth_controller.dart';
+import '../../controllers/role_controller.dart';
 import '../role/widgets/image_picker_container.dart';
 import '../role/widgets/role_selector.dart';
 class RoleScreen extends StatelessWidget {
-  const RoleScreen({Key? key,}) : super(key: key);
+   RoleScreen({Key? key,}) : super(key: key);
+  final authController=AuthController.authGetter;
+  final roleController=RoleController.roleGetter;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     bool currentPage=true;
     final size=MediaQuery.of(context).size;
     return Scaffold(

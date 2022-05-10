@@ -26,7 +26,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>{
   Future<void> firstLogin()async{
     final prefs=await SharedPreferences.getInstance();
     final firstLogin=await prefs.setBool('firstRun', true);
-    print(firstLogin);
   }
 
   @override

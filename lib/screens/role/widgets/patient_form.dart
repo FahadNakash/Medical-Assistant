@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:patient_assistant/components/custom_circle_progress_indicator.dart';
 import 'package:patient_assistant/components/selection_chip.dart';
 import 'package:get/get.dart';
 import '../../../components/button_with_icon.dart';
@@ -19,6 +20,7 @@ class PatientForm extends StatefulWidget {
 
 class _PatientFormState extends State<PatientForm> {
   final roleController = RoleController.roleGetter;
+  bool _isLoading=false;
   String name='';
   String? nameError;
   String age='';
@@ -167,7 +169,14 @@ class _PatientFormState extends State<PatientForm> {
               runSpacing: 10,
               spacing: 10,
               direction: Axis.horizontal,
-            children:diseaseList.map((e) => SelectionChip(label: e)).toList()
+            children:diseaseList.map((e) => SelectionChip(
+              label: e,
+              onTap: (){
+                diseaseList.remove(e);
+                setState(() {
+                });
+              },
+            )).toList()
           ),
           SizedBox(height: kDefaultHeight/2),
           Obx(
@@ -186,7 +195,7 @@ class _PatientFormState extends State<PatientForm> {
                         color: kTextColor,
                       ),
                       SizedBox(height: kDefaultHeight / 2),
-                      ButtonWithIcon(
+                      _isLoading?CustomCircleProgressIndicator():ButtonWithIcon(
                         width: 100,
                         height: 30,
                         defaultLinearGradient: true,
@@ -194,18 +203,18 @@ class _PatientFormState extends State<PatientForm> {
                         text: 'Next',
                         icon: Icons.arrow_forward,
                         iconSize: 25,
-                        onPressed: () {
+                        onPressed: () async{
+                          setState(() {
+                            _isLoading=true;
+                          });
                           nameValidation();
                           cityValidation();
                           ageValidation();
                           setState(() {});
-                          formSubmit(
-                            name,
-                            age,
-                            selectCountry,
-                            city,
-                              diseaseList
-                          );
+                         await formSubmit(name,age,selectCountry,city,diseaseList);
+                         setState((){
+                           _isLoading=false;
+                         });
                         },
                       )
                     ],
@@ -245,14 +254,15 @@ class _PatientFormState extends State<PatientForm> {
       cityError = null;
     }
   }
-  formSubmit(String name,String age,String? country,String city,[List<String>? disease]){
+  Future<void> formSubmit(String name,String age,String? country,String city,[List<String>? disease])async{
     if (nameError==null && ageError==null && selectCountry!=null && cityError==null){
-      print(roleController.selectImage);
-      print(name);
-      print(age);
-      print(country);
-      print(city);
-      print(disease);
+      // print(roleController.selectImage);
+      // print(name);
+      // print(age);
+      // print(country);
+      // print(city);
+      // print(disease);
+      await roleController.patientForm(name, country!, city, age, disease!);
     }
 
 

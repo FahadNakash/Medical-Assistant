@@ -63,7 +63,6 @@ class ImagePickerContainer extends StatelessWidget {
                                         : 110,
                                     color: Colors.white
                           ),
-
                       ),
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:patient_assistant/components/button_with_icon.dart';
+import 'package:patient_assistant/components/custom_circle_progress_indicator.dart';
 import 'package:patient_assistant/constant.dart';
 import 'package:patient_assistant/controllers/role_controller.dart';
 import 'package:patient_assistant/data/country_data.dart';
@@ -44,6 +45,7 @@ class _DoctorFormState extends State<DoctorForm> {
   final practiceSubTypes = PracticeData.practiceSubtypes;
   //final  List<SelectionChip> selectChips=[];
   final List<String> specialities = [];
+  bool isLoading=false;
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
@@ -325,7 +327,7 @@ class _DoctorFormState extends State<DoctorForm> {
                 color: kTextColor,
               ),
               SizedBox(height: kDefaultHeight / 2),
-              ButtonWithIcon(
+             isLoading?CustomCircleProgressIndicator():ButtonWithIcon(
                 width: 100,
                 height: 30,
                 defaultLinearGradient: true,
@@ -333,7 +335,7 @@ class _DoctorFormState extends State<DoctorForm> {
                 text: 'Next',
                 icon: Icons.arrow_forward,
                 iconSize: 25,
-                onPressed: () {
+                onPressed: () async{
                   nameValidation();
                   cityValidation();
                   phoneValidation();
@@ -341,8 +343,10 @@ class _DoctorFormState extends State<DoctorForm> {
                   appointmentValidation();
                   workPlaceNameValidation();
                   workPlaceAddressValidation();
-                  setState(() {});
-                  formSubmit(
+                  setState(() {
+                    isLoading=true;
+                  });
+                  await formSubmit(
                     name,
                     selectCountry,
                     city,
@@ -356,6 +360,9 @@ class _DoctorFormState extends State<DoctorForm> {
                     countryCode,
                     currency,
                   );
+                  setState(() {
+                    isLoading=false;
+                  });
                 },
               )
             ],
@@ -437,7 +444,7 @@ class _DoctorFormState extends State<DoctorForm> {
     }
 
   }
-  formSubmit(String name,String? country,String city,String phoneNumber,String? practice,List specialities,String workExperience,String appointmentFee,String workplaceName, String workplaceAddress,String? countryCode,String? currency) {
+ Future<void> formSubmit(String name,String? country,String city,String phoneNumber,String? practice,List specialities,String workExperience,String appointmentFee,String workplaceName, String workplaceAddress,String? countryCode,String? currency)async {
     if (
             nameError==null
             && cityError==null
@@ -453,18 +460,8 @@ class _DoctorFormState extends State<DoctorForm> {
             && workPlaceAddressError==null
             && currency!=null
             && countryCode!=null){
-      print(name);
-      print(country);
-      print(city);
-      print(phoneNumber);
-      print(practice);
-      print(specialities);
-      print(workExperience);
-      print(appointmentFee);
-      print(workplaceName);
-      print(workplaceAddress);
-      print(countryCode);
-      print(currency);
+     await roleController.doctorForm(name,country!,city,phoneNumber,practice!,specialities,workExperience,appointmentFee,workplaceName,workplaceAddress,countryCode,currency);
+
     }
   }
 }

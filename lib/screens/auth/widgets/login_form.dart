@@ -6,7 +6,6 @@ import '../../../components/custom_input_field.dart';
 import 'package:patient_assistant/components/app_button.dart';
 import 'package:patient_assistant/constant.dart';
 import 'package:get/get.dart';
-
 class LoginInForm extends StatefulWidget {
   const LoginInForm({Key? key}) : super(key: key);
   @override
@@ -15,7 +14,6 @@ class LoginInForm extends StatefulWidget {
 class _LoginInFormState extends State<LoginInForm> {
   final authController = AuthController.authGetter;
   bool _isloading = false;
-
   @override
   Widget build(BuildContext context){
     return Container(
@@ -92,7 +90,7 @@ class _LoginInFormState extends State<LoginInForm> {
                     SizedBox(
                       height: kDefaultHeight/2,
                     ),
-                    Obx(()=>Text('${authController.login}',style: TextStyle(fontSize: 10),))
+                    Text('${authController.login}',style: TextStyle(fontSize: 10),)
                   ],
                 )
               : AppButton(
@@ -108,6 +106,7 @@ class _LoginInFormState extends State<LoginInForm> {
                     setState(() {
                       _isloading = false;
                     });
+                    authController.login='logging in»';
                   },
                   text: 'Login'),
         ],
@@ -117,10 +116,8 @@ class _LoginInFormState extends State<LoginInForm> {
   Future<void> submitForm(String email, String password) async{
     emailValidation();
     passwordValidation();
-    if (authController.emailErr==null && authController.passErr==null) {
-      print(email);
-      print(password);
-     // await authController.logIn(email, password, setState,);
+    if (authController.emailErr==null && authController.passErr==null){
+     await authController.logIn(email, password, setState,);
     }
   }
   emailValidation(){
