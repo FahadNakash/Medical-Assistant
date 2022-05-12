@@ -24,14 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
       final prefs=await SharedPreferences.getInstance();
       final firstRun=prefs.getBool('firstRun');
       final getData=prefs.getString('userData');
-      // if (firstRun==null || firstRun==false){
-      //      Get.toNamed('/onboarding_screen');
-      // }else if (getData==null) {
-      //      Get.toNamed('/auth_screen');
-      // }else{
-      //     Get.toNamed('/home_screen');
-      // }
-      Get.toNamed('/auth_screen');
+      if (firstRun==null || firstRun==false){
+           Get.toNamed('/onboarding_screen');
+      }else if (getData==null) {
+           Get.toNamed('/auth_screen');
+      }else{
+          Get.toNamed('/home_screen');
+      }
+      // Get.toNamed('/auth_screen');
     },);
   }
   @override

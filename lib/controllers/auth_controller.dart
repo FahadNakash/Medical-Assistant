@@ -52,19 +52,16 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> logIn(String email, String password, void setState(void Function() fn)) async {
+  Future<void> logIn(String email, String password, void setState(void Function() fn)) async{
     try {
       bool result = await InternetConnectionChecker().hasConnection;
       if (result) {
         final response = await _auth.signInWithEmailAndPassword(email: email, password: password);
         setState((){
-          login='logging in»»';
+          login='fetching data»»';
         });
         final checkFormData = await cloudFireStore.collection('users').doc(response.user!.uid).get();
         final _sharedPreferences = await SharedPreferences.getInstance();
-        setState((){
-          login='logging in»»»';
-        });
         if (checkFormData.data() == null) {
           Get.dialog(CustomDialogBox(
                   title: 'Alert !',
@@ -76,9 +73,9 @@ class AuthController extends GetxController {
            final getData = _sharedPreferences.getString('userData');
           if (getData == null) {
             final setData =await _sharedPreferences.setString('userData', json.encode(checkFormData.data()));
-            //Get.toNamed('/home_screen');
+            Get.toNamed('/home_screen');
           }else{
-            //Get.toNamed('/home_screen');
+            Get.toNamed('/home_screen');
           }
         }
       }else {

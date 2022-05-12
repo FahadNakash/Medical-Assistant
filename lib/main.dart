@@ -10,12 +10,18 @@ import 'screens/onboarding/onbaording_screen.dart';
 import 'screens/auth/auth_screen.dart';
 import 'screens/role/role_screen.dart';
 import 'screens/home/home_screen.dart';
+import 'screens/mainscreen/main_screen.dart';
 
 void main() async{
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor:  kPrimaryColor.withOpacity(0.3),
-        systemNavigationBarColor: kPrimaryColor.withOpacity(0.5)
+        statusBarColor:  kPrimaryColor,
+        systemNavigationBarColor: kPrimaryColor,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarContrastEnforced: true,
+          systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarDividerColor: kPrimaryColor,
+
       ));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -29,13 +35,14 @@ class MyApp extends StatelessWidget {
       title: 'Medical Assistant',
       debugShowCheckedModeBanner: false,
       theme: lightTheme(context),
-      home: SplashScreen(),
+      home: MainScreen(),
       getPages: [
         GetPage(name: '/auth_screen', page: ()=>AuthScreen(),transition: Transition.rightToLeft),
         GetPage(name: '/onboarding_screen', page: ()=>OnBoardingScreen(),transition: Transition.rightToLeft),
         GetPage(name: '/role_screen', page: ()=>RoleScreen(),transition: Transition.leftToRight,),
-        GetPage(name: '/home_screen', page: ()=>HomeScreen()
-        )
+        GetPage(name: '/home_screen', page: ()=>HomeScreen()),
+        GetPage(name: '/main_screen', page: ()=>MainScreen()),
+
       ],
     );
   }
