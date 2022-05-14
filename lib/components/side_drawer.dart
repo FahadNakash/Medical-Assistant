@@ -1,10 +1,14 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:patient_assistant/components/my_icons_icons.dart';
 import 'package:patient_assistant/constant.dart';
+import 'package:patient_assistant/screens/mainscreen/main_screen.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../controllers/auth_controller.dart';
 class SideDrawer extends StatefulWidget {
   const SideDrawer({Key? key}) : super(key: key);
   @override
@@ -17,6 +21,7 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
   StreamController<bool>? isOpenStreamController;
   FirebaseStorage _firebaseStorage=FirebaseStorage.instance;
   FirebaseFirestore _firebaseFirestore=FirebaseFirestore.instance;
+  final authController=AuthController.authGetter;
 
   @override
   void initState() {
@@ -24,7 +29,6 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
     isOpenStreamController=PublishSubject<bool>();
     isOpenStreamSink=isOpenStreamController!.sink;
     isOpenStream=isOpenStreamController!.stream;
-
     super.initState();
   }
   @override
@@ -66,6 +70,8 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                   color: Colors.grey.shade50,
                   height: height,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         height: 250,
@@ -76,10 +82,10 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                             bottomRight: Radius.circular(60),
                           ),
                           gradient: LinearGradient(
-                            colors: [
-                              kInputTextColor,
-                              kPrimaryColor,
-                            ]
+                              colors: [
+                                kInputTextColor,
+                                kPrimaryColor,
+                              ]
                           ),
                         ),
                         child: Column(
@@ -88,15 +94,15 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                               height: 130,
                               width: 130,
                               decoration:BoxDecoration(
-                                color: Colors.yellow,
-                                borderRadius:BorderRadius.all(Radius.circular(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 5,
-                                    offset: Offset(2,10)
-                                  )
-                                ]
+                                  color: Colors.yellow,
+                                  borderRadius:BorderRadius.all(Radius.circular(20)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 5,
+                                        offset: Offset(2,10)
+                                    )
+                                  ]
                               ) ,
                             ),
                             SizedBox(height: 10),
@@ -106,7 +112,44 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                           ],
                         ),
                       ),
+                      SizedBox(height: 50,),
+                      Container(
+                        height: height*0.4,
+                        padding: EdgeInsets.symmetric(horizontal: 60),
+                        child: Column(
+                          children: [
+                            CustomListTile(title: 'My Profile',icon: Icon(MyIcons.human_man_people_person_profile_icon,size: 25,color: kHeading2Color),onTap: (){}),
+                            SizedBox(height: kDefaultHeight*2,),
+                            CustomListTile(title: 'My Patients',icon:Icon(MyIcons.avatar_coronavirus_covid19_man_mask_icon,size: 25,color: kHeading2Color,),onTap: (){}),
+                            SizedBox(height: kDefaultHeight*2,),
+                            CustomListTile(title: 'Messages',icon: Icon(MyIcons.chat_conversation_dialogue_discussion_interface_icon,color: kHeading2Color,size: 30),onTap: (){}),
+                            SizedBox(height: kDefaultHeight*2,),
+                            CustomListTile(title: 'Pharmacies',icon: Icon(MyIcons.building_healthcare_hospital_medical_nursing_icon,size: 25,color: kHeading2Color),onTap: (){},),
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      Divider(color: Colors.grey.withOpacity(0.4),endIndent: 40,indent: 40,),
+                      Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          padding: EdgeInsets.symmetric(horizontal: kDefaultPadding*4),
+                          child:Row(
+                            children: [
+                              RotatedBox(
+                          quarterTurns:2,
+                                  child: Icon(Icons.login,color: kErrorColor,size: 30,)),
+                              SizedBox(width: kDefaultWidth/2,),
+                              Text('Log Out',style: TextStyle(
+                                color: kErrorColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                fontFamily: 'Comfortaa',
+                                decoration: TextDecoration.none
+                              ),)
 
+                            ],
+                          )
+                      )
                     ],
                   ),
                 ),
@@ -118,6 +161,7 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                     onIconPressed();
                   },
                   child: ClipPath(
+                    clipper: CustomMenuClipper(),
                     child: Container(
                       height: 110,
                       width: 35,
@@ -134,15 +178,33 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                 ),
               )
             ],
-          ),
+          )
         );
       }
     );
   }
 }
-class CustomMenuClipper extends CustomClipper{
+class CustomMenuClipper extends CustomClipper<Path>{
   @override
-  getClip(Size size) {
+  Path getClip(Size size){
+
+
+
+    Paint paint=Paint();
+    paint.color=Colors.white;
+    final widht=size.width;
+    final height=size.height;
+    Path path=Path();
+    path.moveTo(0, 0);
+    path.quadraticBezierTo(0, 8, 10, 16);
+    path.quadraticBezierTo(widht-1, height/2-20, widht, height/2);
+    path.quadraticBezierTo(widht+1, height/2+20, 10, height-16);
+    path.quadraticBezierTo(0, height-8, 0, height);
+    path.close();
+    return path;
+
+
+
     // TODO: implement getClip
     throw UnimplementedError();
   }
@@ -150,7 +212,35 @@ class CustomMenuClipper extends CustomClipper{
   @override
   bool shouldReclip(covariant CustomClipper oldClipper) {
     // TODO: implement shouldReclip
+    return true;
     throw UnimplementedError();
   }
   
 }
+class CustomListTile extends StatelessWidget {
+  final String title;
+  final Widget icon;
+  final VoidCallback onTap;
+  const CustomListTile({Key? key,required this.title,required this.icon,required this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final bodyText1=Theme.of(context).textTheme.bodyText2!.copyWith(fontWeight: FontWeight.w500, fontSize: 22,
+    );
+    return  GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          icon,
+          SizedBox(width: 20),
+          Text(
+            title,style:bodyText1,),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
