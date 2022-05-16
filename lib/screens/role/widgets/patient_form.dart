@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../../components/button_with_icon.dart';
 import '../../../components/custom_input_field.dart';
 import '../../../constant.dart';
-import '../../../data/country_data.dart';
+import '../../../providers/country_data.dart';
 import '../widgets/form_heading.dart';
 import 'country_dropdown.dart';
 import '../../../controllers/role_controller.dart';

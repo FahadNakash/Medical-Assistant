@@ -4,7 +4,7 @@ import '../../controllers/role_controller.dart';
 import '../role/widgets/image_picker_container.dart';
 import '../role/widgets/role_selector.dart';
 class RoleScreen extends StatelessWidget {
-   RoleScreen({Key? key,}) : super(key: key);
+    RoleScreen({Key? key,}) : super(key: key);
   final authController=AuthController.authGetter;
   final roleController=RoleController.roleGetter;
   @override

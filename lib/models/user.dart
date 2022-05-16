@@ -6,7 +6,7 @@ class User{
  late final String? imagePath;
  late final  String? name;
  late final int? patientAge;
- late final List<String>? patientDisease;
+ late final List<dynamic>? patientDisease;
  late final  String? country;
  late final  String? city;
  late final  int? phoneNumber;

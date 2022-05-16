@@ -1,11 +1,15 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart' as svg;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
-import '../../../controllers/auth_controller.dart';
+
 import '../../models/user.dart';
-import '../onboarding/onbaording_screen.dart';
+import '../../controllers/app_controller.dart';
+import '../../routes/app_pages.dart';
+import '../../services/preferences.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,6 +18,9 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 class _SplashScreenState extends State<SplashScreen> {
+  final appController=AppController.appGetter;
+  final prefController=Preferences.preferencesGetter;
+
   @override
   void initState() {
     initialPage();
@@ -21,17 +28,18 @@ class _SplashScreenState extends State<SplashScreen> {
   }
    initialPage(){
     Future.delayed(Duration(seconds: 2),()async{
-      final prefs=await SharedPreferences.getInstance();
+      final prefs=prefController.preferences;
       final firstRun=prefs.getBool('firstRun');
-      final getData=prefs.getString('userData');
+      User userSession=prefController.getUserSession();
+      print('user id:${userSession.name}');
       if (firstRun==null || firstRun==false){
-           Get.toNamed('/onboarding_screen');
-      }else if (getData==null) {
-           Get.toNamed('/auth_screen');
+           Get.toNamed(Routes.onboarding);
+      }else if (userSession.uid==null) {
+           Get.toNamed(Routes.auth);
       }else{
-          Get.toNamed('/home_screen');
+         appController.user=userSession;
+        Get.offAllNamed(Routes.main_home);
       }
-      // Get.toNamed('/auth_screen');
     },);
   }
   @override

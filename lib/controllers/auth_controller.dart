@@ -1,14 +1,20 @@
-import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../routes/app_pages.dart';
+import '../controllers/app_controller.dart';
 import '../components/custom_dialog_box.dart';
+import '../services/preferences.dart';
+import '../models/user.dart' as u;
+
+//import '../routes/app_routes.dart';
 class AuthController extends GetxController {
   static AuthController get authGetter => Get.find<AuthController>();
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseFirestore cloudFireStore = FirebaseFirestore.instance;
+  final prefController=Preferences.preferencesGetter;
+  final appController=AppController.appGetter;
+
   String email = '';
   String? emailErr;
   String password = '';
@@ -17,6 +23,11 @@ class AuthController extends GetxController {
   bool isEyeconformFlag = true;
   String login = 'logging in»';
   late Rx<User?> user;
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore cloudFireStore = FirebaseFirestore.instance;
+
+
   User? get currentUser {
     return user.value;
   }
@@ -33,7 +44,7 @@ class AuthController extends GetxController {
       bool result = await InternetConnectionChecker().hasConnection;
       if (result){
         final response = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-        Get.offAllNamed('/role_screen');
+        Get.offAllNamed(Routes.role);
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use'){
@@ -61,21 +72,22 @@ class AuthController extends GetxController {
           login='fetching data»»';
         });
         final checkFormData = await cloudFireStore.collection('users').doc(response.user!.uid).get();
-        final _sharedPreferences = await SharedPreferences.getInstance();
+         print(checkFormData.data());
         if (checkFormData.data() == null) {
           Get.dialog(CustomDialogBox(
                   title: 'Alert !',
                   middleText: 'No user data was found in the app or cloud storage.You have to proceed to Form Screen to enter detail.',
                   onPressed: () {
-                    Get.toNamed('/role_screen');
+                    Get.offNamed(Routes.role);
                   },));
-        }else {
-           final getData = _sharedPreferences.getString('userData');
-          if (getData == null) {
-            final setData =await _sharedPreferences.setString('userData', json.encode(checkFormData.data()));
-            Get.toNamed('/home_screen');
+        }else{
+           final getData = prefController.getUserSession();
+          if (getData.uid == null) {
+            prefController.saveUserSession(u.User.fromJson(checkFormData.data()!));
+            appController.user=u.User.fromJson(checkFormData.data()!);
+            Get.toNamed(Routes.main_home);
           }else{
-            Get.toNamed('/home_screen');
+            Get.toNamed(Routes.main_home);
           }
         }
       }else {
@@ -105,5 +117,6 @@ class AuthController extends GetxController {
       },));
     }
   }
+
 
 }

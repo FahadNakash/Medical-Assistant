@@ -1,10 +1,17 @@
 import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:patient_assistant/components/custom_circle_progress_indicator.dart';
+import 'package:patient_assistant/components/my_icons_icons.dart';
 import 'package:patient_assistant/components/side_drawer.dart';
+import 'package:patient_assistant/controllers/auth_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import '../../controllers/role_controller.dart';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../routes/app_pages.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
@@ -13,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final roleController=RoleController.roleGetter;
+  final authController=AuthController.authGetter;
   Future<Map<String,dynamic>?> getDataFromLocal()async{
     final _sharedPreferences= await SharedPreferences.getInstance();
     final getData=await _sharedPreferences.getString('userData');
@@ -31,6 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('press'),
+        actions: [
+          IconButton(onPressed: ()async{
+            FirebaseAuth _auth = FirebaseAuth.instance;
+              final response=await _auth.signOut();
+              Get.offNamed(Routes.auth);
+
+
+          }, icon: Icon(MyIcons.logout))
+        ],
       ),
       body: FutureBuilder<Map<String,dynamic>?>(
         future: getDataFromLocal(),

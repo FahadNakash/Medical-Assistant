@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../components/custom_drop_down.dart';
 import '../../../constant.dart';
-import '../../../data/country_data.dart';
+import '../../../providers/country_data.dart';
 
 class CountryDropDown extends StatelessWidget {
   final String? selectItems;

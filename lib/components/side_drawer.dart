@@ -1,27 +1,27 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:patient_assistant/components/my_icons_icons.dart';
-import 'package:patient_assistant/constant.dart';
-import 'package:patient_assistant/screens/mainscreen/main_screen.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../controllers/auth_controller.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+import '../components/my_icons_icons.dart';
+import '../constant.dart';
+import '../controllers/app_controller.dart';
 class SideDrawer extends StatefulWidget {
   const SideDrawer({Key? key}) : super(key: key);
   @override
   State<SideDrawer> createState() => _SideDrawerState();
 }
 class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateMixin{
+  final appController=AppController.appGetter;
+
   AnimationController? animatedController;
   Stream<bool>? isOpenStream;
   StreamSink<bool>? isOpenStreamSink;
   StreamController<bool>? isOpenStreamController;
+
   FirebaseStorage _firebaseStorage=FirebaseStorage.instance;
   FirebaseFirestore _firebaseFirestore=FirebaseFirestore.instance;
-  final authController=AuthController.authGetter;
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
    animatedController!.dispose();
    isOpenStreamController!.close();
    isOpenStreamSink!.close();
-    super.dispose();
+   super.dispose();
   }
   void onIconPressed(){
     final animationStatus=animatedController!.status;
@@ -59,10 +59,10 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
       builder: (context,isOpenSideAysnc) {
         return AnimatedPositioned(
           duration: Duration(milliseconds: 500),
-          top: 0,
+          top: 18,
           bottom: 0,
           left: isOpenSideAysnc.data!?0:-width,
-          right:isOpenSideAysnc.data!?0:width-45,
+          right:isOpenSideAysnc.data!?0:width-35,
           child: Row(
             children: [
               Expanded(
@@ -106,7 +106,7 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                               ) ,
                             ),
                             SizedBox(height: 10),
-                            Text('Habib Fahad',style: TextStyle(color: Colors.white,fontSize: 15,decoration: TextDecoration.none,fontFamily: 'Comfortaa',fontWeight: FontWeight.normal),),
+                            Text(appController.user.name.toString(),style: TextStyle(color: Colors.white,fontSize: 15,decoration: TextDecoration.none,fontFamily: 'Comfortaa',fontWeight: FontWeight.normal),),
                             SizedBox(height: 10),
                             Text('Habib Fahad',style: TextStyle(color: Colors.white,fontSize: 15,decoration: TextDecoration.none,fontFamily: 'Comfortaa',fontWeight: FontWeight.normal),)
                           ],

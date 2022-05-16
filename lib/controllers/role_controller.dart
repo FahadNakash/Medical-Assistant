@@ -5,24 +5,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:patient_assistant/components/custom_dialog_box.dart';
-import 'package:patient_assistant/constant.dart';
-import 'package:patient_assistant/models/user.dart';
+import 'package:patient_assistant/controllers/app_controller.dart';
+import 'package:patient_assistant/services/preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../components/app_button.dart';
-import 'auth_controller.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path_provider/path_provider.dart';
+
+import '../components/custom_dialog_box.dart';
+import '../constant.dart';
+import '../models/user.dart';
+import 'auth_controller.dart';
+import '../controllers/app_controller.dart';
+import '../services/preferences.dart';
+import '../routes/app_pages.dart';
 
 class RoleController extends GetxController {
+  var selectImage = ''.obs;
+
   static RoleController get roleGetter => Get.find<RoleController>();
   final authController = AuthController.authGetter;
+  final appController=AppController.appGetter;
+  final prefsController=Preferences.preferencesGetter;
+
   FirebaseFirestore cloudFireStore = FirebaseFirestore.instance;
   FirebaseStorage _storage = FirebaseStorage.instance;
-  var selectImage = ''.obs;
+
+
+
   Future<void> getImage(ImageSource source) async {
     try {
       final galleryStatus = await Permission.storage.status;
@@ -83,7 +94,6 @@ class RoleController extends GetxController {
       String countryCode,
       String currency) async {
     try {
-      final _sharedPreferences = await SharedPreferences.getInstance();
       final ref = await _storage
           .ref()
           .child('user_Images')
@@ -91,7 +101,7 @@ class RoleController extends GetxController {
       final UploadTask uploadTask = ref.putFile(File(selectImage.value));
       await uploadTask.whenComplete(() async {
         final imageUrl = await ref.getDownloadURL();
-        Map<String, dynamic> userData = User(
+        User user = User(
           email: authController.currentUser!.email,
           name: name,
           imagePath: selectImage.value,
@@ -109,14 +119,14 @@ class RoleController extends GetxController {
           currency: currency,
           countryCode: countryCode,
           role: 'doctor',
-        ).toJson();
+        );
         final response = await cloudFireStore
             .collection('users')
             .doc(authController.currentUser!.uid)
-            .set(userData);
-        final storeDataLocal = await _sharedPreferences.setString(
-            'userData', json.encode(userData));
-        Get.toNamed('/home_screen');
+            .set(user.toJson());
+        final storeDataLocal = await prefsController.saveUserSession(user);
+        appController.user=user;
+        Get.offAllNamed(Routes.main_home);
       });
     } on FirebaseException catch (e) {
       Get.dialog(CustomDialogBox(
@@ -135,7 +145,6 @@ class RoleController extends GetxController {
 
   Future<void> patientForm(String name, String country, String city, String age,List disease) async {
     try {
-      final _sharedPreferences = await SharedPreferences.getInstance();
       final ref = await _storage
           .ref()
           .child('user_Images')
@@ -143,7 +152,7 @@ class RoleController extends GetxController {
       final UploadTask uploadTask = ref.putFile(File(selectImage.value));
       await uploadTask.whenComplete(() async {
         final imageUrl = await ref.getDownloadURL();
-        Map<String, dynamic> userData = User(
+        User user = User(
           uid: authController.currentUser!.uid,
           email: authController.currentUser!.email,
           imageUrl: imageUrl,
@@ -154,14 +163,14 @@ class RoleController extends GetxController {
           role: 'patient',
           patientAge: int.parse(age),
           patientDisease: disease as List<String>,
-        ).toJson();
+        );
         final response = await cloudFireStore
             .collection('users')
             .doc(authController.currentUser!.uid)
-            .set(userData);
-        final storeDataLocal = await _sharedPreferences.setString(
-            'userData', json.encode(userData));
-        Get.offAllNamed('/home_screen');
+            .set(user.toJson());
+        final storeDataLocal = await  prefsController.saveUserSession(user);
+        appController.user=user;
+        Get.offAllNamed(Routes.main_home);
       });
     } on FirebaseException catch (e) {
       Get.dialog(CustomDialogBox(
