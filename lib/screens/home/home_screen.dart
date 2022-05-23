@@ -7,9 +7,11 @@ import 'package:patient_assistant/components/side_drawer.dart';
 import 'package:patient_assistant/controllers/auth_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import '../../controllers/app_controller.dart';
 import '../../controllers/role_controller.dart';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../services/preferences.dart';
 
 import '../../routes/app_pages.dart';
 class HomeScreen extends StatefulWidget {
@@ -19,8 +21,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final roleController=RoleController.roleGetter;
-  final authController=AuthController.authGetter;
+  // final authController = AuthController.authGetter;
+  final appController=AppController.appGetter;
+  final prefController=Preferences.preferencesGetter;
   Future<Map<String,dynamic>?> getDataFromLocal()async{
     final _sharedPreferences= await SharedPreferences.getInstance();
     final getData=await _sharedPreferences.getString('userData');
@@ -36,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context){
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+  //  print(authController.currentUser!.uid);
     return Scaffold(
       appBar: AppBar(
         title: Text('press'),
@@ -43,8 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(onPressed: ()async{
             FirebaseAuth _auth = FirebaseAuth.instance;
               final response=await _auth.signOut();
-              Get.offNamed(Routes.auth);
+             await prefController.removeUserSession();
 
+              Get.offNamed(Routes.auth);
 
           }, icon: Icon(MyIcons.logout))
         ],

@@ -7,6 +7,7 @@ abstract class Routes{
   static const role=_Paths.role;
   static const home=_Paths.home;
   static const main_home=_Paths.drawer_home;
+  static const user_profile=_Paths.user_profile;
 }
 abstract class _Paths{
   static const splash='/splash';
@@ -15,6 +16,7 @@ abstract class _Paths{
   static const role='/role';
   static const home='/home';
   static const drawer_home='/drawer_home';
+  static const user_profile='/user_profile';
 
 
 }

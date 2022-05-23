@@ -31,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen> {
       final prefs=prefController.preferences;
       final firstRun=prefs.getBool('firstRun');
       User userSession=prefController.getUserSession();
-      print('user id:${userSession.name}');
       if (firstRun==null || firstRun==false){
            Get.toNamed(Routes.onboarding);
       }else if (userSession.uid==null) {

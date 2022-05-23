@@ -41,7 +41,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>{
           CustomPageView(onPageChanged: onPageChanged,pageController: pageController,size: size,),
           SizedBox(height: kDefaultHeight/2,),
           DottedContainer(currentindex: index,),
-          Expanded(flex: 2,child: FooterBar(pagecontroller: pageController,size: size,index: index,)),
+          Expanded(flex: 2,child: FooterBar(pageController: pageController,size: size,index: index,)),
         ],
       ),
     );

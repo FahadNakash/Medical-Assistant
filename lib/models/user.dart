@@ -48,12 +48,12 @@ User.fromJson(Map<String,dynamic> userData){
   imagePath=userData['imagePath'];
   name=userData['name'];
   patientAge=userData['patientAge'];
-  patientDisease=userData['patientDisease'];
+  patientDisease=List<String>.from(userData['patientDisease']??[]);
   country=userData['country'];
   city=userData['city'];
   phoneNumber=userData['phoneNumber'];
   practiceType=userData['practiceType'];
-  specialities=userData['specialities'] ;
+  specialities=List<String>.from(userData['specialities']??[]) ;
   experience=userData['experience'];
   appointmentFee=userData['appointmentFee'];
   workplaceName=userData['workplaceName'];

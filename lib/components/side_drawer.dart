@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get/get.dart';
 
 import '../components/my_icons_icons.dart';
 import '../constant.dart';
 import '../controllers/app_controller.dart';
+import '../routes/app_pages.dart';
 class SideDrawer extends StatefulWidget {
   const SideDrawer({Key? key}) : super(key: key);
   @override
@@ -20,8 +20,6 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
   StreamSink<bool>? isOpenStreamSink;
   StreamController<bool>? isOpenStreamController;
 
-  FirebaseStorage _firebaseStorage=FirebaseStorage.instance;
-  FirebaseFirestore _firebaseFirestore=FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -53,16 +51,17 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     final width=MediaQuery.of(context).size.width;
+    final orientation=MediaQuery.of(context).orientation;
     return  StreamBuilder<bool>(
       initialData:false,
       stream: isOpenStream,
-      builder: (context,isOpenSideAysnc) {
+      builder: (context,isOpenSideAsync) {
         return AnimatedPositioned(
           duration: Duration(milliseconds: 500),
           top: 18,
           bottom: 0,
-          left: isOpenSideAysnc.data!?0:-width,
-          right:isOpenSideAysnc.data!?0:width-35,
+          left: isOpenSideAsync.data!?0:-width,
+          right:isOpenSideAsync.data!?0:width-35,
           child: Row(
             children: [
               Expanded(
@@ -70,16 +69,15 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                   color: Colors.grey.shade50,
                   height: height,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      //image box
                       Container(
-                        height: 250,
+                        height: (orientation==Orientation.portrait)?250:150,
                         width: 1000,
                         padding: EdgeInsets.all(30),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(60),
+                            bottomRight:(orientation==Orientation.portrait)?Radius.circular(60):Radius.circular(50),
                           ),
                           gradient: LinearGradient(
                               colors: [
@@ -88,7 +86,8 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                               ]
                           ),
                         ),
-                        child: Column(
+                        child:(orientation==Orientation.portrait)
+                            ?Column(
                           children: [
                             Container(
                               height: 130,
@@ -104,52 +103,58 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                                     )
                                   ]
                               ) ,
+                              child: ClipRRect(
+                                  borderRadius:BorderRadius.all(Radius.circular(20)),
+                                  child: Image.network(appController.user.imageUrl!,fit: BoxFit.cover,)),
                             ),
                             SizedBox(height: 10),
                             Text(appController.user.name.toString(),style: TextStyle(color: Colors.white,fontSize: 15,decoration: TextDecoration.none,fontFamily: 'Comfortaa',fontWeight: FontWeight.normal),),
                             SizedBox(height: 10),
-                            Text('Habib Fahad',style: TextStyle(color: Colors.white,fontSize: 15,decoration: TextDecoration.none,fontFamily: 'Comfortaa',fontWeight: FontWeight.normal),)
+                            Text('${appController.user.email}',style: TextStyle(color: Colors.white,fontSize: 15,decoration: TextDecoration.none,fontFamily: 'Comfortaa',fontWeight: FontWeight.normal),)
                           ],
-                        ),
+                        )
+                            :Row(
+                              children: [
+                                Container(
+                                  height: 100,
+                                  width: 130,
+                                  decoration:BoxDecoration(
+                                      color: Colors.yellow,
+                                      borderRadius:BorderRadius.all(Radius.circular(20)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black26,
+                                            blurRadius: 5,
+                                            offset: Offset(2,10)
+                                        )
+                                      ]
+                                  ) ,
+                                  child:  ClipRRect(
+                                      borderRadius:BorderRadius.all(Radius.circular(20)),
+                                      child: Image.network(appController.user.imageUrl!,fit: BoxFit.cover,)),
+                                ),
+                                SizedBox(width: kDefaultWidth),
+                                Container(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: kDefaultWidth,),
+                                      Text(appController.user.toString(),style: TextStyle(color: Colors.white,fontSize: 15,decoration: TextDecoration.none,fontFamily: 'Comfortaa',fontWeight: FontWeight.normal),),
+                                      Spacer(),
+                                      Text('Habib Fahad',style: TextStyle(color: Colors.white,fontSize: 15,decoration: TextDecoration.none,fontFamily: 'Comfortaa',fontWeight: FontWeight.normal),)
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )
+                        ,
                       ),
                       SizedBox(height: 50,),
-                      Container(
-                        height: height*0.4,
-                        padding: EdgeInsets.symmetric(horizontal: 60),
-                        child: Column(
-                          children: [
-                            CustomListTile(title: 'My Profile',icon: Icon(MyIcons.human_man_people_person_profile_icon,size: 25,color: kHeading2Color),onTap: (){}),
-                            SizedBox(height: kDefaultHeight*2,),
-                            CustomListTile(title: 'My Patients',icon:Icon(MyIcons.avatar_coronavirus_covid19_man_mask_icon,size: 25,color: kHeading2Color,),onTap: (){}),
-                            SizedBox(height: kDefaultHeight*2,),
-                            CustomListTile(title: 'Messages',icon: Icon(MyIcons.chat_conversation_dialogue_discussion_interface_icon,color: kHeading2Color,size: 30),onTap: (){}),
-                            SizedBox(height: kDefaultHeight*2,),
-                            CustomListTile(title: 'Pharmacies',icon: Icon(MyIcons.building_healthcare_hospital_medical_nursing_icon,size: 25,color: kHeading2Color),onTap: (){},),
-                          ],
+                      Expanded(
+                        child: Container(
+                            child: CustomNavigationTiles()
                         ),
                       ),
-                      Spacer(),
-                      Divider(color: Colors.grey.withOpacity(0.4),endIndent: 40,indent: 40,),
-                      Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          padding: EdgeInsets.symmetric(horizontal: kDefaultPadding*4),
-                          child:Row(
-                            children: [
-                              RotatedBox(
-                          quarterTurns:2,
-                                  child: Icon(Icons.login,color: kErrorColor,size: 30,)),
-                              SizedBox(width: kDefaultWidth/2,),
-                              Text('Log Out',style: TextStyle(
-                                color: kErrorColor,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                fontFamily: 'Comfortaa',
-                                decoration: TextDecoration.none
-                              ),)
-
-                            ],
-                          )
-                      )
+                      // ListTile box
                     ],
                   ),
                 ),
@@ -192,13 +197,13 @@ class CustomMenuClipper extends CustomClipper<Path>{
 
     Paint paint=Paint();
     paint.color=Colors.white;
-    final widht=size.width;
+    final width=size.width;
     final height=size.height;
     Path path=Path();
     path.moveTo(0, 0);
     path.quadraticBezierTo(0, 8, 10, 16);
-    path.quadraticBezierTo(widht-1, height/2-20, widht, height/2);
-    path.quadraticBezierTo(widht+1, height/2+20, 10, height-16);
+    path.quadraticBezierTo(width-1, height/2-20, width, height/2);
+    path.quadraticBezierTo(width+1, height/2+20, 10, height-16);
     path.quadraticBezierTo(0, height-8, 0, height);
     path.close();
     return path;
@@ -206,14 +211,13 @@ class CustomMenuClipper extends CustomClipper<Path>{
 
 
     // TODO: implement getClip
-    throw UnimplementedError();
+
   }
 
   @override
   bool shouldReclip(covariant CustomClipper oldClipper) {
     // TODO: implement shouldReclip
     return true;
-    throw UnimplementedError();
   }
   
 }
@@ -240,6 +244,67 @@ class CustomListTile extends StatelessWidget {
     );
   }
 }
+
+class CustomNavigationTiles extends StatelessWidget {
+  const CustomNavigationTiles({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final orientation=MediaQuery.of(context).orientation;
+    return SingleChildScrollView(
+      physics:(orientation==Orientation.portrait)?NeverScrollableScrollPhysics(): BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 60),
+            child: Column(
+              children: [
+                CustomListTile(title: 'My Profile',icon: Icon(MyIcons.human_man_people_person_profile_icon,size: 25,color: kHeading2Color),onTap: (){ Get.toNamed(Routes.user_profile,); }),
+                SizedBox(height: kDefaultHeight*2,),
+                CustomListTile(title: 'My Patients',icon:Icon(MyIcons.avatar_coronavirus_covid19_man_mask_icon,size: 25,color: kHeading2Color,),onTap: (){}),
+                SizedBox(height: kDefaultHeight*2,),
+                CustomListTile(title: 'Messages',icon: Icon(MyIcons.chat_conversation_dialogue_discussion_interface_icon,color: kHeading2Color,size: 30),onTap: (){}),
+                SizedBox(height: kDefaultHeight*2,),
+                CustomListTile(title: 'Pharmacies',icon: Icon(MyIcons.building_healthcare_hospital_medical_nursing_icon,size: 25,color: kHeading2Color),onTap: (){},),
+                GestureDetector(
+                  onTap: (){
+                  },
+                  child: Container(
+                       margin: EdgeInsets.only(top: (orientation==Orientation.portrait)?kDefaultHeight*5:kDefaultHeight*3,left: kDefaultPadding),
+                      child:Column(
+                        children: [
+                          Divider(color: Colors.grey.withOpacity(0.4),endIndent: 40,indent: 40,),
+                          Row(
+                            children: [
+                              RotatedBox(
+                                  quarterTurns:2,
+                                  child: Icon(Icons.login,color: kErrorColor,size: 30,)),
+                              SizedBox(width: kDefaultWidth/2,),
+                              Text('Log Out',style: TextStyle(
+                                  color: kErrorColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w200,
+                                  fontFamily: 'Comfortaa',
+                                  decoration: TextDecoration.none
+                              ),)
+
+                            ],
+                          ),
+                        ],
+                      )
+                  ),
+                )
+              ],
+            ),
+          ),
+
+
+        ],
+      ),
+    );
+  }
+}
+
 
 
 

@@ -7,9 +7,10 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'constant.dart';
 import 'routes/app_pages.dart';
-import 'binding/all_controller_binding.dart';
 import 'controllers/app_controller.dart';
 import 'controllers/auth_controller.dart';
+import 'database/firebase.dart';
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
@@ -28,6 +29,7 @@ void main() async{
 }
 Future<void> initDependencies()async{
   Get.put<AppController>(AppController());
+  Get.put<CloudDatabase>(CloudDatabase());
   await Get.putAsync(() => Preferences().init());
 }
 
@@ -39,7 +41,6 @@ class MyApp extends StatelessWidget {
       title: 'Medical Assistant',
       debugShowCheckedModeBanner: false,
       theme: lightTheme(context),
-      initialBinding: AllControllerBinding(),
       initialRoute: AppPages.initial,
       getPages:AppPages.routes,
     );
