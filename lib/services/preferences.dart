@@ -25,7 +25,7 @@ class Preferences extends GetxController{
     return userSession!=null?User.fromJson(json.decode(userSession)):User();
   }
 
-  Future<void> removeUserSession()async {
+  Future<void> removeUserSession()async{
     await preferences.remove(_user);
   }
 

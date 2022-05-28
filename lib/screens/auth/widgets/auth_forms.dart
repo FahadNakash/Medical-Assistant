@@ -18,7 +18,7 @@ bool isLogin=true;
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
     final orientation=MediaQuery.of(context).orientation;
-    final authControlle=AuthController.authGetter;
+    final authController=AuthController.authGetter;
     return Container(
       color: Colors.white,
       margin: EdgeInsets.symmetric(horizontal: 20),
@@ -48,10 +48,10 @@ bool isLogin=true;
                   width: 80,
                   onPressed: (){
                 isLogin=!isLogin;
-                authControlle.emailErr=null;
-                authControlle.passErr=null;
-                authControlle.email='';
-                authControlle.password='';
+                authController.emailErr=null;
+                authController.passErr=null;
+                authController.email='';
+                authController.password='';
                 setState(() {
                 });
               }, text: isLogin?'SignUp':'LogIn')

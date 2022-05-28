@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../components/side_drawer.dart';
 import '../screens/splash/splash_screen.dart';
 import '../screens/auth/auth_screen.dart';
 import '../screens/role/role_screen.dart';

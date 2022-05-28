@@ -16,6 +16,7 @@ import '../utils/api_exception.dart';
 //import '../routes/app_routes.dart';
 class AuthController extends GetxController {
   static AuthController get authGetter => Get.find<AuthController>();
+
   final prefController=Preferences.preferencesGetter;
   final appController=AppController.appGetter;
   final cloudDbGetter=CloudDatabase.cloudDatabaseGetter;
@@ -139,6 +140,12 @@ class AuthController extends GetxController {
         Get.back();
       },));
     }
+  }
+
+  Future<void> signOut()async{
+    await _auth.signOut();
+    await prefController.removeUserSession();
+    appController.user=u.User();
   }
 
 

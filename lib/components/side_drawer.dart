@@ -2,18 +2,22 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../components/my_icons_icons.dart';
+import '../models/user.dart' as u;
 import '../constant.dart';
 import '../controllers/app_controller.dart';
 import '../routes/app_pages.dart';
+import '../services/preferences.dart';
+import '../controllers/auth_controller.dart';
 class SideDrawer extends StatefulWidget {
   const SideDrawer({Key? key}) : super(key: key);
   @override
   State<SideDrawer> createState() => _SideDrawerState();
 }
 class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateMixin{
-  final appController=AppController.appGetter;
+
 
   AnimationController? animatedController;
   Stream<bool>? isOpenStream;
@@ -246,60 +250,75 @@ class CustomListTile extends StatelessWidget {
 }
 
 class CustomNavigationTiles extends StatelessWidget {
-  const CustomNavigationTiles({Key? key}) : super(key: key);
+  final appController=AppController.appGetter;
+  //final authController=AuthController.authGetter;
+  final prefController=Preferences.preferencesGetter;
+  CustomNavigationTiles({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final orientation=MediaQuery.of(context).orientation;
-    return SingleChildScrollView(
-      physics:(orientation==Orientation.portrait)?NeverScrollableScrollPhysics(): BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 60),
-            child: Column(
-              children: [
-                CustomListTile(title: 'My Profile',icon: Icon(MyIcons.human_man_people_person_profile_icon,size: 25,color: kHeading2Color),onTap: (){ Get.toNamed(Routes.user_profile,); }),
-                SizedBox(height: kDefaultHeight*2,),
-                CustomListTile(title: 'My Patients',icon:Icon(MyIcons.avatar_coronavirus_covid19_man_mask_icon,size: 25,color: kHeading2Color,),onTap: (){}),
-                SizedBox(height: kDefaultHeight*2,),
-                CustomListTile(title: 'Messages',icon: Icon(MyIcons.chat_conversation_dialogue_discussion_interface_icon,color: kHeading2Color,size: 30),onTap: (){}),
-                SizedBox(height: kDefaultHeight*2,),
-                CustomListTile(title: 'Pharmacies',icon: Icon(MyIcons.building_healthcare_hospital_medical_nursing_icon,size: 25,color: kHeading2Color),onTap: (){},),
-                GestureDetector(
-                  onTap: (){
-                  },
-                  child: Container(
-                       margin: EdgeInsets.only(top: (orientation==Orientation.portrait)?kDefaultHeight*5:kDefaultHeight*3,left: kDefaultPadding),
-                      child:Column(
-                        children: [
-                          Divider(color: Colors.grey.withOpacity(0.4),endIndent: 40,indent: 40,),
-                          Row(
-                            children: [
-                              RotatedBox(
-                                  quarterTurns:2,
-                                  child: Icon(Icons.login,color: kErrorColor,size: 30,)),
-                              SizedBox(width: kDefaultWidth/2,),
-                              Text('Log Out',style: TextStyle(
-                                  color: kErrorColor,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w200,
-                                  fontFamily: 'Comfortaa',
-                                  decoration: TextDecoration.none
-                              ),)
+    return Material(
+      child: SingleChildScrollView(
+        physics:(orientation==Orientation.portrait)?NeverScrollableScrollPhysics(): BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 60),
+              child: Column(
+                children: [
+                  CustomListTile(title: 'My Profile',icon: Icon(MyIcons.human_man_people_person_profile_icon,size: 25,color: kHeading2Color),onTap: (){ Get.toNamed(Routes.user_profile,); }),
+                  SizedBox(height: kDefaultHeight*2,),
+                  CustomListTile(title: 'My Patients',icon:Icon(MyIcons.avatar_coronavirus_covid19_man_mask_icon,size: 25,color: kHeading2Color,),onTap: (){}),
+                  SizedBox(height: kDefaultHeight*2,),
+                  CustomListTile(title: 'Messages',icon: Icon(MyIcons.chat_conversation_dialogue_discussion_interface_icon,color: kHeading2Color,size: 30),onTap: (){}),
+                  SizedBox(height: kDefaultHeight*2,),
+                  CustomListTile(title: 'Pharmacies',icon: Icon(MyIcons.building_healthcare_hospital_medical_nursing_icon,size: 25,color: kHeading2Color),onTap: (){},),
+                  GestureDetector(
+                    onTap: (){
+                    },
+                    child: Container(
+                         margin: EdgeInsets.only(top: (orientation==Orientation.portrait)?kDefaultHeight*5:kDefaultHeight*3,left: kDefaultPadding),
+                        child:Column(
+                          children: [
+                            Divider(color: Colors.grey.withOpacity(0.4),endIndent: 40,indent: 40,),
+                            InkWell(
+                              onTap: ()async{
+                                FirebaseAuth _auth = FirebaseAuth.instance;
+                                final response=await _auth.signOut();
+                                await prefController.removeUserSession();
+                                appController.user=u.User();
+                                Get.offAllNamed(Routes.auth);
+                              },
+                              child: Row(
+                                children: [
+                                  RotatedBox(
+                                      quarterTurns:2,
+                                      child: Icon(Icons.login,color: kErrorColor,size: 30,)),
+                                  SizedBox(width: kDefaultWidth/2,),
+                                  Text(
+                                    'Log Out',style: TextStyle(
+                                      color: kErrorColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w200,
+                                      fontFamily: 'Comfortaa',
+                                      decoration: TextDecoration.none
+                                  ),)
 
-                            ],
-                          ),
-                        ],
-                      )
-                  ),
-                )
-              ],
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
 
 
-        ],
+          ],
+        ),
       ),
     );
   }
