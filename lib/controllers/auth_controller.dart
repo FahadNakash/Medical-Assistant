@@ -11,7 +11,9 @@ import '../components/custom_dialog_box.dart';
 import '../services/preferences.dart';
 import '../models/user.dart' as u;
 import '../database/firebase.dart';
-import '../utils/api_exception.dart';
+import '../utilities/api_exception.dart';
+import '../utilities/utils.dart';
+
 
 //import '../routes/app_routes.dart';
 class AuthController extends GetxController {
@@ -34,8 +36,8 @@ class AuthController extends GetxController {
   FirebaseFirestore cloudFireStore=FirebaseFirestore.instance;
 
 
-  User? get currentUser {
-    return user.value;
+  User get currentUser {
+    return user.value!;
   }
 
   @override
@@ -47,11 +49,9 @@ class AuthController extends GetxController {
 
   Future<void> createNewAccount(String email, String password, void setState(void Function() fn)) async {
     try {
-      bool isResult = await InternetConnectionChecker().hasConnection;
-     if (isResult){
+      bool isConnection = await InternetConnectionChecker().hasConnection;
+     if (isConnection){
         final response = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-        appController.currentUser=response.user!.uid;
-        appController.currentUserEmail=response.user!.email!;
        Get.offAllNamed(Routes.role);
       }else{
         Get.dialog(
@@ -95,16 +95,16 @@ class AuthController extends GetxController {
         setState((){
           login='fetching data»»';
         });
-        appController.currentUser=response.user!.uid;
-        appController.currentUserEmail=response.user!.email!;
-        u.User cloudData=await cloudDbGetter.getCloudData(appController.currentUser);
-        u.User getData = prefController.getUserSession();
-           if (getData.uid == null) {
-             prefController.saveUserSession(cloudData);
-             appController.user=cloudData;
+        u.User _cloudData=await cloudDbGetter.getCloudData(response.user!.uid);
+        u.User _getData = prefController.getUserSession();
+           if (_getData.uid == null) {
+             prefController.saveUserSession(_cloudData);
+             appController.user=_cloudData;
+             appController.imageFolderPath=(await Utils().getImageLocally())!;
              Get.toNamed(Routes.main_home);
            }else{
-             appController.user=cloudData;
+             appController.imageFolderPath=(await Utils().getImageLocally())!;
+             appController.user=_cloudData;
              Get.toNamed(Routes.main_home);
            }
       }else {

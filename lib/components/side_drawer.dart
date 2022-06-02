@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
 
 import '../components/my_icons_icons.dart';
 import '../models/user.dart' as u;
@@ -109,7 +110,7 @@ class _SideDrawerState extends State<SideDrawer> with SingleTickerProviderStateM
                               ) ,
                               child: ClipRRect(
                                   borderRadius:BorderRadius.all(Radius.circular(20)),
-                                  child: Image.network(appController.user.imageUrl!,fit: BoxFit.cover,)),
+                                  child: Image.file(File('${appController.imageFolderPath}'),fit: BoxFit.cover,)),
                             ),
                             SizedBox(height: 10),
                             Text(appController.user.name.toString(),style: TextStyle(color: Colors.white,fontSize: 15,decoration: TextDecoration.none,fontFamily: 'Comfortaa',fontWeight: FontWeight.normal),),
@@ -283,6 +284,8 @@ class CustomNavigationTiles extends StatelessWidget {
                           children: [
                             Divider(color: Colors.grey.withOpacity(0.4),endIndent: 40,indent: 40,),
                             InkWell(
+                              hoverColor: Colors.white,
+                              splashColor: Colors.white,
                               onTap: ()async{
                                 FirebaseAuth _auth = FirebaseAuth.instance;
                                 final response=await _auth.signOut();

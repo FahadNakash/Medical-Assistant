@@ -6,9 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
 
 class Preferences extends GetxController{
+
   static Preferences get preferencesGetter=>Get.find<Preferences>();
 
   late SharedPreferences preferences;
+
   final String _user='user';
 
   Future<Preferences> init()async{

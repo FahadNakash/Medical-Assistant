@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:patient_assistant/controllers/app_controller.dart';
+
+
 
 import '../models/user.dart';
-import '../utils/api_exception.dart';
+import '../utilities/api_exception.dart';
+
 
 class CloudDatabase extends GetxController{
    static CloudDatabase  get cloudDatabaseGetter=>Get.find<CloudDatabase>();
@@ -11,10 +15,8 @@ class CloudDatabase extends GetxController{
    static const String _users='users';
    FirebaseFirestore _firestore=FirebaseFirestore.instance;
 
-   Future<User> getCloudData(String uid) async{
-      print(uid);
+   Future<User> getCloudData(String uid)async{
       final _getUser=await _firestore.collection(_users).doc(uid).get();
-      print('userData ${_getUser.data()}');
       if (_getUser.data()!=null) {
          User _user=User.fromJson(_getUser.data()!);
          return _user;
@@ -29,6 +31,8 @@ class CloudDatabase extends GetxController{
 
 
 }
+
+
 
 
 

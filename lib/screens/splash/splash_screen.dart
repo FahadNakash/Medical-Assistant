@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart' as svg;
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../utilities/utils.dart';
 import 'package:get/get.dart';
 
 import '../../models/user.dart';
@@ -31,12 +29,13 @@ class _SplashScreenState extends State<SplashScreen> {
       final prefs=prefController.preferences;
       final firstRun=prefs.getBool('firstRun');
       User userSession=prefController.getUserSession();
-      if (firstRun==null || firstRun==false){
+      if (firstRun == null || firstRun == false){
            Get.toNamed(Routes.onboarding);
-      }else if (userSession.uid==null) {
-           Get.toNamed(Routes.auth);
+      }else if (userSession.uid == null){
+        Get.toNamed(Routes.auth);
       }else{
-         appController.user=userSession;
+        appController.user = userSession;
+        appController.imageFolderPath=(await Utils().getImageLocally())!;
         Get.offAllNamed(Routes.main_home);
       }
     },);

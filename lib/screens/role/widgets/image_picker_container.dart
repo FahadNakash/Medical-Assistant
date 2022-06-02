@@ -53,15 +53,9 @@ class ImagePickerContainer extends StatelessWidget {
                           child:roleController.selectImage.value != ''
                                 ?ClipRRect(
                               borderRadius:BorderRadius.all(Radius.circular(20)),
-                              child: Image.file(File(roleController.selectImage.value),
-                                   fit: BoxFit.cover
-                              )
+                              child: Image.file(File(roleController.selectImage.value),fit: BoxFit.cover)
                           )
-                                :Icon(Icons.account_box_rounded,
-                                    size: (orientation == Orientation.portrait)
-                                        ? 140
-                                        : 110,
-                                    color: Colors.white
+                                :Icon(Icons.account_box_rounded,size: (orientation == Orientation.portrait)? 140 : 110,color: Colors.white
                           ),
                       ),
                     ),

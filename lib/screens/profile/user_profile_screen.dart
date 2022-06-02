@@ -1,11 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:patient_assistant/utilities/utils.dart';
 
 import '../../database/firebase.dart';
 import '../../controllers/app_controller.dart';
-class UserProfile extends StatelessWidget{
+class UserProfile extends StatefulWidget{
+
+   UserProfile({Key? key}) : super(key: key);
+
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
   final cloudDbGetter=CloudDatabase.cloudDatabaseGetter;
   final appController=AppController.appGetter;
-   UserProfile({Key? key}) : super(key: key);
+  File? file;
+  @override
+  void initState(){
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +31,13 @@ class UserProfile extends StatelessWidget{
         automaticallyImplyLeading: true,
         actions: [
           IconButton(onPressed: (){
-            cloudDbGetter.getCloudData(appController.user.uid!);
           }, icon: Icon(Icons.eighteen_mp))
         ],
       ),
       body: Container(
         color: Colors.yellow,
         height: 500,
+        child: (appController.imageFolderPath.isEmpty)?Text('null'):Image.file(File(appController.imageFolderPath)),
       ),
     );
   }

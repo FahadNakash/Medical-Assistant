@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 import '../../../controllers/app_controller.dart';
-import '../../../utils/date_time.dart';
+import '../../../utilities/utils.dart';
 
 class CustomAppBar extends StatelessWidget {
   final appController=AppController.appGetter;
@@ -39,7 +41,9 @@ class CustomAppBar extends StatelessWidget {
                     ]
                 ),
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(appController.user.imageUrl.toString()),
+
+                  backgroundImage:FileImage(File(appController.imageFolderPath))
+                  //NetworkImage(appController.user.imageUrl.toString()),
                 ),
               ),
             ],

@@ -1,6 +1,5 @@
-import 'dart:convert';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 
@@ -10,6 +9,7 @@ import '../../controllers/app_controller.dart';
 import '../../controllers/role_controller.dart';
 import '../../routes/app_pages.dart';
 import '../../screens/home/widgets/daily_quotes.dart';
+import '../../utilities/utils.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -35,12 +35,25 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child:DailyQuotes(),
+            child:Container(
+                child: DailyQuotes()),
           ),
           SliverToBoxAdapter(
             child: Container(
-              height: 700,
+              height: 200,
               color: Colors.yellow,
+              child: Column(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                  ),
+                  FlatButton(onPressed: ()
+                  {
+                    Utils().getImageLocally();
+                    },child: Text('press me')),
+                ],
+              ),
             ),
           )
 
