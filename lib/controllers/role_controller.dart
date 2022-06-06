@@ -1,25 +1,22 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:patient_assistant/controllers/app_controller.dart';
-import 'package:patient_assistant/services/preferences.dart';
-import 'package:patient_assistant/utilities/utils.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../components/custom_dialog_box.dart';
 import '../constant.dart';
-import '../models/user.dart';
- import 'auth_controller.dart';
-import '../database/firebase.dart';
 import '../controllers/app_controller.dart';
-import '../services/preferences.dart';
+import '../database/firebase.dart';
+import '../models/user.dart';
 import '../routes/app_pages.dart';
+import '../services/preferences.dart';
+import '../utilities/utils.dart';
+import 'auth_controller.dart';
 
 class RoleController extends GetxController {
   static RoleController   get roleGetter => Get.find<RoleController>();
@@ -122,6 +119,7 @@ class RoleController extends GetxController {
         final _storeDataLocal = await prefsController.saveUserSession(user);
         final _imagePath= await Utils().storeImageLocally(_imageUrl);
         appController.user=user;
+        appController.imageFolderPath=(await Utils().getImageLocally())!;
         Get.offAllNamed(Routes.main_home);
       });
     } on FirebaseException catch (e) {
@@ -161,6 +159,7 @@ class RoleController extends GetxController {
         final _storeDataLocal = await  prefsController.saveUserSession(user);
         final _imagePath= await Utils().storeImageLocally(imageUrl);
         appController.user=user;
+        appController.imageFolderPath=(await Utils().getImageLocally())!;
         Get.offAllNamed(Routes.main_home);
       });
     } on FirebaseException catch (e) {

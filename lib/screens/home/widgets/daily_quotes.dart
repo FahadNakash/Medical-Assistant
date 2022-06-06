@@ -18,7 +18,7 @@ class DailyQuotes extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Quote of the day',style: TextStyle(color: Color(0xff9394C7),fontFamily: 'Roboto',fontWeight: FontWeight.w600)),
+          Text('Quote of the day',style: TextStyle(color: Color(0xff9394C7),fontFamily: 'Montserrat',fontWeight: FontWeight.w600)),
           SizedBox(height: kDefaultHeight/3),
           Container(
             padding: EdgeInsets.all(kDefaultPadding),
@@ -49,7 +49,7 @@ class DailyQuotes extends StatelessWidget {
                         Spacer(),
                         Align(
                             alignment: Alignment.bottomRight,
-                            child: Text('${snapShot.data!.author}',style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Roboto'))),
+                            child: Text('${snapShot.data!.author}',style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'))),
                       ],
                     );
                   }

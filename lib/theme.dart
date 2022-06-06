@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'constant.dart';
 ThemeData lightTheme(BuildContext context) {
@@ -28,7 +27,7 @@ ThemeData lightTheme(BuildContext context) {
             fontStyle: FontStyle.normal,
       ),
           subtitle1: TextStyle(
-          color: kTextColor,
+          color: kTextColor.withOpacity(0.7),
           fontFamily: 'Comfortaa',
           fontSize: 12,
         ),
@@ -38,9 +37,7 @@ ThemeData lightTheme(BuildContext context) {
           fontSize: 10,
           fontFamily: 'Comfortaa',
            fontWeight: FontWeight.bold,
-
-        )
-
+        ),
       ),
     errorColor: kErrorColor,
     focusColor: kHeading1Color,

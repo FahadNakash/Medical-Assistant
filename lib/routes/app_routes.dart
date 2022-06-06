@@ -8,6 +8,10 @@ abstract class Routes{
   static const home=_Paths.home;
   static const main_home=_Paths.drawer_home;
   static const user_profile=_Paths.user_profile;
+  static const search_specialist=_Paths.search_specialist;
+  static const chat=_Paths.chat;
+  static const pharmacies=_Paths.pharmacies;
+  static const my_patients=_Paths.my_patients;
 }
 abstract class _Paths{
   static const splash='/splash';
@@ -17,6 +21,10 @@ abstract class _Paths{
   static const home='/home';
   static const drawer_home='/drawer_home';
   static const user_profile='/user_profile';
+  static const search_specialist='/search_specialist';
+  static const chat='/chat';
+  static const pharmacies='/pharmacies';
+  static const my_patients='/my_patients';
 
 
 }

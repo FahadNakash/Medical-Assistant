@@ -14,7 +14,6 @@ class CloudDatabase extends GetxController{
 
    static const String _users='users';
    FirebaseFirestore _firestore=FirebaseFirestore.instance;
-
    Future<User> getCloudData(String uid)async{
       final _getUser=await _firestore.collection(_users).doc(uid).get();
       if (_getUser.data()!=null) {
