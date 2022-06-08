@@ -97,17 +97,16 @@ class AuthController extends GetxController {
         });
         u.User _cloudData=await cloudDbGetter.getCloudData(response.user!.uid);
         u.User _getData = prefController.getUserSession();
-        print('user id is ${_getData.uid}');
-           if (_getData.uid == null) {
+           if (_getData.uid == null || _getData.uid !=_cloudData.uid){
              prefController.saveUserSession(_cloudData);
-             final _imagePath= await Utils().storeImageLocally(_cloudData.imageUrl!);
-             appController.imageFolderPath=(await Utils().getImageLocally())!;
              appController.user=_cloudData;
+            final _imagePath= await Utils().storeImageLocally(_cloudData.imageUrl!);
+             appController.imageFolderPath=(await Utils().getImageLocally())!;
              Get.toNamed(Routes.main_home);
            }else{
              final _imagePath= await Utils().storeImageLocally(_cloudData.imageUrl!);
-             appController.imageFolderPath=(await Utils().getImageLocally())!;
              appController.user=_cloudData;
+             appController.imageFolderPath=(await Utils().getImageLocally())!;
              Get.toNamed(Routes.main_home);
            }
       }else {
@@ -145,11 +144,6 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> signOut()async{
-    await _auth.signOut();
-    await prefController.removeUserSession();
-    appController.user=u.User();
-  }
 
 
 }

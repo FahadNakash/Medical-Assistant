@@ -18,7 +18,7 @@ class DailyQuotes extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Quote of the day',style: TextStyle(color: Color(0xff9394C7),fontFamily: 'Montserrat',fontWeight: FontWeight.w600)),
+          Text('Quote of the day',style: TextStyle(color: Color(0xff9394C7),fontFamily: 'Montserrat',fontWeight: FontWeight.w600,fontSize: 25)),
           SizedBox(height: kDefaultHeight/3),
           Container(
             padding: EdgeInsets.all(kDefaultPadding),

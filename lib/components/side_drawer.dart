@@ -382,6 +382,7 @@ class CustomNavigationTiles extends StatelessWidget {
                                 final response = await _auth.signOut();
                                 await prefController.removeUserSession();
                                 appController.user = u.User();
+                                appController.imageFolderPath='';
                                 Get.offAllNamed(Routes.auth);
                               },
                               child: Row(

@@ -43,7 +43,6 @@ class CustomAppBar extends StatelessWidget {
                 child: CircleAvatar(
 
                   backgroundImage:FileImage(File(appController.imageFolderPath))
-                  //NetworkImage(appController.user.imageUrl.toString()),
                 ),
               ),
             ],
@@ -54,11 +53,12 @@ class CustomAppBar extends StatelessWidget {
             height: kDefaultHeight*2,
             width: width*0.7,
             decoration: BoxDecoration(
-              //color:Color(0xff4BDDA7),
               color:kPrimaryColor,
               borderRadius: BorderRadius.only(bottomRight:Radius.circular(kDefaultPadding),topRight:Radius.circular(kDefaultPadding) ),
             ),
-            child: Text('${Utils().checkGreeting()}',style:TextStyle(color:Colors.white,fontWeight: FontWeight.w400)),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+                child: Text('${Utils().checkGreeting()}',style:TextStyle(color:Colors.white,fontWeight: FontWeight.w400,fontSize: 25))),
           ),
           SizedBox(height: kDefaultHeight/2),
           Container(

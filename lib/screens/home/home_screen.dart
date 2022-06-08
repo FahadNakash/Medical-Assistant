@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
         slivers: [
           SliverAppBar(
             floating: true,
-            //  shape:RoundedRectangleBorder(borderRadius:BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight:Radius.circular(30)), ),
             backgroundColor: Colors.white,
             expandedHeight: 230,
             flexibleSpace:FlexibleSpaceBar(
@@ -38,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SliverToBoxAdapter(
             child: HomeCategories(),
-          )
+          ),
+          SliverToBoxAdapter(child: Container(height: 900,color: Colors.yellow),)
 
 
         ],
