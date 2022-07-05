@@ -21,7 +21,7 @@ class CustomInputField extends StatelessWidget {
   final Widget? suffix;
   final Widget? prefixIcon;
   final FocusNode? focusNode;
-  final double? fieldwidth;
+  final double? fieldWidth;
   final List<TextInputFormatter>? inputFormatters;
   final String? counterText;
   final Widget? prefixText;
@@ -33,7 +33,7 @@ class CustomInputField extends StatelessWidget {
   final double? inputTextSize;
   final String? suffixText;
   final Widget? suffixIcon;
-  CustomInputField(
+  const CustomInputField(
       {Key? key,
       required this.label,
         this.suffixIcon,
@@ -43,7 +43,7 @@ class CustomInputField extends StatelessWidget {
         this.cursorWidth=1,
         this.cursorHeight=15,
       this.controller,
-      this.fieldwidth,
+      this.fieldWidth,
       this.onChanged,
       this.onSaved,
       this.onFieldSubmitted,
@@ -60,7 +60,7 @@ class CustomInputField extends StatelessWidget {
         this.suffixText,
         this.prefixIcon,
         required this.textAlign,
-      this.focusNode,
+        this.focusNode,
       this.inputFormatters,
       this.counterText,
         this.prefixText
@@ -70,20 +70,19 @@ class CustomInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
        height: height,
-      width:width,
+       width:width,
       decoration:BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
                 color: kHeading2Color.withOpacity(0.6),
                 spreadRadius: -20,
-                offset: Offset(0, 5),
+                offset: const Offset(0, 5),
                 blurRadius: 5),
-            //BoxShadow(color: Colors.white,spreadRadius: 3,offset: Offset(290,5)),
           ]),
       child: TextFormField(
-        toolbarOptions: ToolbarOptions(selectAll: true,copy: true,cut: true,),
-        strutStyle: StrutStyle(),
+        toolbarOptions: const ToolbarOptions(selectAll: true,copy: true,cut: true,),
+        strutStyle: const StrutStyle(),
         textAlign: textAlign,
         maxLines: 1,
         style: TextStyle(color: (errorText == null) ? kInputTextColor: Theme.of(context).errorColor,fontFamily: 'Comfortaa',fontSize: inputTextSize),
@@ -95,18 +94,18 @@ class CustomInputField extends StatelessWidget {
         enableSuggestions: true,
         decoration: InputDecoration(
             counterText: counterText,
-            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)), borderSide: BorderSide(color: kInputTextColor)),
+            focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)), borderSide: BorderSide(color: kInputTextColor)),
             focusColor: Theme.of(context).focusColor,
-            focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: Theme.of(context).errorColor)),
+            focusedErrorBorder: OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: Theme.of(context).errorColor)),
             //border:OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)),borderSide: BorderSide(color: Colors.yellow)),
             enabled: true,
-            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide:BorderSide(color: kHeading1Color.withOpacity(0.2))),
+            enabledBorder: OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(50)), borderSide:BorderSide(color: kHeading1Color.withOpacity(0.2))),
             filled: true,
-            fillColor:(errorText == null) ? kInputBgColor : Color(0xffFDF7F6),
-            errorStyle: TextStyle(fontFamily: 'Comfortaa', fontSize: 10,),
-            errorBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: kErrorColor)),
+            fillColor:(errorText == null) ? kInputBgColor : const Color(0xffFDF7F6),
+            errorStyle: const TextStyle(fontFamily: 'Comfortaa', fontSize: 10,),
+            errorBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: kErrorColor)),
             hintStyle:TextStyle(color: Theme.of(context).hintColor, fontFamily: 'Comfortaa'),
-            label: Text(label,style: TextStyle(color:kPrimaryColor,fontFamily: 'Comfortaa',fontSize: 13),
+            label: Text(label,style: const TextStyle(color:kPrimaryColor,fontFamily: 'Comfortaa',fontSize: 13),
             ),
             helperText: helperText,
             helperStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 9),
@@ -116,8 +115,7 @@ class CustomInputField extends StatelessWidget {
             suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
             prefix: prefixText,
-          contentPadding: EdgeInsets.all(5)
-          // suffixIconColor:(errorText == null) ? kPrimaryColor : kErrorColor
+            contentPadding: const EdgeInsets.only(top: 1,left: 10,right: 10)
         ),
         controller: controller,
         onChanged: onChanged,

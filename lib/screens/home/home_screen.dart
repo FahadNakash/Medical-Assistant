@@ -1,14 +1,8 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-
-
 
 import '../home/widgets/custom_app_bar.dart';
 import '../../controllers/app_controller.dart';
-import '../../controllers/role_controller.dart';
-import '../../routes/app_pages.dart';
 import '../../screens/home/widgets/daily_quotes.dart';
-import '../../utilities/utils.dart';
 import '../../screens/home/widgets/home_categories.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,10 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
               background:  CustomAppBar(),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child:DailyQuotes(),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: HomeCategories(),
           ),
           SliverToBoxAdapter(child: Container(height: 900,color: Colors.yellow),)

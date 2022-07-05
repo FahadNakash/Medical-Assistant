@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:patient_assistant/constant.dart';
-import '../../../models/onboarding.dart';
+import '../../../models/onboarding_model.dart';
 class DottedContainer extends StatelessWidget {
   int currentindex;
    DottedContainer({Key? key,required this.currentindex}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: kDefaultHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(onBoardingItems.length,(index)=>AnimatedContainer(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           curve: Curves.easeIn,
           height:(currentindex==index)?12:8,
           width: (currentindex==index)?14:8,
-          margin: EdgeInsets.all(5),
+          margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             color:(currentindex==index)? kHeading1Color:kPrimaryColor.withOpacity(0.3),
             borderRadius: BorderRadius.circular(10)

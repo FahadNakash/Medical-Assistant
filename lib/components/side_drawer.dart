@@ -6,12 +6,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 
 import '../components/my_icons_icons.dart';
-import '../models/user.dart' as u;
 import '../constant.dart';
 import '../controllers/app_controller.dart';
+import '../models/user_model.dart';
 import '../routes/app_pages.dart';
-import '../services/preferences.dart';
-import '../controllers/auth_controller.dart';
+import '../settings/preferences.dart';
+import '../controllers/user_profile_controller.dart';
 
 class SideDrawer extends StatefulWidget {
   const SideDrawer({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class _SideDrawerState extends State<SideDrawer>
   @override
   void initState() {
     animatedController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     isOpenStreamController = PublishSubject<bool>();
     isOpenStreamSink = isOpenStreamController!.sink;
     isOpenStream = isOpenStreamController!.stream;
@@ -66,7 +66,7 @@ class _SideDrawerState extends State<SideDrawer>
         stream: isOpenStream,
         builder: (context, isOpenSideAsync) {
           return AnimatedPositioned(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               top: 18,
               bottom: 0,
               left: isOpenSideAsync.data! ? 0 : -width,
@@ -85,127 +85,131 @@ class _SideDrawerState extends State<SideDrawer>
                                 ? 250
                                 : 150,
                             width: 1000,
-                            padding: EdgeInsets.all(30),
+                            padding: const EdgeInsets.all(30),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 bottomRight:
                                     (orientation == Orientation.portrait)
-                                        ? Radius.circular(60)
-                                        : Radius.circular(50),
+                                        ? const Radius.circular(60)
+                                        : const Radius.circular(50),
                               ),
-                              gradient: LinearGradient(colors: [
+                              gradient: const LinearGradient(colors: [
                                 kInputTextColor,
                                 kPrimaryColor,
                               ]),
                             ),
                             child: (orientation == Orientation.portrait)
-                                ? Column(
-                                    children: [
-                                      Container(
-                                        height: 130,
-                                        width: 130,
-                                        decoration: BoxDecoration(
-                                            color: Colors.yellow,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20)),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.black26,
-                                                  blurRadius: 5,
-                                                  offset: Offset(2, 10))
-                                            ]),
-                                        child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20)),
-                                            child: Image.file(
-                                              File(
-                                                  '${appController.imageFolderPath}'),
-                                              fit: BoxFit.cover,
-                                            )),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        appController.user.name.toString(),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            decoration: TextDecoration.none,
-                                            fontFamily: 'Comfortaa',
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        '${appController.user.email}',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            decoration: TextDecoration.none,
-                                            fontFamily: 'Comfortaa',
-                                            fontWeight: FontWeight.normal),
-                                      )
-                                    ],
-                                  )
-                                : Row(
-                                    children: [
-                                      Container(
-                                        height: 100,
-                                        width: 130,
-                                        decoration: BoxDecoration(
-                                            color: Colors.yellow,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20)),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.black26,
-                                                  blurRadius: 5,
-                                                  offset: Offset(2, 10))
-                                            ]),
-                                        child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20)),
-                                            child: Image.file(File('${appController.imageFolderPath}'),fit: BoxFit.cover,)),
-                                      ),
-                                      SizedBox(width: kDefaultWidth),
-                                      Container(
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: kDefaultWidth,
-                                            ),
-                                            Text(
-                                              '${appController.user.name}',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15,
-                                                  decoration:
-                                                      TextDecoration.none,
-                                                  fontFamily: 'Comfortaa',
-                                                  fontWeight:
-                                                      FontWeight.normal),
-                                            ),
-                                            Spacer(),
-                                            Text(
-                                              '${appController.user.email}',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15,
-                                                  decoration:
-                                                      TextDecoration.none,
-                                                  fontFamily: 'Comfortaa',
-                                                  fontWeight:
-                                                      FontWeight.normal),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                ? GetBuilder<AppController>(
+                                  builder: (context) {
+                                    return Column(
+                                        children: [
+                                          Container(
+                                            height: 130,
+                                            width: 130,
+                                            decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20)),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.black26,
+                                                      blurRadius: 5,
+                                                      offset: Offset(2, 10))
+                                                ]),
+                                            child: ClipRRect(
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(20)),
+                                                child: Image.memory(
+                                                  appController.user.imageFile.readAsBytesSync(),
+                                                  fit: BoxFit.cover,
+                                                )),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            appController.user.userName,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                decoration: TextDecoration.none,
+                                                fontFamily: 'Comfortaa',
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            appController.user.email,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                decoration: TextDecoration.none,
+                                                fontFamily: 'Comfortaa',
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                        ],
+                                      );
+                                  }
+                                )
+                                : GetBuilder<AppController>(
+                                  builder: (context) {
+                                    return Row(
+                                        children: [
+                                          Container(
+                                            height: 100,
+                                            width: 130,
+                                            decoration: const BoxDecoration(
+                                                color: Colors.yellow,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20)),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.black26,
+                                                      blurRadius: 5,
+                                                      offset: Offset(2, 10))
+                                                ]),
+                                            child: ClipRRect(
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(20)),
+                                                child: Image.file(File(appController.user.imagePath),fit: BoxFit.cover,)),
+                                          ),
+                                          const SizedBox(width: kDefaultWidth),
+                                          Column(
+                                            children: [
+                                              const SizedBox(
+                                                height: kDefaultWidth,
+                                              ),
+                                              Text(
+                                                appController.user.userName,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                    fontFamily: 'Comfortaa',
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                              const Spacer(),
+                                              Text(
+                                                appController.user.email,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                    fontFamily: 'Comfortaa',
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      );
+                                  }
+                                ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 50,
                           ),
                           Expanded(
-                            child: Container(child: CustomNavigationTiles()),
+                            child: CustomNavigationTiles(),
                           ),
                           // ListTile box
                         ],
@@ -213,7 +217,7 @@ class _SideDrawerState extends State<SideDrawer>
                     ),
                   ),
                   Align(
-                    alignment: Alignment(0, -1),
+                    alignment: const Alignment(0, -1),
                     child: GestureDetector(
                       onTap: () {
                         onIconPressed();
@@ -286,7 +290,7 @@ class CustomListTile extends StatelessWidget {
       child: Row(
         children: [
           icon,
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           Text(
             title,
             style: bodyText1,
@@ -308,51 +312,51 @@ class CustomNavigationTiles extends StatelessWidget {
     return Material(
       child: SingleChildScrollView(
         physics: (orientation == Orientation.portrait)
-            ? NeverScrollableScrollPhysics()
-            : BouncingScrollPhysics(),
+            ? const NeverScrollableScrollPhysics()
+            : const BouncingScrollPhysics(),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 60),
+              padding: const EdgeInsets.symmetric(horizontal: 60),
               child: Column(
                 children: [
                   CustomListTile(
                       title: 'My Profile',
-                      icon: Icon(MyIcons.human_man_people_person_profile_icon,
+                      icon: const Icon(MyIcons.human_man_people_person_profile_icon,
                           size: 25, color: kHeading2Color),
                       onTap: () {
                         Get.toNamed(
                           Routes.user_profile,
                         );
                       }),
-                  SizedBox(
+                  const SizedBox(
                     height: kDefaultHeight * 2,
                   ),
                   CustomListTile(
                       title: 'My Patients',
-                      icon: Icon(
+                      icon: const Icon(
                         MyIcons.avatar_coronavirus_covid19_man_mask_icon,
                         size: 25,
                         color: kHeading2Color,
                       ),
                       onTap: () {}),
-                  SizedBox(
+                  const SizedBox(
                     height: kDefaultHeight * 2,
                   ),
                   CustomListTile(
                       title: 'Messages',
-                      icon: Icon(
+                      icon: const Icon(
                           MyIcons
                               .chat_conversation_dialogue_discussion_interface_icon,
                           color: kHeading2Color,
                           size: 30),
                       onTap: () {}),
-                  SizedBox(
+                  const SizedBox(
                     height: kDefaultHeight * 2,
                   ),
                   CustomListTile(
                     title: 'Pharmacies',
-                    icon: Icon(
+                    icon: const Icon(
                         MyIcons
                             .building_healthcare_hospital_medical_nursing_icon,
                         size: 25,
@@ -379,14 +383,13 @@ class CustomNavigationTiles extends StatelessWidget {
                               splashColor: Colors.white,
                               onTap: () async {
                                 FirebaseAuth _auth = FirebaseAuth.instance;
-                                final response = await _auth.signOut();
+                                await _auth.signOut();
                                 await prefController.removeUserSession();
-                                appController.user = u.User();
-                                appController.imageFolderPath='';
+                                appController.user=UserModel();
                                 Get.offAllNamed(Routes.auth);
                               },
                               child: Row(
-                                children: [
+                                children: const [
                                   RotatedBox(
                                       quarterTurns: 2,
                                       child: Icon(

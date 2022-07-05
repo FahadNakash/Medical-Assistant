@@ -14,8 +14,7 @@ class CountryDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = CountryData.countryInfo;
-    final size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height: 45,
       child: CustomDropDown(
         items: data.keys.toList(),
@@ -23,26 +22,25 @@ class CountryDropDown extends StatelessWidget {
         showSearchBox: true,
         mode: Mode.DIALOG,
         maxHeight: 500,
-        contentPadding: EdgeInsets.only(left: 20, top: 10),
-        popupItemBuilder: (BuildContext, String, bool) => Container(
-          margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        contentPadding: const EdgeInsets.only(left: 20, top: 10),
+        popupItemBuilder: (context, s, b) => Container(
+          margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: kDefaultPadding,
               ),
-              Text(String.toString(), style: TextStyle(color: kPrimaryColor))
+              Text(s.toString(), style: const TextStyle(color: kPrimaryColor))
             ],
           ),
         ),
         onChanged: onChanged,
-        dropdownBuilder: (selectItems == null)
+        dropdownBuilder: (selectItems==null || selectItems!.isEmpty)
             ? null
-            : (BuildContext, String, string) {
-          return Text(string,
-              style: Theme.of(context)
+            : (context, String, string) {
+          return Text(string,style: Theme.of(context)
                   .textTheme
                   .bodyText1!
                   .copyWith(color: kInputTextColor),

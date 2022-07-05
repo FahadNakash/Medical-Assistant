@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import '../../../constant.dart';
 import '../../../components/app_button.dart';
 import '../../../components/custom_input_field.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../components/custom_circle_progress_indicator.dart';
+
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
   @override
@@ -11,116 +13,112 @@ class SignUpForm extends StatefulWidget {
 }
 class _SignUpFormState extends State<SignUpForm> {
   final authController=AuthController.authGetter;
-  TextEditingController _password=TextEditingController();
-  TextEditingController _conformPassword=TextEditingController();
+  final TextEditingController _password=TextEditingController();
+  final TextEditingController _conformPassword=TextEditingController();
   bool isEyeFlag2=false;
-  String conpass='';
-  String? conpassErr;
+  String conformPassword='';
+  String? conformPasswordError;
   bool isLoading=false;
 
   @override
   Widget build(BuildContext context) {
-    final screenOrientation=MediaQuery.of(context).orientation;
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Text('Create an Account to get started',style: Theme.of(context).textTheme.bodyText2!.copyWith(
-            fontSize: 15,
-            fontWeight: FontWeight.w500
-          )),
-          SizedBox(height: kDefaultHeight/2,),
-          //email filed
-          CustomInputField(
-            height: kDefaultHeight*3.5,
-            label: 'Email',
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            errorText: authController.emailErr,
-            onChanged: (value){
-                authController.email=value.trim();
-                if (authController.email.isEmpty) {
-                  authController.emailErr='This field cannot be left empty';
-                  setState(() {
-                  });
-                }else if (authController.emailErr != null) {
-                  emailValidaton();
-                  setState(() {});
-                }
+    return Column(
+      children: [
+        Text('Create an Account to get started',style: Theme.of(context).textTheme.bodyText2!.copyWith(
+          fontSize: 15,
+          fontWeight: FontWeight.w500
+        )),
+        const SizedBox(height: kDefaultHeight/2,),
+        //email filed
+        CustomInputField(
+          height: kDefaultHeight*3.5,
+          label: 'Email',
+          textAlign: TextAlign.center,
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next,
+          errorText: authController.emailErr,
+          onChanged: (value){
+              authController.email=value.trim();
+              if (authController.email.isEmpty) {
+                authController.emailErr='This field cannot be left empty';
+                setState(() {
+                });
+              }else if (authController.emailErr != null) {
+                emailValidaton();
+                setState(() {});
+              }
+          },
+        ),
+        const SizedBox(height: kDefaultHeight/2,),
+       // password field
+        CustomInputField(
+          height: kDefaultHeight*3.5,
+          controller: _password,
+          label: 'Password',
+          textAlign: TextAlign.center,
+          helperText: 'at least 6 characters long Whitespaces not allowed',
+          suffix: InkWell(
+            onTap: (){
+              setState(() {
+                authController.isEyeFlag=!authController.isEyeFlag;
+              });
             },
-          ),
-          SizedBox(height: kDefaultHeight/2,),
-         // password field
-          CustomInputField(
-            height: kDefaultHeight*3.5,
-            controller: _password,
+              child: Icon(Icons.remove_red_eye,color: !authController.isEyeFlag?authController.passErr==null?kInputTextColor:kErrorColor:authController.passErr==null?kInputTextColor.withOpacity(0.3):kErrorColor.withOpacity(0.3),)),
+          textInputAction: TextInputAction.next,
+          obscureText:authController.isEyeFlag,
+          errorText: authController.passErr,
+          onChanged: (value){
+               authController.password=value.trim();
+            if (authController.passErr!=null) {
+              passwordValidaton();
+              setState(() {
+                authController.password=value;
+              });
+            }
+          },
+        ),
+        const SizedBox(height: kDefaultHeight/2,),
+        //conform password field
+        CustomInputField(
+          height: kDefaultHeight*3.5,
+            controller: _conformPassword,
             label: 'Password',
-            textAlign: TextAlign.center,
-            helperText: 'at least 6 characters long Whitespaces not allowed',
-            suffix: InkWell(
+          textAlign: TextAlign.center,
+          helperText: 'Confirm your password',
+          suffix: InkWell(
               onTap: (){
                 setState(() {
-                  authController.isEyeFlag=!authController.isEyeFlag;
+                  authController.isEyeconformFlag=!authController.isEyeconformFlag;
                 });
-              }, 
-                child: Icon(Icons.remove_red_eye,color: !authController.isEyeFlag?authController.passErr==null?kInputTextColor:kErrorColor:authController.passErr==null?kInputTextColor.withOpacity(0.3):kErrorColor.withOpacity(0.3),)),
-            textInputAction: TextInputAction.next,
-            obscureText:authController.isEyeFlag,
-            errorText: authController.passErr,
+              },
+              child: Icon(Icons.remove_red_eye,color: !authController.isEyeconformFlag?conformPasswordError==null?kInputTextColor:kErrorColor:conformPasswordError==null?kInputTextColor.withOpacity(0.3):kErrorColor.withOpacity(0.3),)),
+            obscureText: authController.isEyeconformFlag,
+            errorText: conformPasswordError,
             onChanged: (value){
-                 authController.password=value.trim();
-              if (authController.passErr!=null) {
-                passwordValidaton();
-                setState(() {
-                  authController.password=value;
-                });
-              }
-            },
-          ),
-          SizedBox(height: kDefaultHeight/2,),
-          //confrom password field
-          CustomInputField(
-            height: kDefaultHeight*3.5,
-              controller: _conformPassword,
-              label: 'Password',
-            textAlign: TextAlign.center,
-            helperText: 'Confirm your password',
-            suffix: InkWell(
-                onTap: (){
-                  setState(() {
-                    authController.isEyeconformFlag=!authController.isEyeconformFlag;
-                  });
-                },
-                child: Icon(Icons.remove_red_eye,color: !authController.isEyeconformFlag?conpassErr==null?kInputTextColor:kErrorColor:conpassErr==null?kInputTextColor.withOpacity(0.3):kErrorColor.withOpacity(0.3),)),
-              obscureText: authController.isEyeconformFlag,
-              errorText: conpassErr,
-              onChanged: (value){
-                conpass=value.trim();
-                if (conpassErr!=null) {
-                  conformpasswordValidaton();
-                  setState(() {});
-                }},
-                ),
-          SizedBox(height: kDefaultHeight/2,),
-          isLoading?Column(
-            children: [
-              CustomCircleProgressIndicator(),
-              SizedBox(height: kDefaultHeight/4,),
-              Text('..Signing Up..',style: TextStyle(fontSize: 10),),
-            ],
-          ):AppButton(
-              textSize: 15,
-              defaultLinearGradient: true,
-              height: kDefaultHeight*2,
-              width: kDefaultWidth*4+10,
-              onPressed: ()async{
-           FormSubmitted(authController.email,authController.password);
-           setState(() {
-           });
-          }, text: 'SignUp'),
-        ],
-      ),
+              conformPassword=value.trim();
+              if (conformPasswordError!=null) {
+                conformpasswordValidaton();
+                setState(() {});
+              }},
+              ),
+        const SizedBox(height: kDefaultHeight/2,),
+        isLoading?Column(
+          children: const [
+            CustomCircleProgressIndicator(),
+            SizedBox(height: kDefaultHeight/4,),
+            Text('..Signing Up..',style: TextStyle(fontSize: 10),),
+          ],
+        ):AppButton(
+            textSize: 15,
+            defaultLinearGradient: true,
+            height: kDefaultHeight*2,
+            width: kDefaultWidth*4+10,
+            onPressed: ()async{
+         formSubmitted(authController.email,authController.password);
+         setState(() {
+         });
+        }, text: 'SignUp'),
+      ],
     );
   }
 
@@ -147,23 +145,21 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
   conformpasswordValidaton(){
-    if (conpass.isEmpty) {
-      conpassErr='Please re-enter the password';
+    if (conformPassword.isEmpty) {
+      conformPasswordError='Please re-enter the password';
     }else if(_password.text !=_conformPassword.text){
-      conpassErr='Password does not match';
-    }else if (conpass.contains(' ')){
-      conpassErr='White-Spaces does not allowed';
+      conformPasswordError='Password does not match';
+    }else if (conformPassword.contains(' ')){
+      conformPasswordError='White-Spaces does not allowed';
     }else{
-      conpassErr=null;
+      conformPasswordError=null;
     }
   }
-  Future<void> FormSubmitted(String email,String password)async{
+  Future<void> formSubmitted(String email,String password)async{
     emailValidaton();
     passwordValidaton();
     conformpasswordValidaton();
-    if (authController.emailErr==null && authController.passErr==null && conpassErr==null){
-      print(email);
-      print(password);
+    if (authController.emailErr==null && authController.passErr==null && conformPasswordError==null){
       setState(() {
         isLoading=true;
       });

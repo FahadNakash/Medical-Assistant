@@ -1,15 +1,18 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 
-import '../models/user.dart';
+import '../models/user_model.dart';
 class AppController extends GetxController{
+
  static AppController get appGetter=>Get.put(AppController());
 
- late String imageFolderPath='';
+ UserModel user=UserModel();
 
- User user=User();
-
-
+ }
 
 
 
-}
+
+
+

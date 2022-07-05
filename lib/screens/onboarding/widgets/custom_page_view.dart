@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../models/onboarding.dart';
+import '../../../models/onboarding_model.dart';
 import '../../../constant.dart';
 class CustomPageView extends StatefulWidget {
   const CustomPageView({Key? key,required this.onPageChanged,required this.pageController,required this.size}) : super(key: key);
@@ -15,10 +15,10 @@ class _CustomPageViewState extends State<CustomPageView> {
   @override
   Widget build(BuildContext context) {
     final screenOrientation=MediaQuery.of(context).orientation;
-    return Container(
+    return SizedBox(
       height: (screenOrientation==Orientation.portrait)?widget.size.height*0.60:widget.size.height*0.40,
       child: Padding(
-        padding:EdgeInsets.symmetric(horizontal: kDefaultPadding*0.3),
+        padding:const EdgeInsets.symmetric(horizontal: kDefaultPadding*0.3),
         child: PageView.builder(
           controller: widget.pageController,
           onPageChanged:widget.onPageChanged,
@@ -30,7 +30,7 @@ class _CustomPageViewState extends State<CustomPageView> {
             Text('${onBoardingItems[index].title}',style: Theme.of(context).textTheme.bodyText2),
             SizedBox(height:(screenOrientation==Orientation.portrait)?kDefaultHeight*2:0,),
             Text('${onBoardingItems[index].descriptions}',style: Theme.of(context).textTheme.bodyText1,textAlign: TextAlign.center,),
-            SizedBox(height: kDefaultHeight,),
+            const SizedBox(height: kDefaultHeight,),
             // SvgPicture.asset(onBoardingItems[index].imageUrl!,height: (screenOrientation==Orientation.portrait)?kDefaulPadding*11:kDefaulPadding*2,),
             SvgPicture.asset(onBoardingItems[index].imageUrl!,height:(screenOrientation==Orientation.portrait)?widget.size.height*0.30:widget.size.height*0.20,),
           ],

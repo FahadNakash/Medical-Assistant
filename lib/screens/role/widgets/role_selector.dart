@@ -6,7 +6,7 @@ import '../widgets/doctor_form.dart';
 import '../widgets/patient_form.dart';
 import '../widgets/role_selector_button.dart';
 class RoleSelector extends StatefulWidget {
-   RoleSelector({Key? key,}) : super(key: key);
+   const RoleSelector({Key? key,}) : super(key: key);
   @override
   _RoleSelectorState createState() => _RoleSelectorState();
 }
@@ -15,18 +15,16 @@ class _RoleSelectorState extends State<RoleSelector> {
   bool _isPatient=false;
   @override
   Widget build(BuildContext context) {
-    // print(_isDoctor);
-    // print(_isPatient);
     final size=MediaQuery.of(context).size;
     return Column(
       children: [
-        SizedBox(height: kDefaultHeight,),
+        const SizedBox(height: kDefaultHeight,),
         //role Selector Button
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               splashColor: Colors.white,
               onTap: (){
                 _isPatient=false;
@@ -41,7 +39,7 @@ class _RoleSelectorState extends State<RoleSelector> {
               ),
             ),
             InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               splashColor: Colors.white,
               onTap: (){
                 setState(() {
@@ -57,10 +55,8 @@ class _RoleSelectorState extends State<RoleSelector> {
           ],
         ),
         //current form
-        SizedBox(height: kDefaultHeight,),
+        const SizedBox(height: kDefaultHeight,),
         Container(
-          constraints: BoxConstraints(
-          ),
             child: currentFormTransition()
         )
 
@@ -69,7 +65,7 @@ class _RoleSelectorState extends State<RoleSelector> {
   }
   Widget currentFormTransition(){
     return PageTransitionSwitcher(
-      duration: Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1200),
       reverse: _isDoctor,
       transitionBuilder: (child,animation,secondaryAnimation)=>SharedAxisTransition(
           child: child,
@@ -77,7 +73,7 @@ class _RoleSelectorState extends State<RoleSelector> {
           animation: animation,
           secondaryAnimation: secondaryAnimation,
           transitionType: SharedAxisTransitionType.horizontal),
-      child:_isDoctor?DoctorForm():PatientForm(),
+      child:_isDoctor?const DoctorForm():const PatientForm(),
     );
 
 

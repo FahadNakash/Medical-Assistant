@@ -2,25 +2,31 @@ import 'package:flutter/material.dart';
 import 'constant.dart';
 ThemeData lightTheme(BuildContext context) {
   return ThemeData.light().copyWith(
+    textSelectionTheme: const TextSelectionThemeData(
+      selectionColor: kInputTextColor,
+      selectionHandleColor: kInputTextColor,
+      //cursorColor: Colors.blue
+    ),
       colorScheme: ColorScheme.fromSwatch(
           accentColor: kInputTextColor,
-         primaryColorDark: kPrimaryColor
+         primaryColorDark: kPrimaryColor,
+        backgroundColor: Colors.white
       ),
       splashColor: kPrimaryColor,
       primaryColorLight: kPrimaryColor,
       textTheme: Theme.of(context).textTheme.copyWith(
-          headline5: TextStyle(
+          headline5: const TextStyle(
               color: kHeading1Color,
               fontFamily: 'Comfortaa',
               fontSize: 30,
               fontWeight: FontWeight.normal
           ),
-          bodyText1: TextStyle(
+          bodyText1: const TextStyle(
               color: kPrimaryColor,
               fontFamily: 'Comfortaa',
               fontSize: 13
           ),
-          bodyText2: TextStyle(
+          bodyText2: const TextStyle(
           color: kHeading2Color,
           fontFamily: 'Comfortaa',
           fontSize: 30,
@@ -32,7 +38,7 @@ ThemeData lightTheme(BuildContext context) {
           fontSize: 12,
         ),
         //chip text
-         subtitle2: TextStyle(
+         subtitle2: const TextStyle(
           color: Colors.white,
           fontSize: 10,
           fontFamily: 'Comfortaa',
@@ -42,7 +48,7 @@ ThemeData lightTheme(BuildContext context) {
     errorColor: kErrorColor,
     focusColor: kHeading1Color,
     hintColor: kHeading1Color,
-    progressIndicatorTheme: ProgressIndicatorThemeData(
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: kPrimaryColor,
     ),
     scrollbarTheme: ScrollbarThemeData(

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:patient_assistant/models/quote.dart';
+import 'package:patient_assistant/models/quote_model.dart';
 
 import '../../../constant.dart';
 import '../../../providers/quotes_api.dart';

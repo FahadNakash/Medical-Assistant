@@ -1,8 +1,8 @@
-import '../../models/user.dart';
 import 'package:flutter/material.dart';
+
 import '../auth/widgets/auth_forms.dart';
 import '../auth/widgets/logo_text_appbar.dart';
-import 'package:get/get.dart';
+
 class  AuthScreen extends StatelessWidget {
   const  AuthScreen({Key? key}) : super(key: key);
   @override
@@ -18,21 +18,17 @@ class  AuthScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body:SafeArea(
         child: SingleChildScrollView(
-          //physics: (screenOrientation==Orientation.portrait)?NeverScrollableScrollPhysics():null,
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          child: Container(
-           // height: (screenOrientation==Orientation.portrait)?size.height:500,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextLogoAppBar(),
-                Container(
-                    height: (screenOrientation==Orientation.portrait)?size.height*0.82:500,
-                    child: AuthForms()
-                ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const TextLogoAppBar(),
+              SizedBox(
+                  height: (screenOrientation==Orientation.portrait)?size.height*0.82:500,
+                  child: const AuthForms()
+              ),
 
-              ],
-            ),
+            ],
           ),
         ),
       )

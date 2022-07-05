@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:patient_assistant/components/custom_circle_progress_indicator.dart';
-import 'package:patient_assistant/components/selection_chip.dart';
 import 'package:get/get.dart';
+import 'package:patient_assistant/models/patient_model.dart';
+
+import '../../../components/selection_chip.dart';
+import '../../../components/custom_circle_progress_indicator.dart';
 import '../../../components/button_with_icon.dart';
 import '../../../components/custom_input_field.dart';
 import '../../../constant.dart';
@@ -20,62 +21,114 @@ class PatientForm extends StatefulWidget {
 
 class _PatientFormState extends State<PatientForm> {
   final roleController = RoleController.roleGetter;
+
+
   bool _isLoading=false;
-  String name='';
+  final Patient _patient=Patient();
   String? nameError;
-  String age='';
   String? ageError;
-  String city='';
   String? cityError;
   TextEditingController disease=TextEditingController();
-  final List<String> diseaseList = [];
+
   final countryData = CountryData.countryInfo;
-  String? selectCountry;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    disease.dispose();
+    super.dispose();
+  }
+
+  bool get _canProceed=>nameError==null&& _patient.name.isNotEmpty && ageError==null &&_patient.age!=0 && _patient.country.isNotEmpty && cityError==null &&_patient.city.isNotEmpty;
+
+  nameValidation(){
+    if (_patient.name.isEmpty) {
+      nameError = 'This is a required field';
+    } else if (!RegExp('^[a-zA-Zs]+\$',unicode: true).hasMatch(_patient.name)) {
+      nameError = 'This is not valid';
+    } else {
+      nameError = null;
+    }
+  }
+  ageValidation(){
+    if (_patient.age==0) {
+      ageError='Age is required';
+    }else if (_patient.age<16){
+      ageError ='age is too small';
+    }else if (_patient.age>=100) {
+      ageError='age is too large';
+    }else{
+      ageError=null;
+    }
+  }
+  cityValidation(){
+    if (_patient.city.isEmpty) {
+      cityError = 'This is a required field';
+    }else if (_patient.city.contains(' ')){
+      cityError='White-Spaces does not allow';
+    }else {
+      cityError = null;
+    }
+  }
+  fieldsValidation(){
+    nameValidation();
+    ageValidation();
+    cityValidation();
+    setState(() {});
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.height;
     return Container(
       height: 700,
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxWidth: 500,
       ),
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
-          FormHeading(text: 'Basic Info'),
-          SizedBox(height: kDefaultHeight / 2),
+          const FormHeading(text: 'Basic Info'),
+          const SizedBox(height: kDefaultHeight / 2),
           //Name Field
           Container(
-            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: CustomInputField(
                 textInputAction: TextInputAction.next,
                 height: kDefaultHeight * 3,
                 label: 'Name',
                 textAlign: TextAlign.center,
+                keyboardType: TextInputType.name,
                 helperText: 'Enter your full name',
                 errorText: nameError,
-                onChanged:(string){
-                  name=string.trim();
-                  nameValidation();
-                  setState(() {
-                  });
+                onChanged:(v){
+                  _patient.name=v.trim();
+                  if (v.isNotEmpty){
+                    nameValidation();
+                  }else{
+                   nameError=null;
+                  }
+                  setState((){});
               },
             ),
           ),
-          SizedBox(height: kDefaultHeight / 2),
+          const SizedBox(height: kDefaultHeight / 2),
           // age field
           Container(
-            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Row(
               children: [
                 Text(
                   ageError??"Enter Your Age",
                   style: TextStyle(color:ageError==null?kPrimaryColor:kErrorColor, fontSize: 17),
                 ),
-                Spacer(),
-                Container(
+                const Spacer(),
+                SizedBox(
                   width: (orientation == Orientation.portrait) ? 100 : 200,
                   child: CustomInputField(
                     height: kDefaultHeight * 3,
@@ -83,9 +136,13 @@ class _PatientFormState extends State<PatientForm> {
                     textAlign: TextAlign.start,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
-                    onChanged:(string){
-                      age=string.trim();
-                      ageValidation();
+                    onChanged:(v){
+                      _patient.age=int.parse(v.trim());
+                      if (v.isEmpty){
+                        ageValidation();
+                      }else{
+                        ageError=null;
+                      }
                       setState(() {
                       });
                     },
@@ -96,7 +153,7 @@ class _PatientFormState extends State<PatientForm> {
           ),
           //country dropdown
           Container(
-            padding: EdgeInsets.all(kDefaultPadding / 2),
+            padding: const EdgeInsets.all(kDefaultPadding / 2),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -104,58 +161,62 @@ class _PatientFormState extends State<PatientForm> {
                 Expanded(
                   child: CountryDropDown(
                     onChanged: (data) {
-                      selectCountry = data;
-                      setState(() {});
+                      if (data!=null) {
+                        _patient.country = data;
+                        setState(() {});
+                      }
                     },
-                    selectItems: selectCountry,
+                    selectItems: _patient.country.isEmpty?null:_patient.country,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: kDefaultWidth / 2,
                 ),
                 Expanded(
                     child: CustomInputField(
-                  height: kDefaultHeight * 3.2,
-                  label: 'City',
-                  textAlign: TextAlign.center,
+                    height: kDefaultHeight * 3.2,
+                    label: 'City',
+                    textAlign: TextAlign.center,
                       errorText: cityError,
-                      onChanged: (string){
-                      city=string.trim();
-                      cityValidation();
-                      setState(() {
-                      });
+                      onChanged: (v){
+                      _patient.city=v.trim();
+                      if (v.isEmpty) {
+                        cityValidation();
+                      }else{
+                        cityError=null;
+                      }
+                      setState(() {});
                       },
                 )),
               ],
             ),
           ),
-          FormHeading(text: 'Medical Conditions'),
-          SizedBox(height: kDefaultHeight / 2),
+          const FormHeading(text: 'Medical Conditions'),
+          const SizedBox(height: kDefaultHeight / 2),
           Text(kText,
               style: Theme.of(context).textTheme.subtitle1,
               textAlign: TextAlign.justify),
-          SizedBox(height: kDefaultHeight),
+          const SizedBox(height: kDefaultHeight),
           //Disease field
           Container(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: CustomInputField(
-                height: kDefaultHeight*3,
                 controller: disease,
+                height: kDefaultHeight*3,
                 label: 'Disease',
                 helperText: 'This is an optional field you can skip it if you want',
                 textAlign: TextAlign.start,
                 suffix: InkWell(
                     onTap: () {
-                      if (!diseaseList.contains(disease.text) && disease.text.isNotEmpty) {
-                        diseaseList.add(disease.text);
+                      if (!_patient.diseases.contains(disease.text) && disease.text.isNotEmpty){
+                        _patient.diseases.add(disease.text);
                         disease.clear();
-                        setState(() {
-                        });
+                        setState(() {});
                       }
                     },
                     child: Container(
-                      padding: EdgeInsets.all(7),
-                      child: Icon(
+                      padding: const EdgeInsets.all(7),
+                      child: const Icon(
                         FontAwesomeIcons.bacteria,
                         color: kInputTextColor,
                         size: 17,
@@ -163,39 +224,39 @@ class _PatientFormState extends State<PatientForm> {
                     )),
                 textInputAction: TextInputAction.next,
               )),
-          SizedBox(height: kDefaultHeight / 2),
+          const SizedBox(height: kDefaultHeight / 2),
           // disease  chips
           Wrap(
               runSpacing: 10,
               spacing: 10,
               direction: Axis.horizontal,
-            children:diseaseList.map((e) => SelectionChip(
+            children:_patient.diseases.map((e) => SelectionChip(
               label: e,
               onTap: (){
-                diseaseList.remove(e);
+                _patient.diseases.remove(e);
                 setState(() {
                 });
               },
             )).toList()
           ),
-          SizedBox(height: kDefaultHeight/2),
+          const SizedBox(height: kDefaultHeight/2),
           Obx(
                   ()=>(
                       roleController.selectImage.isNotEmpty
-                      && name.isNotEmpty
-                      && age.isNotEmpty
-                      && selectCountry!=null
-                      && city.isNotEmpty
+                      && _patient.name.isNotEmpty
+                      && _patient.age !=0
+                      && _patient.country.isNotEmpty
+                      && _patient.city.isNotEmpty
 
                   )
                       ?Column(
                      children: [
-                      SizedBox(height: kDefaultHeight / 2),
-                      Divider(
+                      const SizedBox(height: kDefaultHeight / 2),
+                      const Divider(
                         color: kTextColor,
                       ),
-                      SizedBox(height: kDefaultHeight / 2),
-                      _isLoading?CustomCircleProgressIndicator():ButtonWithIcon(
+                      const SizedBox(height: kDefaultHeight / 2),
+                      _isLoading?const CustomCircleProgressIndicator():ButtonWithIcon(
                         width: 100,
                         height: 30,
                         defaultLinearGradient: true,
@@ -204,14 +265,13 @@ class _PatientFormState extends State<PatientForm> {
                         icon: Icons.arrow_forward,
                         iconSize: 25,
                         onPressed: () async{
+                          fieldsValidation();
                           setState(() {
                             _isLoading=true;
                           });
-                          nameValidation();
-                          cityValidation();
-                          ageValidation();
-                          setState(() {});
-                         await formSubmit(name,age,selectCountry,city,diseaseList);
+                          if (_canProceed){
+                         await roleController.patientForm(patient: _patient);
+                          }
                          setState((){
                            _isLoading=false;
                          });
@@ -219,53 +279,13 @@ class _PatientFormState extends State<PatientForm> {
                       )
                     ],
                   )
-                      :SizedBox())
-
+                      :const SizedBox()
+          )
         ],
       ),
     );
   }
-  nameValidation() {
-    if (name.isEmpty) {
-      nameError = 'This is a required field';
-    } else if (!RegExp('^[a-zA-Z\s]+\$').hasMatch(name)) {
-      nameError = 'This is not valid';
-    } else {
-      nameError = null;
-    }
-  }
-  ageValidation(){
-    if (age.isEmpty) {
-      ageError='Age is required';
-    }else if (int.parse(age)<16){
-      ageError ='age is too small';
-    }else if (int.parse(age)>=100) {
-      ageError='age is too large';
-    }else{
-      ageError=null;
-    }
-  }
-  cityValidation() {
-    if (city.isEmpty) {
-      cityError = 'This is a required field';
-    }else if (city.contains(' ')){
-      cityError='White-Spaces does not allow';
-    }else {
-      cityError = null;
-    }
-  }
-  Future<void> formSubmit(String name,String age,String? country,String city,[List<String>? disease])async{
-    if (nameError==null && ageError==null && selectCountry!=null && cityError==null){
-      // print(roleController.selectImage);
-      // print(name);
-      // print(age);
-      // print(country);
-      // print(city);
-      // print(disease);
-      await roleController.patientForm(name, country!, city, age, disease!);
-    }
-
 
   }
-}
+
 

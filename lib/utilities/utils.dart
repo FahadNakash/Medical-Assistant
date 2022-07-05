@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
@@ -20,7 +22,7 @@ class Utils{
     }
   }
 
-  Future<String?> createFolderLocally()async{
+  Future<String?> createOrFindFolder()async{
     try {
       final Directory _appDir=await getApplicationDocumentsDirectory();
       final folderName=_appDir.path+'/images/';
@@ -32,7 +34,9 @@ class Utils{
          return _appNewDirFolder.path;
        }
     }catch(e){
-      print('error is $e');
+      if (kDebugMode) {
+        print('error is $e');
+      }
     }
     return null;
   }
@@ -43,30 +47,48 @@ class Utils{
     return secondSplit;
   }
 
-  Future<void> storeImageLocally(String url)async{
+  Future<void> storeImageLocally({required String url,required String imageName})async{
   try{
     final response = await http.get(Uri.parse(url));
-    final folderPath=await createFolderLocally();
-    if (folderPath!=null){
-      final filename=getNameFromUrl(url);
-      File file=File(folderPath+ filename);
-      final raf=file.openSync(mode: FileMode.write);
-      raf.writeFromSync(response.bodyBytes);
-      await raf.close();
+    final _folderPath=await createOrFindFolder();
+    if (_folderPath!=null){
+      File file=File(_folderPath+ imageName);
+      final _raf=file.openSync(mode: FileMode.write);
+      _raf.writeFromSync(response.bodyBytes);
+      await _raf.close();
     }
-  }catch(e){
-    print(e);
+  }on FileSystemException catch(e){
+    if (kDebugMode) {
+      print(e);
+    }
+  }
+  catch(e){
+    if (kDebugMode) {
+      print(e);
+    }
   }
   }
 
-  Future<String?> getImageLocally()async{
-    final checkFolder=await createFolderLocally();
-    if (checkFolder!=null) {
-      final folderPath=checkFolder+'${appController.user.uid}.jpg';
-      final file=File(folderPath);
-      print(file.path);
+  Future<String?> getImageLocally(String uid)async{
+    final _checkFolder=await createOrFindFolder();
+    if (_checkFolder!=null) {
+      final _filePath=_checkFolder+'$uid.jpg';
+      final file=File(_filePath);
       if (await file.exists()){
         return file.path;
+      }
+    }
+    return null;
+  }
+
+  Future<File?> getImageFileLocally(String uid)async{
+    final _checkFolder=await createOrFindFolder();
+    if (_checkFolder!=null) {
+      final _filePath=_checkFolder+'$uid.jpg';
+      final file=File(_filePath);
+      if (await file.exists()){
+        imageCache!.clear();
+        return file;
       }
     }
     return null;

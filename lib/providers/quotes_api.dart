@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../utilities/api_exception.dart';
 import '../components/custom_dialog_box.dart';
-import '../models/quote.dart';
+import '../models/quote_model.dart';
 class QuoteApi{
 
   Future<Quotes?> getQuote()async{

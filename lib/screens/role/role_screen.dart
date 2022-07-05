@@ -13,7 +13,7 @@ class RoleScreen extends StatelessWidget {
     final size=MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         height: size.height,
         width: size.width,
         child: SingleChildScrollView(
@@ -22,9 +22,9 @@ class RoleScreen extends StatelessWidget {
           primary: false,
           child: Column(
             children: [
-              // potrait 30% and landscape 50%
+              // portrait 30% and landscape 50%
               ImagePickerContainer(),
-              RoleSelector(),
+              const RoleSelector(),
             ],
           ),
         ),

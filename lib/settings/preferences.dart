@@ -3,14 +3,12 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/user.dart';
+import '../models/user_model.dart';
 
 class Preferences extends GetxController{
-
   static Preferences get preferencesGetter=>Get.find<Preferences>();
 
   late SharedPreferences preferences;
-
   final String _user='user';
 
   Future<Preferences> init()async{
@@ -18,13 +16,13 @@ class Preferences extends GetxController{
     return this;
   }
 
-  Future<void> saveUserSession(User user) async{
-    await preferences.setString(_user, json.encode(user.toJson()));
+  Future<void> saveUserSession(UserModel user) async{
+    await preferences.setString(_user, jsonEncode(user.toMap()));
   }
 
-  User getUserSession(){
+  UserModel getUserSession(){
     final userSession=preferences.getString(_user);
-    return userSession!=null?User.fromJson(json.decode(userSession)):User();
+    return userSession!=null?UserModel.fromMap(json.decode(userSession)):UserModel();
   }
 
   Future<void> removeUserSession()async{

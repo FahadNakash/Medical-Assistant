@@ -1,16 +1,18 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../constant.dart';
 import '../routes/app_pages.dart';
 import '../controllers/app_controller.dart';
 import '../components/custom_dialog_box.dart';
-import '../services/preferences.dart';
-import '../models/user.dart' as u;
-import '../database/firebase.dart';
+import '../settings/preferences.dart';
+import '../models/user_model.dart';
+import '../services/firestore_helper.dart';
 import '../utilities/api_exception.dart';
 import '../utilities/utils.dart';
 
@@ -21,7 +23,7 @@ class AuthController extends GetxController {
 
   final prefController=Preferences.preferencesGetter;
   final appController=AppController.appGetter;
-  final cloudDbGetter=CloudDatabase.cloudDatabaseGetter;
+  final firestoreController=FirestoreHelper.firestoreGetter;
 
   String email = '';
   String? emailErr;
@@ -32,7 +34,7 @@ class AuthController extends GetxController {
   String login = 'logging in»';
   late Rx<User?> user;
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore cloudFireStore=FirebaseFirestore.instance;
 
 
@@ -47,7 +49,7 @@ class AuthController extends GetxController {
     super.onReady();
   }
 
-  Future<void> createNewAccount(String email, String password, void setState(void Function() fn)) async {
+  Future<void> createNewAccount(String email, String password, void Function(void Function() fn) setState) async {
     try {
       bool isConnection = await InternetConnectionChecker().hasConnection;
      if (isConnection){
@@ -87,28 +89,38 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> logIn(String email, String password, void setState(void Function() fn)) async{
+  Future<void> logIn(String email, String password, void Function(void Function() fn) setState) async{
     try {
-      bool isResult = await InternetConnectionChecker().hasConnection;
-      if (isResult) {
-        final response = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      bool _isCheck = await InternetConnectionChecker().hasConnection;
+      if (_isCheck) {
+        final response=await _auth.signInWithEmailAndPassword(email: email, password: password);
         setState((){
           login='fetching data»»';
         });
-        u.User _cloudData=await cloudDbGetter.getCloudData(response.user!.uid);
-        u.User _getData = prefController.getUserSession();
-           if (_getData.uid == null || _getData.uid !=_cloudData.uid){
-             prefController.saveUserSession(_cloudData);
-             appController.user=_cloudData;
-            final _imagePath= await Utils().storeImageLocally(_cloudData.imageUrl!);
-             appController.imageFolderPath=(await Utils().getImageLocally())!;
-             Get.toNamed(Routes.main_home);
-           }else{
-             final _imagePath= await Utils().storeImageLocally(_cloudData.imageUrl!);
-             appController.user=_cloudData;
-             appController.imageFolderPath=(await Utils().getImageLocally())!;
-             Get.toNamed(Routes.main_home);
-           }
+
+        UserModel _fireStoreData=await firestoreController.getCloudData(response.user!.uid);
+        UserModel _getLocalData=prefController.getUserSession();
+
+        if (_getLocalData.uid.isEmpty) {
+          final _imageName= Utils().getNameFromUrl(_fireStoreData.imageUrl);
+          await Utils().storeImageLocally(url: _fireStoreData.imageUrl, imageName: _imageName);
+          final _getImagePath=await Utils().getImageLocally(_fireStoreData.uid);
+          final _getImageFile=await Utils().getImageFileLocally(_fireStoreData.uid);
+
+          prefController.saveUserSession(_fireStoreData);
+          appController.user=_fireStoreData;
+          appController.user.imagePath=_getImagePath!;
+          appController.user.imageFile=_getImageFile!;
+          Get.toNamed(Routes.main_home);
+        }else{
+          final _getImagePath=await Utils().getImageLocally(_fireStoreData.uid);
+          final _getImageFile=await Utils().getImageFileLocally(_fireStoreData.uid);
+          appController.user=_fireStoreData;
+          appController.user.imagePath=_getImagePath!;
+          appController.user.imageFile=_getImageFile!;
+          Get.toNamed(Routes.main_home);
+          }
+
       }else {
         Get.dialog(CustomDialogBox(
             title: 'something wrong',
@@ -147,3 +159,16 @@ class AuthController extends GetxController {
 
 
 }
+// u.User _getData = prefController.getUserSession();
+//    if (_getData.uid == null || _getData.uid !=_cloudData.uid){
+//     // prefController.saveUserSession(_cloudData);
+//      appController.user=_cloudData;
+//     final _imagePath= await Utils().storeImageLocally(_cloudData.imageUrl!);
+//      appController.imageFolderPath=(await Utils().getImageLocally())!;
+//      Get.toNamed(Routes.main_home);
+//    }else{
+//      final _imagePath= await Utils().storeImageLocally(_cloudData.imageUrl!);
+//      appController.user=_cloudData;
+//      appController.imageFolderPath=(await Utils().getImageLocally())!;
+//      Get.toNamed(Routes.main_home);
+//    }

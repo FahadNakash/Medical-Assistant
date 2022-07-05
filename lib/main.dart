@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:patient_assistant/services/preferences.dart';
 import 'package:patient_assistant/theme.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,12 +8,14 @@ import 'constant.dart';
 import 'routes/app_pages.dart';
 import 'controllers/app_controller.dart';
 import 'controllers/auth_controller.dart';
-import 'database/firebase.dart';
+import 'services/firestore_helper.dart';
+import 'settings/preferences.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,overlays: [SystemUiOverlay.top]);
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarColor:  kPrimaryColor,
         systemNavigationBarColor: kPrimaryColor,
         statusBarBrightness: Brightness.dark,
@@ -29,7 +30,7 @@ void main() async{
 }
 Future<void> initDependencies()async{
   Get.put<AppController>(AppController());
-  Get.put<CloudDatabase>(CloudDatabase());
+  Get.put<FirestoreHelper>(FirestoreHelper());
   await Get.putAsync(() => Preferences().init());
 }
 
@@ -38,7 +39,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      color: Colors.white,
       title: 'Medical Assistant',
       debugShowCheckedModeBanner: false,
       theme: lightTheme(context),

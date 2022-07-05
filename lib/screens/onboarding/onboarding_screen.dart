@@ -35,11 +35,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>{
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: kDefaultHeight/2),
+          const SizedBox(height: kDefaultHeight/2),
           //AppIcon(height: 90,),
           AppIcon(height: kDefaultHeight*3+10,),
           CustomPageView(onPageChanged: onPageChanged,pageController: pageController,size: size,),
-          SizedBox(height: kDefaultHeight/2,),
+          const SizedBox(height: kDefaultHeight/2,),
           DottedContainer(currentindex: index,),
           Expanded(flex: 2,child: FooterBar(pageController: pageController,size: size,index: index,)),
         ],

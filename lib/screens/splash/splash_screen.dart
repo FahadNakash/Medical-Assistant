@@ -1,12 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart' as svg;
 import '../../utilities/utils.dart';
 import 'package:get/get.dart';
 
-import '../../models/user.dart';
+import '../../models/user_model.dart';
 import '../../controllers/app_controller.dart';
 import '../../routes/app_pages.dart';
-import '../../services/preferences.dart';
+import '../../settings/preferences.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -25,18 +27,22 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
    initialPage(){
-    Future.delayed(Duration(seconds: 2),()async{
+    Future.delayed(const Duration(seconds: 2),()async{
       final prefs=prefController.preferences;
       final firstRun=prefs.getBool('firstRun');
-      User userSession=prefController.getUserSession();
+      UserModel userSession=prefController.getUserSession();
       if (firstRun == null || firstRun == false){
            Get.toNamed(Routes.onboarding);
-      }else if (userSession.uid == null){
+      }else if (userSession.uid.isEmpty){
         Get.toNamed(Routes.auth);
       }else{
-        appController.user = userSession;
-        appController.imageFolderPath=(await Utils().getImageLocally())!;
-        Get.offAllNamed(Routes.main_home);
+      final imagePath=await Utils().getImageLocally(userSession.uid,);
+      final _imageFile=await Utils().getImageFileLocally(userSession.uid);
+      print('userSession uid is ${userSession.uid}');
+      appController.user = userSession;
+      appController.user.imagePath=imagePath!;
+      appController.user.imageFile=_imageFile!;
+      Get.offAllNamed(Routes.main_home);
       }
     },);
   }
@@ -45,9 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Container(
-          child: svg.SvgPicture.asset('assets/images/app_logo.svg',alignment: Alignment.center,height: 70),
-        ),
+        child: svg.SvgPicture.asset('assets/images/app_logo.svg',alignment: Alignment.center,height: 70),
       ),
     );
   }

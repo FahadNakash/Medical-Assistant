@@ -7,7 +7,7 @@ class AppButton extends StatelessWidget {
   final double width;
   final double textSize;
   final bool defaultLinearGradient;
-  AppButton({required this.height,required this.width,required this.onPressed,required this.text,required this.textSize,required this.defaultLinearGradient});
+  const AppButton({required this.height,required this.width,required this.onPressed,required this.text,required this.textSize,required this.defaultLinearGradient});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,6 +39,7 @@ class AppButton extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(50)),
       ),
       child: InkWell(
+        splashColor: Colors.white,
         borderRadius: BorderRadius.circular(20),
         onTap: onPressed,
         child: Padding(
