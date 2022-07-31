@@ -11,6 +11,7 @@ class EditTextField extends StatefulWidget {
   final Function(String)? onChanged;
   final String? errorText;
   bool isExpandField;
+  TextInputType? keyboardType;
    EditTextField(
       {
         this.initialValue,
@@ -19,6 +20,7 @@ class EditTextField extends StatefulWidget {
       this.suffixText,
       this.onChanged,
       this.errorText,
+       this.keyboardType,
       this.isExpandField=true,
       Key? key})
       : super(key: key);
@@ -40,7 +42,7 @@ class _EditTextFieldState extends State<EditTextField> {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      padding: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+      padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -65,7 +67,8 @@ class _EditTextFieldState extends State<EditTextField> {
                   focusNode: _focusNode,
                   readOnly: _readOnly,
                   initialValue: widget.initialValue,
-                  style: TextStyle(
+                  keyboardType: widget.keyboardType,
+                  style: const TextStyle(
                       color: kPrimaryColor,
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
@@ -79,17 +82,17 @@ class _EditTextFieldState extends State<EditTextField> {
                       padding: const EdgeInsets.only(right: 3),
                       child: Text(
                           widget.suffixText ?? '',
-                          style: TextStyle(color: kInputTextColor)),
+                          style:const TextStyle(color: kInputTextColor)),
                     ),
-                    prefixStyle: TextStyle(
-                        color: kInputTextColor,
+                    prefixStyle:const TextStyle(
+                        color:  kInputTextColor,
                         fontSize: 15,
                         fontWeight: FontWeight.bold),
                     contentPadding: const EdgeInsets.only(bottom: 15),
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: kTextColor, width: 0)),
                     focusedBorder: (_readOnly)
-                        ? UnderlineInputBorder(
+                        ? const UnderlineInputBorder(
                             borderSide: BorderSide(
                             color: kTextColor,
                           ))

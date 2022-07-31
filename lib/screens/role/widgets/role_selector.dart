@@ -15,7 +15,6 @@ class _RoleSelectorState extends State<RoleSelector> {
   bool _isPatient=false;
   @override
   Widget build(BuildContext context) {
-    final size=MediaQuery.of(context).size;
     return Column(
       children: [
         const SizedBox(height: kDefaultHeight,),

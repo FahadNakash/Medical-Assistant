@@ -28,16 +28,16 @@ class CustomEditDropDown<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: kDefaultPadding * 2),
+      margin: const EdgeInsets.only(right: kDefaultPadding * 2),
       height: kDefaultHeight + 30,
       child: Row(
         children: [
           Expanded(
             flex: 2,
-            child: Container(
+            child: SizedBox(
                 width: kDefaultWidth * 6,
                 child: Text('$title:',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 13,
                         color: kHeading2Color,
                         fontWeight: FontWeight.w500))),
@@ -49,30 +49,30 @@ class CustomEditDropDown<T> extends StatelessWidget {
               maxHeight: maxHeight,
               items: items,
               showAsSuffixIcons: false,
-              dropDownButton: Icon(Icons.arrow_drop_down,color: kInputTextColor,size: 30),
+              dropDownButton: const Icon(Icons.arrow_drop_down,color: kInputTextColor,size: 30),
               searchFieldProps: TextFieldProps(
-                  style: TextStyle(color: kPrimaryColor),
+                  style: const TextStyle(color: kPrimaryColor),
                   decoration: InputDecoration(
-                      label: Text(
+                      label: const Text(
                         'Search Country',
                         style: TextStyle(color: kPrimaryColor),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: kInputTextColor),
+                        borderSide: const BorderSide(color: kInputTextColor),
                       ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: kInputTextColor),
+                      borderSide: const BorderSide(color: kInputTextColor),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: kPrimaryColor),
+                      borderSide: const BorderSide(color: kPrimaryColor),
                     ),
                   )
               ),
               showSearchBox: showSearchBox,
-              dropdownSearchDecoration: InputDecoration(
+              dropdownSearchDecoration: const InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: kTextColor, width: 0)),
                 focusedBorder: UnderlineInputBorder(
@@ -80,7 +80,7 @@ class CustomEditDropDown<T> extends StatelessWidget {
                 labelStyle: TextStyle(color: kInputTextColor, fontSize: 15,leadingDistribution: TextLeadingDistribution.even),
                 contentPadding: EdgeInsets.only(left: 0),
               ),
-              searchBoxDecoration: InputDecoration(
+              searchBoxDecoration: const InputDecoration(
                   labelText: 'Country',
                   filled: true,
                   labelStyle: TextStyle(color: kInputTextColor),
@@ -100,7 +100,7 @@ class CustomEditDropDown<T> extends StatelessWidget {
               popupItemBuilder: popUpItemBuilder,
               popupShape: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: kPrimaryColor,
                   )),
 

@@ -11,7 +11,6 @@ import '../controllers/app_controller.dart';
 import '../models/user_model.dart';
 import '../routes/app_pages.dart';
 import '../settings/preferences.dart';
-import '../controllers/user_profile_controller.dart';
 
 class SideDrawer extends StatefulWidget {
   const SideDrawer({Key? key}) : super(key: key);
@@ -381,6 +380,7 @@ class CustomNavigationTiles extends StatelessWidget {
                             InkWell(
                               hoverColor: Colors.white,
                               splashColor: Colors.white,
+                              highlightColor: Colors.white,
                               onTap: () async {
                                 FirebaseAuth _auth = FirebaseAuth.instance;
                                 await _auth.signOut();

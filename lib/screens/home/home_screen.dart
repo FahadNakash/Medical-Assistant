@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:patient_assistant/screens/home/widgets/home_categories.dart';
 
 import '../home/widgets/custom_app_bar.dart';
 import '../../controllers/app_controller.dart';
 import '../../screens/home/widgets/daily_quotes.dart';
 import '../../screens/home/widgets/home_categories.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -29,10 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
           const SliverToBoxAdapter(
             child:DailyQuotes(),
           ),
-          const SliverToBoxAdapter(
+           SliverToBoxAdapter(
             child: HomeCategories(),
           ),
-          SliverToBoxAdapter(child: Container(height: 900,color: Colors.yellow),)
+          SliverToBoxAdapter(
+            child: Container(
+                height: 900,
+                color: Colors.yellow
+            ),)
 
 
         ],

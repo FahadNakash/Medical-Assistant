@@ -41,7 +41,7 @@ class CustomDropDown<T> extends StatelessWidget {
             BoxShadow(
                 color: kHeading2Color.withOpacity(0.6),
                 spreadRadius: -4,
-                offset: Offset(-0, 6),
+                offset: const Offset(-0, 6),
                 blurRadius: 5
             ),
             //BoxShadow(color: Colors.white,spreadRadius: 3,offset: Offset(290,5)),
@@ -55,13 +55,13 @@ class CustomDropDown<T> extends StatelessWidget {
           //helperText: 'hello',
           contentPadding: contentPadding,
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+              borderRadius: const BorderRadius.all(Radius.circular(50)),
               borderSide: BorderSide(color: kHeading1Color.withOpacity(0.2))),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: kInputTextColor,width: 1)),
           labelText: labelText,
-          labelStyle:TextStyle(
+          labelStyle:const TextStyle(
             color: kPrimaryColor,
           ),
           filled: true,
@@ -72,11 +72,11 @@ class CustomDropDown<T> extends StatelessWidget {
         //searchFieldProps: TextFieldProps(style:TextStyle(color: kPrimaryColor)),
         //showClearButton: true,
         //clearButton: Icon(Icons.clear,color: kErrorColor),
-        dropDownButton: Icon(Icons.arrow_drop_down, color: kPrimaryColor),
+        dropDownButton: const Icon(Icons.arrow_drop_down, color: kPrimaryColor),
         showSelectedItem: true,
         popupBackgroundColor: kInputBgColor,
         popupBarrierColor: Colors.black.withOpacity(0.5),
-        popupShape:OutlineInputBorder(
+        popupShape:const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           borderSide: BorderSide(color: kInputTextColor,width: 2)
         ),
@@ -84,8 +84,8 @@ class CustomDropDown<T> extends StatelessWidget {
         showSearchBox: showSearchBox,
         items: items,
         // searchFieldProps: TextFieldProps(cursorColor: kInputTextColor,style: TextStyle(color: Colors.red)),
-        searchBoxStyle: TextStyle(color: kPrimaryColor),
-        searchBoxDecoration: InputDecoration(
+        searchBoxStyle: const TextStyle(color: kPrimaryColor),
+        searchBoxDecoration: const InputDecoration(
             labelText: 'Country',
             labelStyle: TextStyle(color: kInputTextColor),
             enabledBorder: OutlineInputBorder(

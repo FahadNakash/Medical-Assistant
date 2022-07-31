@@ -16,7 +16,8 @@ import 'edit_text_field.dart';
 class PatientProfile extends StatefulWidget {
   final File? newSelectImage;
   final Function clearNewImagePath;
-  const PatientProfile({required this.newSelectImage,required this.clearNewImagePath,Key? key}) : super(key: key);
+  final Function enableBackButton;
+  const PatientProfile({required this.newSelectImage,required this.clearNewImagePath,required this.enableBackButton,Key? key}) : super(key: key);
 
   @override
   State<PatientProfile> createState() => _PatientProfileState();
@@ -210,8 +211,10 @@ class _PatientProfileState extends State<PatientProfile>{
                 setState(() {
                   _isLoading=true;
                 });
+                widget.enableBackButton();
                 await userProfileController.updatePatientProfile(patient: _patient,newImage: widget.newSelectImage,oldImage:appController.user.imageFile);
                 widget.clearNewImagePath();
+                widget.enableBackButton();
                 setState(() {
                   _isLoading=false;
                 });

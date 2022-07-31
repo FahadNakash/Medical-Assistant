@@ -2252,7 +2252,7 @@ class CountryData {
     }
   };
  static Map<String, List<dynamic>> getCountryNameFromMap() {
-   Map<String, List<dynamic>> map = Map();
+   Map<String, List<dynamic>> map = {};
    countriesData.forEach((key, value) {
      String name = value['name'];
      String phone = value['phone'];

@@ -39,7 +39,7 @@ class CountryDropDown extends StatelessWidget {
         onChanged: onChanged,
         dropdownBuilder: (selectItems==null || selectItems!.isEmpty)
             ? null
-            : (context, String, string) {
+            : (context, s, string) {
           return Text(string,style: Theme.of(context)
                   .textTheme
                   .bodyText1!

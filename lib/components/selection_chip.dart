@@ -11,10 +11,10 @@ class SelectionChip extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return Container(
-      padding: EdgeInsets.symmetric(horizontal:kDefaultPadding/4,vertical: kDefaultPadding/3),
+      padding: const EdgeInsets.symmetric(horizontal:kDefaultPadding/4,vertical: kDefaultPadding/3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [
             kInputTextColor,
             kPrimaryColor
@@ -27,14 +27,14 @@ class SelectionChip extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(label,style: Theme.of(context).textTheme.subtitle2),
-          SizedBox(width: kDefaultWidth/2,),
+          const SizedBox(width: kDefaultWidth/2,),
           InkWell(
             onTap:onTap,
             child: Container(
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.white,)),
-                child: Icon(Icons.remove,color: Colors.white,size: 12,)),
+                child: const Icon(Icons.remove,color: Colors.white,size: 12,)),
           ),
           // IconButton(onPressed: (){}, icon: Icon(Icons.add,)),
         ],

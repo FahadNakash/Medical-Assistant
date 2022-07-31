@@ -41,6 +41,7 @@ dependencies:
   permission_handler: ^9.2.0
   rxdart: ^0.27.3
   shared_preferences: ^2.0.13
+  transparent_image: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -60,7 +61,8 @@ flutter:
   assets:
     - assets/images/.
     - assets/lotti/.
-#    - assets/images/2getintouch.svg
+    - assets/images/not_found.svg
+    - assets/images/user_group.svg
 #    - assets/images/3staynotified.svg
 #    - assets/images/4cloudsync.svg
 #    - assets/images/5location.svg

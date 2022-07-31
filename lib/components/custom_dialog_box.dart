@@ -12,8 +12,8 @@ class CustomDialogBox extends StatelessWidget {
     return AlertDialog(
       title: Text(title),
       content: Text(middleText),
-      titleTextStyle: TextStyle(color: kHeading1Color, fontFamily: 'Comfortaa'),
-      contentTextStyle: TextStyle(fontFamily: 'Comfortaa', color: kPrimaryColor),
+      titleTextStyle: const TextStyle(color: kHeading1Color, fontFamily: 'Comfortaa'),
+      contentTextStyle: const TextStyle(fontFamily: 'Comfortaa', color: kPrimaryColor),
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

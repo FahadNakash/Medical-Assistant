@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:patient_assistant/screens/my_contacts/my_contacts_screen.dart';
 
 import '../screens/splash/splash_screen.dart';
 import '../screens/auth/auth_screen.dart';
@@ -9,7 +10,6 @@ import '../screens/profile/user_profile_screen.dart';
 import '../screens/search_specialist/search_specialist_screen.dart';
 import '../screens/chat/chat_screen.dart';
 import '../screens/pharmacies/pharmacies_location_screen.dart';
-import '../screens/patients/my_patients_screen.dart';
 import '../binding/auth_binding.dart';
 import '../binding/role_binding.dart';
 import '../binding/user_profile_binding.dart';
@@ -44,34 +44,33 @@ class AppPages{
     ),
     GetPage(
         name: Routes.main_home,
-        page: ()=> DrawerHomeScreen(),
+        page: ()=> const DrawerHomeScreen(),
         transition: Transition.leftToRight
     ),
     GetPage(
         name: Routes.user_profile,
-        page: ()=>UserProfileScreen(),
+        page: ()=>const UserProfileScreen(),
         transition: Transition.leftToRight,
       binding: UserProfileBinding()
     ),
     GetPage(
         name: Routes.search_specialist,
-        page: ()=>SearchSpecialistScreen(),
-        transition: Transition.leftToRightWithFade,
-
+        page: ()=>const SearchSpecialistScreen(),
+        transition: Transition.size,
     ),
     GetPage(
       name: Routes.chat,
-      page: ()=>ChatScreen(),
+      page: ()=>const ChatScreen(),
       transition: Transition.leftToRight,
     ),
     GetPage(
       name: Routes.pharmacies,
-      page: ()=>PharmaciesLocationScreen(),
+      page: ()=>const PharmaciesLocationScreen(),
       transition: Transition.leftToRight,
     ),
     GetPage(
-      name: Routes.my_patients,
-      page: ()=>MyPatientsScreen(),
+      name: Routes.my_contacts,
+      page: ()=>  MyContactsScreen(),
       transition: Transition.leftToRight,
     ),
   ];

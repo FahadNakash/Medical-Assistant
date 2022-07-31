@@ -25,7 +25,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>{
   }
   Future<void> firstLogin()async{
     final prefs=await SharedPreferences.getInstance();
-    final firstLogin=await prefs.setBool('firstRun', true);
+    await prefs.setBool('firstRun', true);
   }
 
   @override
@@ -37,10 +37,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>{
         children: [
           const SizedBox(height: kDefaultHeight/2),
           //AppIcon(height: 90,),
-          AppIcon(height: kDefaultHeight*3+10,),
+          const AppIcon(height: kDefaultHeight*3+10,),
           CustomPageView(onPageChanged: onPageChanged,pageController: pageController,size: size,),
           const SizedBox(height: kDefaultHeight/2,),
-          DottedContainer(currentindex: index,),
+          DottedContainer(currentIndex: index,),
           Expanded(flex: 2,child: FooterBar(pageController: pageController,size: size,index: index,)),
         ],
       ),

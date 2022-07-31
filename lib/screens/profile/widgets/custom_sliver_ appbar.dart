@@ -1,3 +1,6 @@
+
+// ignore_for_file: file_names
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,15 +12,18 @@ import '../../../constant.dart';
 import '../../../controllers/app_controller.dart';
 import '../../../controllers/user_profile_controller.dart';
 
+
 // ignore: must_be_immutable
 class CustomSliverAppBar extends StatefulWidget {
   File? newSelectImage;
   final void Function(ImageSource) pickImage;
   final VoidCallback removeImage;
-   CustomSliverAppBar({
+  final bool backButtonState;
+    CustomSliverAppBar({
     required this.newSelectImage,
     required this.pickImage,
     required this.removeImage,
+    required this.backButtonState,
     Key? key}) : super(key: key);
 
   @override
@@ -36,10 +42,10 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
       expandedHeight: 200,
       toolbarHeight: 150,
       leading: GestureDetector(
-        onTap: (){
+        onTap:widget.backButtonState?null: (){
           Get.back();
           widget.newSelectImage=null;
-        },
+          },
         child: Container(
             margin: const EdgeInsets.all(10),
             width: 30,

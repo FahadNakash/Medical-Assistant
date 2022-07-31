@@ -19,11 +19,11 @@ class RoleSelectorButton extends StatelessWidget {
       width: 55,
       decoration: BoxDecoration(
         // color: Colors.red,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
           gradient:isSelect?LinearGradient(
             colors: [
-              Color(0xff8360c3).withOpacity(0.5),
-              Color(0xff2ebf91).withOpacity(0.7),
+              const Color(0xff8360c3).withOpacity(0.5),
+              const Color(0xff2ebf91).withOpacity(0.7),
 
             ],
             begin: Alignment.topLeft,

@@ -13,14 +13,14 @@ class QuoteApi{
       bool isConnection = await InternetConnectionChecker().hasConnection;
       if (isConnection)
       {
-        final String url = 'https://zenquotes.io/api/today';
+        const String url = 'https://zenquotes.io/api/today';
         final response = await http.get(Uri.parse(url),);
         if (response.statusCode==200){
           late Quotes quotes;
           List<dynamic> data = json.decode(response.body);
-          data.forEach((element){
+          for (var element in data) {
             quotes=Quotes.fromJson(element);
-          });
+          }
          return quotes;
         }
       }

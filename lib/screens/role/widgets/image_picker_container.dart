@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:io';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+
 import '../../../constant.dart';
 import '../../../components/circle_icon_button.dart';
-import 'package:get/get.dart';
 import '../../../controllers/role_controller.dart';
-import 'package:image_picker/image_picker.dart';
+
 class ImagePickerContainer extends StatelessWidget {
   ImagePickerContainer({Key? key}) : super(key: key);
   final roleController = RoleController.roleGetter;
@@ -66,7 +69,6 @@ class ImagePickerContainer extends StatelessWidget {
                   right: (orientation == Orientation.portrait)
                       ? kDefaultPosition * 4.9
                       : kDefaultPosition * 14,
-                  //right: kDefaulPadding*5,
                   child: CircleIconButton(
                     onTap: () {
                       Get.bottomSheet(

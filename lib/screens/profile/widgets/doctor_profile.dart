@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:dropdown_selection/dropdown_selection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 
 import '../../../models/doctor_model.dart';
-import '../../../providers/practiceData.dart';
+import '../../../providers/practice_data.dart';
 import '../../../components/selection_chip.dart';
 import '../../../components/custom_circle_progress_indicator.dart';
 import '../../../controllers/app_controller.dart';
@@ -14,12 +15,15 @@ import '../../../components/app_button.dart';
 import '../widgets/custom_edit_drop_down.dart';
 import '../../../constant.dart';
 
+// ignore: must_be_immutable
 class DoctorProfile extends StatefulWidget {
     File? newSelectImage;
     final Function clearNewImagePath;
+    final Function enableBackButton;
     DoctorProfile({
     required this.newSelectImage,
       required this.clearNewImagePath,
+      required this.enableBackButton,
     Key? key}) : super(key: key);
 
   @override
@@ -62,7 +66,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
         _doctor.country==appController.user.doctor.country &&
         _doctor.city ==appController.user.doctor.city &&
         _doctor.phoneNumber.contains(appController.user.doctor.phoneNumber) &&
-        _doctor.specialities.length<=2&&
+        _doctor.specialities.length==appController.user.doctor.specialities.length &&
+        _doctor.specialities.every((e) =>appController.user.doctor.specialities.contains(e) ) &&
         _doctor.experience==appController.user.doctor.experience &&
         _doctor.appointmentFee==appController.user.doctor.appointmentFee &&
         _doctor.workplaceName==appController.user.doctor.workplaceName &&
@@ -331,6 +336,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
           const SizedBox(height: kDefaultHeight),
           //appointment fee
           EditTextField(
+            keyboardType: TextInputType.number,
               errorText: _appointmentFeeError,
               initialValue: _doctor.appointmentFee,
               title: 'Appointment\nFree',
@@ -365,7 +371,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
               },
           ),
           errorMessage(_workPlaceAddressError),
-              if (!_showButton)
+              if (!_showButton && _doctor.specialities.isNotEmpty)
                 _isLoading?const CustomCircleProgressIndicator():AppButton(
                 text: 'Update',
                 height: 35,
@@ -377,10 +383,14 @@ class _DoctorProfileState extends State<DoctorProfile> {
                      _isLoading=true;
                    });
                    try{
+                     widget.enableBackButton();
                      await userProfileController.updateDoctorProfile(doctor: _doctor,newImage: widget.newSelectImage,oldImage: appController.user.imageFile);
                      widget.clearNewImagePath();
+                     widget.enableBackButton();
                    }catch(e){
-                     print(e);
+                     if (kDebugMode) {
+                       print(e);
+                     }
                    }
                   // if (widget.newSelectImage!=null) {
                   //   precacheImage(FileImage(widget.newSelectImage!),context);

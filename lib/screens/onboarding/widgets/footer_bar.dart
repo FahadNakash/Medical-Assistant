@@ -8,7 +8,7 @@ class FooterBar extends StatelessWidget {
  final PageController pageController;
  final Size size;
  final int index;
-  const FooterBar({required this.pageController,required this.size,required this.index});
+  const FooterBar({required this.pageController,required this.size,required this.index,Key? key}):super(key: key);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -35,7 +35,7 @@ class FooterBar extends StatelessWidget {
                       ),),),
                     TextButton(
                         onPressed: (){
-                      pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+                      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                     },
                         child: Text('Next',style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             fontSize: 12

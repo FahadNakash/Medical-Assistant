@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'constant.dart';
 import 'routes/app_pages.dart';
 import 'controllers/app_controller.dart';
-import 'controllers/auth_controller.dart';
 import 'services/firestore_helper.dart';
 import 'settings/preferences.dart';
 
@@ -26,7 +25,7 @@ void main() async{
       ));
       await Firebase.initializeApp();
       await initDependencies();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 Future<void> initDependencies()async{
   Get.put<AppController>(AppController());
@@ -36,6 +35,8 @@ Future<void> initDependencies()async{
 
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

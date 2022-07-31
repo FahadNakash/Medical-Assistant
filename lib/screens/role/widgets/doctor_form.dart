@@ -6,7 +6,7 @@ import 'package:patient_assistant/constant.dart';
 import 'package:patient_assistant/controllers/role_controller.dart';
 import 'package:patient_assistant/models/doctor_model.dart';
 import 'package:patient_assistant/providers/country_data.dart';
-import 'package:patient_assistant/providers/practiceData.dart';
+import 'package:patient_assistant/providers/practice_data.dart';
 import '../widgets/form_heading.dart';
 import '../../../components/custom_input_field.dart';
 import '../../../components/custom_drop_down.dart';

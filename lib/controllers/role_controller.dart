@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -31,7 +30,6 @@ class RoleController extends GetxController {
   final firestoreController=FirestoreHelper.firestoreGetter;
 
   FirebaseFirestore cloudFireStore = FirebaseFirestore.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   var selectImage = ''.obs;
 
@@ -47,6 +45,7 @@ class RoleController extends GetxController {
         await Permission.camera.request();
       }
       if (await Permission.storage.isGranted || await Permission.camera.isGranted) {
+        // ignore: invalid_use_of_visible_for_testing_member
         final pickImage = await ImagePicker.platform.getImage(source: source,imageQuality: 20,maxHeight: 880,maxWidth: 790,);
         if (pickImage != null) {
           File? croppedFile = await ImageCropper().cropImage(

@@ -15,13 +15,14 @@ class ButtonWithIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       height: height,
       width: width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xff037E87F),
+          colors: const [
+            // ignore: use_full_hex_values_for_flutter_colors
+            Color(0xff037e87f),
             kPrimaryColor,
           ],
           begin:defaultLinearGradient?Alignment.topLeft:Alignment.topRight,
@@ -31,16 +32,16 @@ class ButtonWithIcon extends StatelessWidget {
           BoxShadow(
             color:Colors.grey.withOpacity(0.9),
             blurRadius: 10,
-            offset: Offset(0,4),
+            offset: const Offset(0,4),
           ),
-          BoxShadow(
+          const BoxShadow(
               color: Colors.white,
               blurRadius: 15,
               offset: Offset(-5,-5),
               spreadRadius: 1
           ),
         ],
-        borderRadius: BorderRadius.all(Radius.circular(50)),
+        borderRadius: const BorderRadius.all(Radius.circular(50)),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
@@ -52,7 +53,7 @@ class ButtonWithIcon extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(text,textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontFamily: 'Comfortaa',fontSize: textSize,fontWeight: FontWeight.bold),),
-                  Spacer(),
+                  const Spacer(),
                   Icon(icon,color: Colors.white,size: iconSize,)
                 ],
               )),

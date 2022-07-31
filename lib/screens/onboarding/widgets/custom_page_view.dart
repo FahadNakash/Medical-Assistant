@@ -31,7 +31,6 @@ class _CustomPageViewState extends State<CustomPageView> {
             SizedBox(height:(screenOrientation==Orientation.portrait)?kDefaultHeight*2:0,),
             Text('${onBoardingItems[index].descriptions}',style: Theme.of(context).textTheme.bodyText1,textAlign: TextAlign.center,),
             const SizedBox(height: kDefaultHeight,),
-            // SvgPicture.asset(onBoardingItems[index].imageUrl!,height: (screenOrientation==Orientation.portrait)?kDefaulPadding*11:kDefaulPadding*2,),
             SvgPicture.asset(onBoardingItems[index].imageUrl!,height:(screenOrientation==Orientation.portrait)?widget.size.height*0.30:widget.size.height*0.20,),
           ],
         )),

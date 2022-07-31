@@ -26,6 +26,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>{
   final appController=AppController.appGetter;
   final userProfileController=UserProfileController.userProfileController;
   File? selectImage;
+  bool _showBackButton=false;
 
   Future<void> pickImage(ImageSource imageSource)async{
     try{
@@ -36,6 +37,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>{
         await Permission.camera.request();
       }
       if (await Permission.storage.isGranted){
+        // ignore: invalid_use_of_visible_for_testing_member
         XFile? _pickImage=await ImagePicker.platform.getImage(source: imageSource, imageQuality: 20,maxHeight: 880,maxWidth: 790);
         if (_pickImage!=null){
           await cropImage(_pickImage.path);
@@ -84,6 +86,11 @@ class _UserProfileScreenState extends State<UserProfileScreen>{
     });
   }
 
+   showButton(){
+    _showBackButton=!_showBackButton;
+    setState(() {});
+   }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -94,10 +101,11 @@ class _UserProfileScreenState extends State<UserProfileScreen>{
              newSelectImage: selectImage,
              pickImage: pickImage,
              removeImage: removeImage,
+             backButtonState: _showBackButton,
 
            ),
            SliverToBoxAdapter(
-            child:appController.user.role==Doctor.role?DoctorProfile(newSelectImage: selectImage,clearNewImagePath: removeImage,):PatientProfile(newSelectImage: selectImage,clearNewImagePath: removeImage),
+            child:appController.user.role==Doctor.role?DoctorProfile(newSelectImage: selectImage,clearNewImagePath: removeImage,enableBackButton: showButton,):PatientProfile(newSelectImage: selectImage,clearNewImagePath: removeImage,enableBackButton: showButton),
            )
         ],
       ),

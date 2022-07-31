@@ -1,6 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../../constant.dart';
 import '../../../controllers/app_controller.dart';
@@ -40,9 +40,21 @@ class CustomAppBar extends StatelessWidget {
                 ),
                 child: GetBuilder<AppController>(
                   builder: (context) {
-                    return CircleAvatar(
-                      backgroundColor: Colors.white,
-                      backgroundImage:MemoryImage(appController.user.imageFile.readAsBytesSync())
+                    return Container(
+                      height: 40,
+                      width: 40,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: FadeInImage(
+                          fit: BoxFit.cover,
+                          placeholder:MemoryImage(kTransparentImage),
+                          image: MemoryImage(appController.user.imageFile.readAsBytesSync()) ,
+                        ),
+                      ),
                     );
                   }
                 ),

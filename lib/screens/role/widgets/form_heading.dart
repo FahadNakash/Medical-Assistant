@@ -6,12 +6,11 @@ class FormHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orientation=MediaQuery.of(context).orientation;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text('${text}:',style: Theme.of(context).textTheme.bodyText2!.copyWith( fontSize: 15,fontWeight: FontWeight.bold),),
-        Expanded(child: Divider(color: kTextColor,)),
+        Text('$text:',style: Theme.of(context).textTheme.bodyText2!.copyWith( fontSize: 15,fontWeight: FontWeight.bold),),
+        const Expanded(child: Divider(color: kTextColor,)),
 
       ],
     );

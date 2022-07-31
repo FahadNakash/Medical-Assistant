@@ -1,12 +1,10 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../constant.dart';
 import '../routes/app_pages.dart';
 import '../controllers/app_controller.dart';
 import '../components/custom_dialog_box.dart';
@@ -53,7 +51,7 @@ class AuthController extends GetxController {
     try {
       bool isConnection = await InternetConnectionChecker().hasConnection;
      if (isConnection){
-        final response = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+        await _auth.createUserWithEmailAndPassword(email: email, password: password);
        Get.offAllNamed(Routes.role);
       }else{
         Get.dialog(

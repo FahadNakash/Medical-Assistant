@@ -25,6 +25,13 @@ class UserModel{
     }
 
   }
+  String get userCountry{
+    if (role==Patient.role) {
+      return patient.country;
+    }else{
+      return doctor.country;
+    }
+  }
 
   UserModel.fromMap(Map<String,dynamic> map){
     uid=map['uid'];

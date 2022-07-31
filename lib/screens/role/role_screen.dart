@@ -9,7 +9,6 @@ class RoleScreen extends StatelessWidget {
   final roleController=RoleController.roleGetter;
   @override
   Widget build(BuildContext context){
-    bool currentPage=true;
     final size=MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,

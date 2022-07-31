@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:patient_assistant/constant.dart';
 class CustomCircleProgressIndicator extends StatelessWidget {
   const CustomCircleProgressIndicator({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator(
+    return const CupertinoActivityIndicator(
+      animating: true,
       color: kPrimaryColor,
-      strokeWidth: 2,
+      radius: 15,
     );
   }
 }
