@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:patient_assistant/controllers/my_doctor_or_patient_controller.dart';
 
 import 'controllers/auth_controller.dart';
 import 'controllers/app_controller.dart';
@@ -40,7 +39,6 @@ final prefController=Preferences.preferencesGetter;
 final appController=AppController.appGetter;
 final firestoreHelper=FirestoreHelper.firestoreGetter;
 final userProfileController=UserProfileController.userProfileController;
-final myDocOrPatController=MyDoctorOrPatientController.myDocOrPatGetter;
 
 
 

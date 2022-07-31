@@ -7,13 +7,11 @@ import '../../../components/custom_text_button.dart';
 import '../../../providers/country_data.dart';
 import '../../../providers/practice_data.dart';
 import '../../../constant.dart';
-import '../../controllers/my_doctor_or_patient_controller.dart';
 import '../../models/user_model.dart';
 import '../search_specialist/widgets/title_chip.dart';
 
 class SearchedDoctorDetailScreen extends StatelessWidget {
   SearchedDoctorDetailScreen({Key? key}) : super(key: key);
-  final myDocOrPatController=MyDoctorOrPatientController.myDocOrPatGetter;
   final UserModel doctor=Get.arguments;
   final appController=AppController.appGetter;
 

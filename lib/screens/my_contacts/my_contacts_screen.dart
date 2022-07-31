@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:patient_assistant/controllers/app_controller.dart';
 
-import '../../controllers/my_doctor_or_patient_controller.dart';
 import '../../constant.dart';
 class MyContactsScreen extends StatelessWidget {
     MyContactsScreen({Key? key}) : super(key: key);
