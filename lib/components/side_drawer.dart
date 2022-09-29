@@ -20,6 +20,8 @@ class SideDrawer extends StatefulWidget {
 
 class _SideDrawerState extends State<SideDrawer>
     with SingleTickerProviderStateMixin {
+  final appController=AppController.appGetter;
+
   AnimationController? animatedController;
   Stream<bool>? isOpenStream;
   StreamSink<bool>? isOpenStreamSink;
@@ -332,24 +334,27 @@ class CustomNavigationTiles extends StatelessWidget {
                     height: kDefaultHeight * 2,
                   ),
                   CustomListTile(
-                      title: 'My Patients',
+                      title: appController.user.isDoctor?'My Patients':'My Doctors',
                       icon: const Icon(
                         MyIcons.avatar_coronavirus_covid19_man_mask_icon,
                         size: 25,
                         color: kHeading2Color,
                       ),
-                      onTap: () {}),
+                      onTap: () {
+                        Get.toNamed(Routes.my_contacts);
+                      }),
                   const SizedBox(
                     height: kDefaultHeight * 2,
                   ),
                   CustomListTile(
                       title: 'Messages',
                       icon: const Icon(
-                          MyIcons
-                              .chat_conversation_dialogue_discussion_interface_icon,
+                          MyIcons.chat_conversation_dialogue_discussion_interface_icon,
                           color: kHeading2Color,
                           size: 30),
-                      onTap: () {}),
+                      onTap: () {
+                        Get.toNamed(Routes.message_list);
+                      }),
                   const SizedBox(
                     height: kDefaultHeight * 2,
                   ),

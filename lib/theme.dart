@@ -7,6 +7,7 @@ ThemeData lightTheme(BuildContext context) {
       selectionHandleColor: kInputTextColor,
       //cursorColor: Colors.blue
     ),
+      highlightColor: Colors.white,
       colorScheme: ColorScheme.fromSwatch(
           accentColor: kInputTextColor,
          primaryColorDark: kPrimaryColor,

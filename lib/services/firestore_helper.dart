@@ -1,66 +1,100 @@
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-
 
 import '../components/custom_dialog_box.dart';
-import '../models/user_model.dart';
 import '../utilities/api_exception.dart';
+import '../constant.dart';
+import '../models/user_model.dart';
 
-class FirestoreHelper extends GetxController{
-   static FirestoreHelper  get firestoreGetter=>Get.find<FirestoreHelper>();
+class FirestoreHelper extends GetxController {
+  static FirestoreHelper get firestoreGetter => Get.find<FirestoreHelper>();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-   static const String _users='users';
-   final FirebaseFirestore _firestore=FirebaseFirestore.instance;
+  static const String _users = 'users';
+  List<QueryDocumentSnapshot<Map<String,dynamic>>> chatsDocs=[];
+  final List<Map<String ,dynamic>> usersChats=[];
 
-   Future<UserModel> getCloudData(String uid)async{
-      final _getUser=await _firestore.collection(_users).doc(uid).get();
-      if (_getUser.data()!=null) {
-         UserModel _user=UserModel.fromMap(_getUser.data()!);
-         return _user;
+  Future<UserModel> getCloudData(String uid) async {
+    UserModel _user=UserModel();
+    final _getUser = await _firestore.collection(_users).doc(uid).get();
+    if (_getUser.data() != null) {
+       _user = UserModel.fromMap(_getUser.data()!);
+    }
+    return _user;
+  }
+
+  Future<void> setCloudData(UserModel user) async {
+    Map<String, dynamic> _user = user.toMap();
+    await _firestore.collection(_users).doc(user.uid).set(_user);
+  }
+
+  Future<List<UserModel>> doctorsFilter(String uid) async {
+    final List<UserModel> _doctors = [];
+    final _getUser = await _firestore
+        .collection(_users)
+        .where('role', isEqualTo: 'Doctor')
+        .get();
+    for (var element in _getUser.docs) {
+      if (element.data()['uid'] != uid) {
+        _doctors.add(UserModel.fromMap(element.data()));
       }
-      throw ApiException('No user data was found in the app or cloud storage.You have to proceed to Form Screen to enter detail');
-   }
+    }
+    return _doctors;
+  }
 
-   Future<void> setCloudData(UserModel user)async{
-      Map<String,dynamic> _user=user.toMap();
-      await _firestore.collection(_users).doc(user.uid).set(_user);
-}
-
-
-
-   Future<List<UserModel>> getDoctors(String uid)async{
-      try{
-         bool _isInternetConnect=await InternetConnectionChecker().hasConnection;
-         if (_isInternetConnect) {
-            final List<UserModel> _doctor=[];
-            final _getUser=await  _firestore.collection(_users).where('role',isEqualTo: 'Doctor').get();
-            for (var element in _getUser.docs) {
-               if (element.data()['uid']!=uid) {
-                  _doctor.add(UserModel.fromMap(element.data()));
-               }
-            }
-            return _doctor;
-         }else{
-            Get.dialog(
-                CustomDialogBox(
-                    title: 'Connection Issue', middleText: 'Please Make Sure that your device connect to the internet', onPressed: (){Get.back();}));
-         }
-      }on FirebaseException catch(e){
-         Get.dialog(
-             CustomDialogBox(
-                 title: e.toString(), middleText: 'Please Make Sure that your device connect to the internet', onPressed: (){Get.back();}));
-      }catch(e){
-         Get.dialog(
-             CustomDialogBox(
-                 title: '$e', middleText: 'Please Make Sure that your device connect to the internet', onPressed: (){Get.back();}));
+  Future<List<UserModel>> getAllUsers(String uid) async{
+    final List<UserModel> _allUsers = [];
+    final _getUser = await _firestore.collection(_users).get();
+    for (var element in _getUser.docs) {
+      if (element.data()['uid'] != uid) {
+        _allUsers.add(UserModel.fromMap(element.data()));
       }
-      throw ApiException('No user data was found in the app or cloud storage.You have to proceed to Form Screen to enter detail');
-   }
+    }
+    return _allUsers;
+  }
 
+  Future<List<UserModel>> getAddedContacts() async {
+    final List<UserModel> _temp =[];
+    final List<UserModel> _users=await getAllUsers(appController.user.uid);
+    for (var contact in appController.user.contacts) {
+      for (var user in _users) {
+        if (contact == user.uid) {
+          _temp.add(user);
+        }
+      }
+    }
+    return _temp;
+  }
 
+  Future<void> deleteChat(String uid)async{
+     try{
+       await _firestore.collection('chats').doc(uid).delete();
+     }on FirebaseException catch(e){
+       Get.dialog(
+           CustomDialogBox(title: 'Alert!', middleText: '${e.message}', onPressed: (){
+             Get.back();
+           }));
+     }on SocketException catch(_){
+       Get.dialog(
+           CustomDialogBox(title: 'OOP\'s!', middleText: kNoConErrMsg, onPressed: (){
+             Get.back();
+           }));
+     }catch(e){
+       ApiException('$e');
+     }
+  }
 
-
+  Future<List<UserModel>> allDoctors(String uid) async{
+    final List<UserModel> _doctors = [];
+    final _getUser = await _firestore.collection(_users).where('role',isEqualTo: 'Doctor').get();
+    for (var element in _getUser.docs) {
+      if (element.data()['uid'] != uid) {
+        _doctors.add(UserModel.fromMap(element.data()));
+      }
+    }
+    return _doctors;
+  }
 
 
 

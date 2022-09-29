@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../controllers/app_controller.dart';
@@ -92,6 +95,28 @@ class Utils{
       }
     }
     return null;
+  }
+
+ static DateTime toDateTime(Timestamp value){
+    return value.toDate();
+  }
+ static dynamic fromDateTimeToJson(DateTime date){
+    return date.toUtc();
+  }
+
+ static String convertDateTime(DateTime dateTime){
+    final time=DateFormat("h:mma").format(dateTime);
+    final now=DateTime.now();
+    final def=now.difference(dateTime).inDays;
+    if (def>5) {
+      //date
+      return DateFormat.MMMEd().format(dateTime);
+    }else{
+      // time
+      return time;
+    }
+
+
   }
 
 }

@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:patient_assistant/components/custom_dialog_box.dart';
 
-
+import '../../../components/custom_dialog_box.dart';
 import '../../../components/selection_chip.dart';
 import '../../../constant.dart';
 import '../../../controllers/app_controller.dart';

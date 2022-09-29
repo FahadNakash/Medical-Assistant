@@ -11,6 +11,7 @@ class UserModel{
   String imageUrl='';
   String imagePath='';
   File imageFile=File('');
+  late List<String> contacts=[];
   Patient patient=Patient();
   Doctor doctor=Doctor();
 
@@ -32,12 +33,20 @@ class UserModel{
       return doctor.country;
     }
   }
+  String get userCity{
+    if (role==Patient.role) {
+      return patient.city;
+    }else{
+      return doctor.city;
+    }
+  }
 
   UserModel.fromMap(Map<String,dynamic> map){
     uid=map['uid'];
     email=map['email'];
     role=map['role'];
     imageUrl=map['imageUrl'];
+    contacts=List<String>.from(map['contacts']??<String>[]);
     if (isPatient) {
       patient=Patient.fromMap(map['user']);
     }else if (isDoctor) {
@@ -51,6 +60,7 @@ class UserModel{
     _userData['email']=email;
     _userData['role']=role;
     _userData['imageUrl']=imageUrl;
+    _userData['contacts']=contacts;
     if (isPatient) {
       _userData['user']=patient.toMap();
     }else if (isDoctor) {

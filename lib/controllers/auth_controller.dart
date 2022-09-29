@@ -14,8 +14,6 @@ import '../services/firestore_helper.dart';
 import '../utilities/api_exception.dart';
 import '../utilities/utils.dart';
 
-
-//import '../routes/app_routes.dart';
 class AuthController extends GetxController {
   static AuthController get authGetter => Get.find<AuthController>();
 
@@ -68,14 +66,6 @@ class AuthController extends GetxController {
           emailErr = 'email-already-in-use';
         });
       }
-    } on SocketException catch(e){
-      Get.dialog(
-          CustomDialogBox(
-            title: 'error',
-            middleText: e.toString(),
-            onPressed: (){
-              Get.back();
-            },));
     }catch (e) {
       Get.dialog(
           CustomDialogBox(
@@ -99,7 +89,14 @@ class AuthController extends GetxController {
         UserModel _fireStoreData=await firestoreController.getCloudData(response.user!.uid);
         UserModel _getLocalData=prefController.getUserSession();
 
-        if (_getLocalData.uid.isEmpty) {
+        if (_fireStoreData.uid.isEmpty && _getLocalData.uid.isEmpty) {
+          Get.dialog(CustomDialogBox(
+            title: 'Alert !',
+            middleText: 'No user data was found in the app or cloud storage.You have to proceed o Form Screen to enter details',
+            onPressed: () {
+              Get.toNamed(Routes.role);
+            },));
+        }else if (_getLocalData.uid.isNotEmpty){
           final _imageName= Utils().getNameFromUrl(_fireStoreData.imageUrl);
           await Utils().storeImageLocally(url: _fireStoreData.imageUrl, imageName: _imageName);
           final _getImagePath=await Utils().getImageLocally(_fireStoreData.uid);

@@ -34,7 +34,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
 
 
   Future<List<List<dynamic>>> _filterDoctors()async{
-    List<UserModel> doctors=await firestoreHelper.getDoctors(appController.user.uid);
+    List<UserModel> doctors=await firestoreHelper.doctorsFilter(appController.user.uid);
     List<UserModel> filterDoctors=[];
     List<List<String>> matchedSp=[];
 

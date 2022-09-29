@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart' as svg;
 import 'package:get/get.dart';
 
-import '../../utilities/utils.dart';
-import '../../models/user_model.dart';
-import '../../controllers/app_controller.dart';
-import '../../routes/app_pages.dart';
-import '../../settings/preferences.dart';
+import '../utilities/utils.dart';
+import '../models/user_model.dart';
+import '../controllers/app_controller.dart';
+import '../routes/app_pages.dart';
+import '../settings/preferences.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -36,11 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
       }else{
       final imagePath=await Utils().getImageLocally(userSession.uid,);
       final _imageFile=await Utils().getImageFileLocally(userSession.uid);
-
       appController.user = userSession;
       appController.user.imagePath=imagePath!;
       appController.user.imageFile=_imageFile!;
-
       Get.offAllNamed(Routes.main_home);
       }
     },);

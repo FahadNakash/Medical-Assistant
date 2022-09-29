@@ -7,8 +7,6 @@ class CustomFilterChip extends StatefulWidget {
   final String label;
   final Function() onTap;
   final bool selectChip;
-  // List<String> addSpecialities;
-  //final String selectSpeciality;
    const CustomFilterChip({
     Key? key,
     required this.label,

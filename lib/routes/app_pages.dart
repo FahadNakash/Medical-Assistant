@@ -1,18 +1,20 @@
 import 'package:get/get.dart';
-import 'package:patient_assistant/screens/my_contacts/my_contacts_screen.dart';
 
-import '../screens/splash/splash_screen.dart';
+import '../screens/message/contact_list_screen.dart';
+import '../screens/message/messages_list_screen.dart';
+import '../screens/my_contacts/my_contacts_screen.dart';
+import '../screens/splash_screen.dart';
 import '../screens/auth/auth_screen.dart';
 import '../screens/role/role_screen.dart';
 import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/drawer_home/drawer_home_screen.dart';
 import '../screens/profile/user_profile_screen.dart';
 import '../screens/search_specialist/search_specialist_screen.dart';
-import '../screens/chat/chat_screen.dart';
 import '../screens/pharmacies/pharmacies_location_screen.dart';
 import '../binding/auth_binding.dart';
 import '../binding/role_binding.dart';
 import '../binding/user_profile_binding.dart';
+import '../screens/message/chat_screen.dart';
 
  part 'app_routes.dart';
 class AppPages{
@@ -59,8 +61,8 @@ class AppPages{
         transition: Transition.size,
     ),
     GetPage(
-      name: Routes.chat,
-      page: ()=>const ChatScreen(),
+      name: Routes.message_list,
+      page: ()=> MessagesListScreen(),
       transition: Transition.leftToRight,
     ),
     GetPage(
@@ -72,6 +74,10 @@ class AppPages{
       name: Routes.my_contacts,
       page: ()=>  MyContactsScreen(),
       transition: Transition.leftToRight,
+    ),
+    GetPage(
+      name: Routes.chat,
+      page: ()=>  ChatScreen(),
     ),
   ];
 

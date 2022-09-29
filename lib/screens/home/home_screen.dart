@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patient_assistant/screens/home/widgets/home_categories.dart';
+import 'package:patient_assistant/screens/recommended_doctors.dart';
 
 import '../home/widgets/custom_app_bar.dart';
 import '../../controllers/app_controller.dart';
@@ -34,11 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
            SliverToBoxAdapter(
             child: HomeCategories(),
           ),
+           SliverToBoxAdapter(
+            child: RecommendedDoctors()
+            ,),
           SliverToBoxAdapter(
             child: Container(
-                height: 900,
-                color: Colors.yellow
-            ),)
+              height: 200,
+              color: Colors.tealAccent,
+            )
+            ,)
+
 
 
         ],

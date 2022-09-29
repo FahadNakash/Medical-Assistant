@@ -7,10 +7,11 @@ abstract class Routes{
   static const auth=_Paths.auth;
   static const role=_Paths.role;
   static const home=_Paths.home;
+  static const chat=_Paths.chat;
   static const main_home=_Paths.drawer_home;
   static const user_profile=_Paths.user_profile;
   static const search_specialist=_Paths.search_specialist;
-  static const chat=_Paths.chat;
+  static const message_list=_Paths.message_list;
   static const pharmacies=_Paths.pharmacies;
   static const my_contacts=_Paths.my_contacts;
 }
@@ -20,12 +21,14 @@ abstract class _Paths{
   static const auth='/auth';
   static const role='/role';
   static const home='/home';
+  static const chat='/chat';
   static const drawer_home='/drawer_home';
   static const user_profile='/user_profile';
   static const search_specialist='/search_specialist';
-  static const chat='/chat';
+  static const message_list='/message_list';
   static const pharmacies='/pharmacies';
   static const my_contacts='/my_contacts';
+
 
 
 }

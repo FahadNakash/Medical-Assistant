@@ -22,7 +22,7 @@ class HomeCategories extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: HomeCategory(
-                      color: const Color(0xffbef5d1),
+                      backgroundColor: const Color(0xffbef5d1),
                       child:Lottie.asset('assets/lotti/doctor.json',animate: true,repeat: true),
                       iconColor: kHeading2Color,
                       text: 'Search Specialist',
@@ -36,13 +36,13 @@ class HomeCategories extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: HomeCategory(
-                    color: const Color(0xffF2C6C6),
+                    backgroundColor: const Color(0xffF2C6C6),
                     child: Image.asset('assets/lotti/message.gif',alignment: Alignment.centerLeft,),
                     iconColor: kHeading2Color,
                     text: 'Message',
                     textColor: Colors.white,
                     onTap: (){
-                      Get.toNamed(Routes.chat);
+                      Get.toNamed(Routes.message_list);
                     },
                   ),
                 ),
@@ -54,7 +54,7 @@ class HomeCategories extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: HomeCategory(
-                    color: const Color(0xFFC5E3F7),
+                    backgroundColor: const Color(0xFFC5E3F7),
                     child: Image.asset('assets/lotti/pharmacies.gif',alignment: Alignment.centerLeft,height: 300),
                     iconColor: kHeading2Color,
                     text: 'Pharmacies',
@@ -68,7 +68,7 @@ class HomeCategories extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: HomeCategory(
-                    color: const Color(0xffFFF6C7),
+                    backgroundColor: const Color(0xffFFF6C7),
                     child:Lottie.asset('assets/lotti/patient.json') ,
                     iconColor: kHeading2Color,
                     text: (appController.user.role=='Patient')?'My Doctors ':'My Patients',
@@ -87,7 +87,7 @@ class HomeCategories extends StatelessWidget {
 }
 
 class HomeCategory extends StatelessWidget {
- final Color color;
+ final Color backgroundColor;
  final Color iconColor;
  final  Color textColor;
  final double height;
@@ -97,7 +97,7 @@ class HomeCategory extends StatelessWidget {
   const HomeCategory({
     Key? key,
     required this.child,
-    required this.color,
+    required this.backgroundColor,
     this.height=140,
     required this.iconColor,
     required this.textColor,
@@ -115,7 +115,7 @@ class HomeCategory extends StatelessWidget {
         height: height,
         padding: const EdgeInsets.only(bottom: kDefaultPadding,top: kDefaultPadding/3),
         decoration: BoxDecoration(
-          color: color,
+          color: backgroundColor,
           borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
         child: Column(

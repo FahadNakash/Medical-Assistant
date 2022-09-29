@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../../constant.dart';
 import '../../../components/custom_text_button.dart';
@@ -16,7 +17,6 @@ class DoctorDetailCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       height: 110,
       decoration: BoxDecoration(
@@ -34,15 +34,20 @@ class DoctorDetailCard extends StatelessWidget{
             height: kDefaultHeight*4,
             width: 75,
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 BoxShadow(color: Colors.grey.shade300,blurRadius: 7,spreadRadius: 2,offset: const Offset(-3, 1)),
                 BoxShadow(color: Colors.grey.shade300,blurRadius: 7,spreadRadius: 1,offset: const Offset(3, -1)),
               ],
-              image:  DecorationImage(
-                fit: BoxFit.fill,
-              image: NetworkImage(doctorTile.imageUrl),
-              )
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: FadeInImage(
+                fit: BoxFit.cover,
+                placeholder: MemoryImage(kTransparentImage),
+                image: NetworkImage(doctorTile.imageUrl),
+              ),
             ),
           ),
           Expanded(
@@ -124,8 +129,11 @@ class DoctorDetailCard extends StatelessWidget{
              text: 'Detail',
                width: 50,
                onTap: (){
-                 Get.to(()=>SearchedDoctorDetailScreen(),
-                   arguments: doctorTile,
+                 Get.to(()=>const SearchedDoctorDetailScreen(),
+                   arguments:{
+                     'user':doctorTile.toMap(),
+                     'fromChatScreen':false
+                   },
                    curve: Curves.linearToEaseOut,
                    duration: const Duration(milliseconds: 600),
                  );

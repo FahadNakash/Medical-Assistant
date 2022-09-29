@@ -97,7 +97,6 @@ class CustomInputField extends StatelessWidget {
             focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15)), borderSide: BorderSide(color: kInputTextColor)),
             focusColor: Theme.of(context).focusColor,
             focusedErrorBorder: OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: Theme.of(context).errorColor)),
-            //border:OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)),borderSide: BorderSide(color: Colors.yellow)),
             enabled: true,
             enabledBorder: OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(50)), borderSide:BorderSide(color: kHeading1Color.withOpacity(0.2))),
             filled: true,
