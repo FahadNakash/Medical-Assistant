@@ -445,7 +445,7 @@ class _DoctorFormState extends State<DoctorForm> {
             children: [
               const SizedBox(height: kDefaultHeight / 2),
               const Divider(
-                color: kTextColor,
+                color: kGrey,
               ),
               const SizedBox(height: kDefaultHeight / 2),
              isLoading?const CustomCircleProgressIndicator():ButtonWithIcon(

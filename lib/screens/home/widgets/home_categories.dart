@@ -24,9 +24,9 @@ class HomeCategories extends StatelessWidget {
                   child: HomeCategory(
                       backgroundColor: const Color(0xffbef5d1),
                       child:Lottie.asset('assets/lotti/doctor.json',animate: true,repeat: true),
-                      iconColor: kHeading2Color,
+                      iconColor: kblue,
                       text: 'Search Specialist',
-                      textColor: kHeading2Color,
+                      textColor: kblue,
                     onTap: (){
                         Get.toNamed(Routes.search_specialist,);
                         },
@@ -38,7 +38,7 @@ class HomeCategories extends StatelessWidget {
                   child: HomeCategory(
                     backgroundColor: const Color(0xffF2C6C6),
                     child: Image.asset('assets/lotti/message.gif',alignment: Alignment.centerLeft,),
-                    iconColor: kHeading2Color,
+                    iconColor: kblue,
                     text: 'Message',
                     textColor: Colors.white,
                     onTap: (){
@@ -56,7 +56,7 @@ class HomeCategories extends StatelessWidget {
                   child: HomeCategory(
                     backgroundColor: const Color(0xFFC5E3F7),
                     child: Image.asset('assets/lotti/pharmacies.gif',alignment: Alignment.centerLeft,height: 300),
-                    iconColor: kHeading2Color,
+                    iconColor: kblue,
                     text: 'Pharmacies',
                     textColor: Colors.white,
                     onTap: (){
@@ -70,7 +70,7 @@ class HomeCategories extends StatelessWidget {
                   child: HomeCategory(
                     backgroundColor: const Color(0xffFFF6C7),
                     child:Lottie.asset('assets/lotti/patient.json') ,
-                    iconColor: kHeading2Color,
+                    iconColor: kblue,
                     text: (appController.user.role=='Patient')?'My Doctors ':'My Patients',
                     textColor: kPrimaryColor,
                     onTap: (){

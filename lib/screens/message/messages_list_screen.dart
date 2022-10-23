@@ -61,53 +61,6 @@ class _MessagesListScreenState extends State<MessagesListScreen> {
     return _user;
   }
 
-  Future<bool> _showExitDialogue(BuildContext context) async {
-    final _shouldPop = await showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              backgroundColor: Colors.white.withOpacity(0.9),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              title: const Text(
-                'WARNING',
-                style: kDialogBoxTitle,
-                textAlign: TextAlign.start,
-              ),
-              content: const Text(
-                'Are you sure you want to delete Chat',
-                style: kDialogBoxBody,
-                textAlign: TextAlign.start,
-              ),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    MaterialButton(
-                        child: const Text('Yes',
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () => Navigator.of(context).pop(true),
-                        color: kErrorColor,
-                        splashColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                    const SizedBox(
-                      width: kDefaultWidth / 2,
-                    ),
-                    MaterialButton(
-                        child: const Text('No',
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () => Navigator.of(context).pop(false),
-                        color: kInputTextColor,
-                        splashColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                  ],
-                )
-              ],
-            ));
-
-    return _shouldPop ?? false;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +100,7 @@ class _MessagesListScreenState extends State<MessagesListScreen> {
               },
               child: const Icon(
                 Icons.arrow_back_rounded,
-                color: kHeading2Color,
+                color: kblue,
                 size: 25,
               )),
           const SizedBox(
@@ -156,7 +109,7 @@ class _MessagesListScreenState extends State<MessagesListScreen> {
           const Text(
             'Messages',
             style: TextStyle(
-                color: kHeading2Color,
+                color: kblue,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.bold),
           )
@@ -170,7 +123,7 @@ class _MessagesListScreenState extends State<MessagesListScreen> {
       margin: const EdgeInsets.only(top: 55),
       child: Column(
         children: [
-          SvgPicture.asset('$kImagePath/empty_inbox.svg', height: 245),
+          SvgPicture.asset('$kAssets/empty_inbox.svg', height: 245),
           const SizedBox(height: kDefaultHeight),
           Text(
               'No message found.Click on the floating button to start a conversation',
@@ -301,13 +254,13 @@ class _MessagesListScreenState extends State<MessagesListScreen> {
                                 Text(
                                   _chatMessage.text,
                                   style: const TextStyle(
-                                      color: kTextColor, fontSize: 10),
+                                      color: kGrey, fontSize: 10),
                                 ),
                               ],
                             ),
                             trailing: Text(_createdAt,
                                 style: const TextStyle(
-                                    color: kTextColor, fontSize: 12)),
+                                    color: kGrey, fontSize: 12)),
                             onLongPress: () async {
                               Get.dialog(
                                   ConformDialogBox(
@@ -326,7 +279,7 @@ class _MessagesListScreenState extends State<MessagesListScreen> {
                             },
                           ),
                           Divider(
-                            color: kTextColor.withOpacity(0.5),
+                            color: kGrey.withOpacity(0.5),
                             endIndent: 15,
                             indent: 15,
                           ),

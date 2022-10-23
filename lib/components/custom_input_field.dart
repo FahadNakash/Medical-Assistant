@@ -75,7 +75,7 @@ class CustomInputField extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
-                color: kHeading2Color.withOpacity(0.6),
+                color: kblue.withOpacity(0.6),
                 spreadRadius: -20,
                 offset: const Offset(0, 5),
                 blurRadius: 5),
@@ -100,7 +100,7 @@ class CustomInputField extends StatelessWidget {
             enabled: true,
             enabledBorder: OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(50)), borderSide:BorderSide(color: kHeading1Color.withOpacity(0.2))),
             filled: true,
-            fillColor:(errorText == null) ? kInputBgColor : const Color(0xffFDF7F6),
+            fillColor:(errorText == null) ? kCream : const Color(0xffFDF7F6),
             errorStyle: const TextStyle(fontFamily: 'Comfortaa', fontSize: 10,),
             errorBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: kErrorColor)),
             hintStyle:TextStyle(color: Theme.of(context).hintColor, fontFamily: 'Comfortaa'),

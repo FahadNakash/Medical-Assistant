@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget {
         color: Colors.white,
         borderRadius:BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight:Radius.circular(30)),
         boxShadow: [
-          BoxShadow(color: kTextColor,offset: Offset(1,1),spreadRadius: 3,blurRadius: 10),
+          BoxShadow(color: kGrey,offset: Offset(1,1),spreadRadius: 3,blurRadius: 10),
         ]
       ),
       child: Column(
@@ -35,7 +35,7 @@ class CustomAppBar extends StatelessWidget {
                 decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     boxShadow: [
-                      BoxShadow(color: kTextColor,offset: Offset(0,-1),blurRadius: 8,),
+                      BoxShadow(color: kGrey,offset: Offset(0,-1),blurRadius: 8,),
                     ]
                 ),
                 child: GetBuilder<AppController>(
@@ -82,7 +82,7 @@ class CustomAppBar extends StatelessWidget {
             child: GetBuilder<AppController>(
               builder: (context) {
                 return Text('${appController.user.userName[0].toUpperCase()}${appController.user.userName.substring(1)}',
-                style: const TextStyle(color: kHeading2Color,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic));
+                style: const TextStyle(color: kblue,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic));
               }
             ),
           )

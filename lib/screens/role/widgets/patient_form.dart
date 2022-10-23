@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:patient_assistant/models/patient_model.dart';
 
+import '../../../models/patient_model.dart';
 import '../../../components/selection_chip.dart';
 import '../../../components/custom_circle_progress_indicator.dart';
 import '../../../components/button_with_icon.dart';
@@ -21,6 +21,7 @@ class PatientForm extends StatefulWidget {
 
 class _PatientFormState extends State<PatientForm> {
   final roleController = RoleController.roleGetter;
+   final String kText='Enter any Medical Condition or a Disease that you have,for which you are searching for a Specialist.Please try to use the correct Medical Term to explain your Disease.(you can add more than one disease)' ;
 
 
   bool _isLoading=false;
@@ -253,7 +254,7 @@ class _PatientFormState extends State<PatientForm> {
                      children: [
                       const SizedBox(height: kDefaultHeight / 2),
                       const Divider(
-                        color: kTextColor,
+                        color: kGrey,
                       ),
                       const SizedBox(height: kDefaultHeight / 2),
                       _isLoading?const CustomCircleProgressIndicator():ButtonWithIcon(

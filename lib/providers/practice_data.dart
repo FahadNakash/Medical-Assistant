@@ -1,5 +1,6 @@
 class PracticeData{
   static late List<String> practiceType = ['Primary Care Physician', 'Specialist Physician'];
+  static late List<String> drugCategory = ['Category A', 'Category B','Category C','Category D','Category X'];
   static late Map<String, List<String>> practiceSubtypes = {
     'Primary Care Physician': [
       'Family Physician',
@@ -46,13 +47,13 @@ class PracticeData{
     ],
   };
 
-  static List<String> addAllSubpractices() {
+  static List<String> addAllSubPractices() {
     final  List<String>? all = practiceSubtypes['Primary Care Physician'];
     all!.addAll(practiceSubtypes['Specialist Physician']!);
     return all;
   }
 
-  static List<String> allSubpractices = addAllSubpractices();
+  static List<String> allSubPractices = addAllSubPractices();
 
   static Map<String, String> practiceDescription = {
     'Allergist /Immunologist':
@@ -739,4 +740,12 @@ class PracticeData{
       'prostatitis (swelling of the prostate gland)',
     ],
   };
+
+  static List<Map<String,dynamic>> drugCategoryDesc=[
+    {'Category A':'Adequate and well-controlled studies have failed to demonstrate a risk to the fetus/baby in the first trimester and there is no evidence of risk in later trimesters.'},
+    {'Category B':'Animal reproduction studies have failed to demonstrate a risk to the fetus and there are no adequate and well-controlled studies in pregnant women.'},
+    {'Category C':'Animal reproduction studies have shown an adverse effect on the fetus and there are no adequate and well-controlled studies in humans, but potential benefits may warrant use of the drug in pregnant women despite potential risks.'},
+    {'Category D':'There is positive evidence of human fetal risk based on adverse reaction data from investigational or marketing experience or studies in humans, but potential benefits may warrant use of the drug in pregnant women despite potential risks.'},
+    {'Category X':'Studies in animals or humans have demonstrated fetal abnormalities and/or there is positive evidence of human fetal risk based on adverse reaction data from investigational or marketing experience,and the risks involved in use of the drug in pregnant women clearly outweigh potential benefits'},
+  ];
 }

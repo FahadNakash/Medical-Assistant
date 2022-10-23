@@ -9,7 +9,6 @@ import 'package:path_provider/path_provider.dart';
 
 import '../controllers/app_controller.dart';
 class Utils{
-
   final appController=AppController.appGetter;
   //check current greetings
   String checkGreeting(){
@@ -23,6 +22,27 @@ class Utils{
     }else{
       return 'Good Night';
     }
+  }
+
+  static String removeSpecialChar(String string){
+    final String b=string.replaceAll(RegExp('[_]'),'');
+    return b;
+  }
+
+  static List<String> removeAllHtmlTags(String htmlText){
+    if (htmlText.isNotEmpty){
+      RegExp exp = RegExp(
+          r"<[^>]*>",
+          caseSensitive: true
+      );
+      final String _removeTag=htmlText.replaceAll(exp,'');
+      final String _removeBlankLines=_removeTag.replaceAll('\n','');
+      final String _removeSpecialChar=removeSpecialChar(_removeBlankLines);
+      return _removeSpecialChar.split('.');
+    }else{
+      return [''];
+    }
+
   }
 
   Future<String?> createOrFindFolder()async{
@@ -100,6 +120,7 @@ class Utils{
  static DateTime toDateTime(Timestamp value){
     return value.toDate();
   }
+
  static dynamic fromDateTimeToJson(DateTime date){
     return date.toUtc();
   }
@@ -109,10 +130,10 @@ class Utils{
     final now=DateTime.now();
     final def=now.difference(dateTime).inDays;
     if (def>5) {
-      //date
+      ///date
       return DateFormat.MMMEd().format(dateTime);
     }else{
-      // time
+      /// time
       return time;
     }
 

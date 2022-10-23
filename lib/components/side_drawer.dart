@@ -324,7 +324,7 @@ class CustomNavigationTiles extends StatelessWidget {
                   CustomListTile(
                       title: 'My Profile',
                       icon: const Icon(MyIcons.human_man_people_person_profile_icon,
-                          size: 25, color: kHeading2Color),
+                          size: 25, color: kblue),
                       onTap: () {
                         Get.toNamed(
                           Routes.user_profile,
@@ -338,7 +338,7 @@ class CustomNavigationTiles extends StatelessWidget {
                       icon: const Icon(
                         MyIcons.avatar_coronavirus_covid19_man_mask_icon,
                         size: 25,
-                        color: kHeading2Color,
+                        color: kblue,
                       ),
                       onTap: () {
                         Get.toNamed(Routes.my_contacts);
@@ -350,7 +350,7 @@ class CustomNavigationTiles extends StatelessWidget {
                       title: 'Messages',
                       icon: const Icon(
                           MyIcons.chat_conversation_dialogue_discussion_interface_icon,
-                          color: kHeading2Color,
+                          color: kblue,
                           size: 30),
                       onTap: () {
                         Get.toNamed(Routes.message_list);
@@ -364,7 +364,7 @@ class CustomNavigationTiles extends StatelessWidget {
                         MyIcons
                             .building_healthcare_hospital_medical_nursing_icon,
                         size: 25,
-                        color: kHeading2Color),
+                        color: kblue),
                     onTap: () {},
                   ),
                   GestureDetector(

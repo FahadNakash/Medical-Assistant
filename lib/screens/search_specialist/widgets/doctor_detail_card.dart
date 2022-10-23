@@ -86,7 +86,7 @@ class DoctorDetailCard extends StatelessWidget{
                               alignment: Alignment.center,
                               padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding/2),
                               decoration:  BoxDecoration(
-                                  border: Border.all(color: kTextColor.withOpacity(0.2)),
+                                  border: Border.all(color: kGrey.withOpacity(0.2)),
                                   borderRadius: const BorderRadius.all(Radius.circular(50)),
                                   gradient:const LinearGradient(
                                     colors: [
@@ -110,7 +110,7 @@ class DoctorDetailCard extends StatelessWidget{
                                     builder: (ctx)=>_showDialogue(title: 'Selected Specialities', middleContent: filters)
                                 );
                               },
-                                child: Text('+${filters.length}',style: const TextStyle(color: kHeading2Color,fontSize: 13),)
+                                child: Text('+${filters.length}',style: const TextStyle(color: kblue,fontSize: 13),)
                             ),
                           ),
 

@@ -36,12 +36,12 @@ class ImagePickerContainer extends StatelessWidget {
                             borderRadius: const BorderRadius.all(Radius.circular(20)),
                             boxShadow: [
                               const BoxShadow(
-                                color: kTextColor,
+                                color: kGrey,
                             offset: Offset(5, 5),
                             blurRadius: 5,
                               ),
                               BoxShadow(
-                                color: kTextColor.withOpacity(0.4),
+                                color: kGrey.withOpacity(0.4),
                                 offset: const Offset(-2, -2),
                                 blurRadius: 5,
                               )

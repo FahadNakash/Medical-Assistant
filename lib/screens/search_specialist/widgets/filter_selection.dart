@@ -53,9 +53,9 @@ class _FilterSelectionState extends State<FilterSelection>{
               Expanded(
                 child: Container(
                   height: 0.5,
-                  color: kTextColor.withOpacity(0.2),),
+                  color: kGrey.withOpacity(0.2),),
               ),
-              const Icon(Icons.filter_list_sharp,color: kHeading2Color,)
+              const Icon(Icons.filter_list_sharp,color: kblue,)
             ],
           ),
           const SizedBox(height: kDefaultHeight,),
@@ -69,7 +69,7 @@ class _FilterSelectionState extends State<FilterSelection>{
               Expanded(
                 child: Container(
                   height: 0.5,
-                  color: kTextColor.withOpacity(0.2),),
+                  color: kGrey.withOpacity(0.2),),
               ),
             ],
           ),
@@ -119,7 +119,7 @@ class _FilterSelectionState extends State<FilterSelection>{
       Expanded(
          child: Text(
              'Search For Specialists ${appController.user.userCountry} only',
-             style:TextStyle(color:_isCountrySelect ?kInputTextColor: kTextColor,
+             style:TextStyle(color:_isCountrySelect ?kInputTextColor: kGrey,
                  fontSize: 13,))),
      Checkbox(
        value: _isCountrySelect,
@@ -127,7 +127,7 @@ class _FilterSelectionState extends State<FilterSelection>{
            borderRadius: BorderRadius.all(Radius.circular(5),),
        ),
        fillColor: MaterialStateProperty.all(kInputTextColor),
-       side: BorderSide(color: kTextColor.withOpacity(0.6),width: 2),
+       side: BorderSide(color: kGrey.withOpacity(0.6),width: 2),
        onChanged: (value){
          setState(() {
            _isCountrySelect=!_isCountrySelect;
@@ -174,7 +174,7 @@ class _FilterSelectionState extends State<FilterSelection>{
         title:'Select Specialities',
         showSearchBox: false,
         mode: Mode.MENU,
-        items: PracticeData.allSubpractices,
+        items: PracticeData.allSubPractices,
         popUpItemBuilder:(context, string, b) =>Container(
           margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
           child: Column(
@@ -197,7 +197,7 @@ class _FilterSelectionState extends State<FilterSelection>{
         },
         dropdownSearchBuilder:(context, string, b)=>Text(
           '"${_addFilterSpecialities.length} Select"',
-          style: const TextStyle(color: kTextColor, fontSize: 15),
+          style: const TextStyle(color: kGrey, fontSize: 15),
         )
     );
   Widget _drawSelectSpecialitiesBox() => Wrap(
@@ -224,7 +224,7 @@ class _FilterSelectionState extends State<FilterSelection>{
                     'Add Diseases',
                     style: TextStyle(
                         fontSize: 13,
-                        color:kHeading2Color,
+                        color:kblue,
                         fontWeight: FontWeight.w500))),
           ),
           const SizedBox(width: kDefaultWidth,),
@@ -242,7 +242,7 @@ class _FilterSelectionState extends State<FilterSelection>{
               cursorColor: kHeading1Color,
               decoration: InputDecoration(
                 hintText: 'Try "Cancer" or "Hepatitis"',
-                hintStyle: const TextStyle(color: kTextColor,fontSize: 10),
+                hintStyle: const TextStyle(color: kGrey,fontSize: 10),
                 suffixIcon: GestureDetector(
                     onTap: (){
                       if (_disease.text.isNotEmpty){
@@ -255,7 +255,7 @@ class _FilterSelectionState extends State<FilterSelection>{
                     },
                     child: const Icon(FontAwesomeIcons.bacteria,size: 20,color: kInputTextColor)),
                 contentPadding: const EdgeInsets.only(bottom: 10),
-                enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: kTextColor, width: 0)),
+                enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: kGrey, width: 0)),
                 focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color:kHeading1Color,width: 0)),
               ),
             ),

@@ -10,7 +10,7 @@ class FormHeading extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text('$text:',style: Theme.of(context).textTheme.bodyText2!.copyWith( fontSize: 15,fontWeight: FontWeight.bold),),
-        const Expanded(child: Divider(color: kTextColor,)),
+        const Expanded(child: Divider(color: kGrey,)),
 
       ],
     );

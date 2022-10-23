@@ -12,14 +12,15 @@ class DoctorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(right: 13,top: 10),
-      constraints:  BoxConstraints(
-        maxWidth: user.isDoctor?350:400,
-      ),
+      padding: const EdgeInsets.only(right: 10,top: 10),
       height: kDefaultHeight * 5.5,
       child: Stack(
         children: [
           Container(
+            height: kDefaultHeight * 5,
+            constraints:  BoxConstraints(
+              maxWidth: user.isDoctor?300:400,
+            ),
             padding: const EdgeInsets.only(right: kDefaultPadding/2,top: kDefaultPadding/1.5,left: kDefaultPadding*2),
             margin: const EdgeInsets.only(left: kDefaultPadding * 3),
             decoration: BoxDecoration(
@@ -56,15 +57,15 @@ class DoctorCard extends StatelessWidget {
                                 child:textChip(user.doctor.specialities[0])),
                             const SizedBox(width: kDefaultWidth/2,),
                             if (user.doctor.specialities.length>1)
-                            Expanded(child:Text('+${user.doctor.specialities.length}',style: const TextStyle(color: kHeading2Color,fontSize: 13),),)]
+                            Expanded(child:Text('+${user.doctor.specialities.length}',style: const TextStyle(color: kblue,fontSize: 13),),)]
                       )
                           :Row(
                           children: [
-                            Row(children:[Text('Patient age : ',style: kBodyText,),Text('${user.patient.age} Years',style: kBodyText.copyWith(color: kHeading1Color,fontSize: 14,fontWeight: FontWeight.bold),)],),
+                            Row(children:[const Text('Patient age : ',style: kBodyText,),Text('${user.patient.age} Years',style: kBodyText.copyWith(color: kHeading1Color,fontSize: 14,fontWeight: FontWeight.bold),)],),
                             const SizedBox(width: kDefaultWidth/2,),
                           ]),
                       const SizedBox(height: kDefaultHeight/3,),
-                      Text(user.userCity.capitalize!+', '+user.userCountry.capitalize!,style: Theme.of(context).textTheme.subtitle1,)
+                      Text(user.userCity.capitalize!+', '+user.userCountry.capitalize!,style: Theme.of(context).textTheme.subtitle1,overflow: TextOverflow.ellipsis,maxLines: 2)
                     ],
                   ),
                 ),

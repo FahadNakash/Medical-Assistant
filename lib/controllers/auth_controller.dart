@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -85,7 +83,6 @@ class AuthController extends GetxController {
         setState((){
           login='fetching data»»';
         });
-
         UserModel _fireStoreData=await firestoreController.getCloudData(response.user!.uid);
         UserModel _getLocalData=prefController.getUserSession();
 
@@ -96,25 +93,18 @@ class AuthController extends GetxController {
             onPressed: () {
               Get.toNamed(Routes.role);
             },));
-        }else if (_getLocalData.uid.isNotEmpty){
-          final _imageName= Utils().getNameFromUrl(_fireStoreData.imageUrl);
+        }else {
+          final _imageName = Utils().getNameFromUrl(_fireStoreData.imageUrl);
           await Utils().storeImageLocally(url: _fireStoreData.imageUrl, imageName: _imageName);
-          final _getImagePath=await Utils().getImageLocally(_fireStoreData.uid);
-          final _getImageFile=await Utils().getImageFileLocally(_fireStoreData.uid);
+          // final _getImagePath = await Utils().getImageLocally(_fireStoreData.uid);
+          final _getImageFile = await Utils().getImageFileLocally(_fireStoreData.uid);
 
           prefController.saveUserSession(_fireStoreData);
-          appController.user=_fireStoreData;
-          appController.user.imagePath=_getImagePath!;
-          appController.user.imageFile=_getImageFile!;
+          appController.user = _fireStoreData;
+          // appController.user.imagePath = _getImagePath!;
+          appController.user.imageFile = _getImageFile!;
           Get.toNamed(Routes.main_home);
-        }else{
-          final _getImagePath=await Utils().getImageLocally(_fireStoreData.uid);
-          final _getImageFile=await Utils().getImageFileLocally(_fireStoreData.uid);
-          appController.user=_fireStoreData;
-          appController.user.imagePath=_getImagePath!;
-          appController.user.imageFile=_getImageFile!;
-          Get.toNamed(Routes.main_home);
-          }
+        }
 
       }else {
         Get.dialog(CustomDialogBox(
@@ -141,29 +131,11 @@ class AuthController extends GetxController {
         onPressed: () {
           Get.offAllNamed(Routes.role);
         },));
-    }catch (error){
-      Get.dialog(CustomDialogBox(
-        title: 'An Error Occurred',
-        middleText:  error.toString(),
-        onPressed: () {
-        Get.back();
-      },));
+    }catch (e){
+      ApiException(e.toString());
     }
   }
 
 
 
 }
-// u.User _getData = prefController.getUserSession();
-//    if (_getData.uid == null || _getData.uid !=_cloudData.uid){
-//     // prefController.saveUserSession(_cloudData);
-//      appController.user=_cloudData;
-//     final _imagePath= await Utils().storeImageLocally(_cloudData.imageUrl!);
-//      appController.imageFolderPath=(await Utils().getImageLocally())!;
-//      Get.toNamed(Routes.main_home);
-//    }else{
-//      final _imagePath= await Utils().storeImageLocally(_cloudData.imageUrl!);
-//      appController.user=_cloudData;
-//      appController.imageFolderPath=(await Utils().getImageLocally())!;
-//      Get.toNamed(Routes.main_home);
-//    }

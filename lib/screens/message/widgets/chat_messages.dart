@@ -140,7 +140,6 @@ class _ChatMessagesState extends State<ChatMessages> {
                 ),
                 onChanged: (v) {
                   msg = v.trim();
-                  print(msg);
                   setState(() {});
                 },
               )),

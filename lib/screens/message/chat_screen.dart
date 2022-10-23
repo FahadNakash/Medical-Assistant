@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:patient_assistant/components/conform_dialog_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -209,7 +208,7 @@ class _ChatScreenState extends State<ChatScreen> {
       highlightColor: Colors.white,
       splashColor: Colors.white,
       onTap: onTap,
-      child: Icon(icon, color: kHeading2Color),
+      child: Icon(icon, color: kblue),
     );
   }
 }

@@ -37,11 +37,11 @@ class MyContactsScreen extends StatelessWidget {
                 Get.back();
               },
               child: const Icon(Icons.arrow_back_rounded,
-                color: kHeading2Color,
+                color: kblue,
                 size: 25,
               )),
           const SizedBox(height: kDefaultHeight/2,),
-          Text(appController.user.role=='Patient'?'My Doctors':'My Patient',style: const TextStyle(color: kHeading2Color,fontFamily: 'Montserrat',fontWeight: FontWeight.bold),)
+          Text(appController.user.role=='Patient'?'My Doctors':'My Patient',style: const TextStyle(color: kblue,fontFamily: 'Montserrat',fontWeight: FontWeight.bold),)
         ],
       ),
     );

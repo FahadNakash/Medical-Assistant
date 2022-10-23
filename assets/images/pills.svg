@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40.987" height="40.987" viewBox="0 0 40.987 40.987">
+  <g id="Icons_pills" data-name="Icons/ pills" transform="translate(1.487 1.487)">
+    <g id="Icons_pills-2" data-name="Icons/ pills">
+      <circle id="Oval" cx="9" cy="9" r="9" stroke-width="3" transform="translate(20 20)" stroke="#205072" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/>
+      <path id="Path" d="M29.888,19.837l4.5-4.5a9.147,9.147,0,0,0,0-12.75h0a9.147,9.147,0,0,0-12.75,0L2.588,21.638a9.147,9.147,0,0,0,0,12.75h0a9.147,9.147,0,0,0,12.75,0l4.65-4.65" transform="translate(0.013 0.013)" fill="none" stroke="#205072" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
+      <path id="Path-2" data-name="Path" d="M0,0,10.2,10.2" transform="translate(12.5 12.5)" fill="none" stroke="#205072" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
+      <path id="Path-3" data-name="Path" d="M0,.75H6" transform="translate(26 28.25)" fill="none" stroke="#205072" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
+    </g>
+  </g>
+</svg>

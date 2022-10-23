@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:patient_assistant/components/custom_dialog_box.dart';
 
@@ -52,7 +51,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
                 Get.back();
               },
               child: const Icon(Icons.arrow_back_rounded,
-                color: kHeading2Color,
+                color: kblue,
                 size: 25,
               )),
           const SizedBox(height: kDefaultHeight,),
@@ -61,7 +60,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
           RichText(
               text:  TextSpan(
                   text: 'The Following are from your ',
-                  style: const TextStyle(color: kTextColor,fontFamily: 'Comfortaa',fontSize: 12),
+                  style: const TextStyle(color: kGrey,fontFamily: 'Comfortaa',fontSize: 12),
                   children: <InlineSpan>[
                     TextSpan(
                         text:appController.user.isDoctor?'My Patients ':'My Doctors',
@@ -175,73 +174,6 @@ class _ContactListScreenState extends State<ContactListScreen> {
   }
 
 
-// Future<void> getAddedUser()async{
-  //   setState((){
-  //     _isLoading=true;
-  //   });
-  //   try{
-  //     firestoreHelper.usersChats.clear();
-  //     if (widget.contacts.isNotEmpty){
-  //       for (var contact in widget.contacts){
-  //         if (firestoreHelper.chatsDocs.isNotEmpty){
-  //           for (var chatDoc in firestoreHelper.chatsDocs){
-  //             final List<String> _temp=List.from(chatDoc.data()['connections']);
-  //             final _chatId = chatDoc.id;
-  //             if (_temp.contains(contact.uid)){
-  //                 firestoreHelper.usersChats.add({
-  //                   'chatId': _chatId,
-  //                   'contact': contact,
-  //                   'contactId': contact.uid
-  //                 });
-  //                 break;
-  //             }
-  //           }
-  //         }else{
-  //           // chats is empty
-  //           firestoreHelper.usersChats.add({
-  //             'chatId': null,
-  //             'contact': contact,
-  //             'contactId': contact.uid
-  //           });
-  //         }
-  //         if (!firestoreHelper.usersChats.any((element) => element['contactId']==contact.uid)){
-  //           firestoreHelper.usersChats.add({
-  //             'chatId': null,
-  //             'contact': contact,
-  //             'contactId': contact.uid
-  //           });
-  //         }
-  //       }
-  //     }
-  //   }on SocketException catch(_){
-  //     Get.dialog(
-  //         CustomDialogBox(
-  //         title: 'Alert',
-  //         middleText: kNoConErrMsg,
-  //         onPressed: (){
-  //           Get.back();
-  //           getAddedUser();
-  //         }
-  //     )
-  //     );
-  //   }on FirebaseException catch(e){
-  //     Get.dialog(
-  //         CustomDialogBox(
-  //             title: 'Opp/s',
-  //             middleText: e.message.toString(),
-  //             onPressed: (){
-  //               Get.back();
-  //               getAddedUser();
-  //             }
-  //         )
-  //     );
-  //   }catch(_){
-  //   }
-  //   setState((){
-  //     _isLoading=false;
-  //   });
-  // }
-  //
 
 
 

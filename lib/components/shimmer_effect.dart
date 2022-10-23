@@ -9,11 +9,12 @@ class ShimmerEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(right: 13, top: 10),
-      height: kDefaultHeight * 5.5,
+      padding: const EdgeInsets.only(right: 13,top: 10),
+      height: kDefaultHeight * 5,
       child: Stack(
         children: [
           Container(
+            height: kDefaultHeight * 5,
             padding: const EdgeInsets.only(
                 right: kDefaultPadding / 2,
                 top: kDefaultPadding / 1.5,

@@ -30,7 +30,7 @@ class _CustomFilterChipState extends State<CustomFilterChip> {
         child: Container(
           padding: const EdgeInsets.all(kDefaultPadding/2),
           decoration:  BoxDecoration(
-              border: Border.all(color: kTextColor.withOpacity(0.2)),
+              border: Border.all(color: kGrey.withOpacity(0.2)),
               borderRadius: const BorderRadius.all(Radius.circular(50)),
               gradient: widget.selectChip?const LinearGradient(
                 colors: [
@@ -41,7 +41,7 @@ class _CustomFilterChipState extends State<CustomFilterChip> {
                 end:Alignment.topLeft,
               ):null
           ),
-          child: Text(widget.label,style: TextStyle(fontSize: 10,color: widget.selectChip?Colors.white:kTextColor)),
+          child: Text(widget.label,style: TextStyle(fontSize: 10,color: widget.selectChip?Colors.white:kGrey)),
         ),
       ) ;
   }

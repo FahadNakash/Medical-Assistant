@@ -28,13 +28,13 @@ ThemeData lightTheme(BuildContext context) {
               fontSize: 13
           ),
           bodyText2: const TextStyle(
-          color: kHeading2Color,
+          color: kblue,
           fontFamily: 'Comfortaa',
           fontSize: 30,
             fontStyle: FontStyle.normal,
       ),
           subtitle1: TextStyle(
-          color: kTextColor.withOpacity(0.7),
+          color: kGrey.withOpacity(0.7),
           fontFamily: 'Comfortaa',
           fontSize: 12,
         ),

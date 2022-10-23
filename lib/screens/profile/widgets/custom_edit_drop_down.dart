@@ -39,7 +39,7 @@ class CustomEditDropDown<T> extends StatelessWidget {
                 child: Text('$title:',
                     style: const TextStyle(
                         fontSize: 13,
-                        color: kHeading2Color,
+                        color: kblue,
                         fontWeight: FontWeight.w500))),
           ),
           Expanded(
@@ -74,7 +74,7 @@ class CustomEditDropDown<T> extends StatelessWidget {
               showSearchBox: showSearchBox,
               dropdownSearchDecoration: const InputDecoration(
                 enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: kTextColor, width: 0)),
+                    borderSide: BorderSide(color: kGrey, width: 0)),
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: kInputTextColor, width: 0)),
                 labelStyle: TextStyle(color: kInputTextColor, fontSize: 15,leadingDistribution: TextLeadingDistribution.even),
@@ -87,7 +87,7 @@ class CustomEditDropDown<T> extends StatelessWidget {
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: kInputTextColor),
                       borderRadius: BorderRadius.all(Radius.circular(70))),
-                  fillColor: kInputBgColor,
+                  fillColor: kCream,
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       borderSide: BorderSide(color: kInputTextColor)),
@@ -96,7 +96,7 @@ class CustomEditDropDown<T> extends StatelessWidget {
               showSelectedItem: true,
               onChanged: onChanged,
               enabled: true,
-              popupBackgroundColor: kInputBgColor,
+              popupBackgroundColor: kCream,
               popupItemBuilder: popUpItemBuilder,
               popupShape: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),

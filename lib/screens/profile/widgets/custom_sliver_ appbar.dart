@@ -50,7 +50,7 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
             margin: const EdgeInsets.all(10),
             width: 30,
             height: 30,
-            child: const Icon(Icons.keyboard_backspace,color: kHeading2Color,)
+            child: const Icon(Icons.keyboard_backspace,color: kblue,)
         ),
       ),
       flexibleSpace: Stack(

@@ -14,6 +14,9 @@ abstract class Routes{
   static const message_list=_Paths.message_list;
   static const pharmacies=_Paths.pharmacies;
   static const my_contacts=_Paths.my_contacts;
+  static const search_drug=_Paths.search_drug;
+  static const drug_detail=_Paths.drug_detail;
+  static const search_disease=_Paths.search_disease;
 }
 abstract class _Paths{
   static const splash='/splash';
@@ -28,6 +31,9 @@ abstract class _Paths{
   static const message_list='/message_list';
   static const pharmacies='/pharmacies';
   static const my_contacts='/my_contacts';
+  static const search_drug='/search_drug';
+  static const drug_detail='/drug_detail';
+  static const search_disease='/search_disease';
 
 
 

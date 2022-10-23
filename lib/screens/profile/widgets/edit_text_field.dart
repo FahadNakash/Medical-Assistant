@@ -54,7 +54,7 @@ class _EditTextFieldState extends State<EditTextField> {
                     style: TextStyle(
                         fontSize: 13,
                         color: widget.errorText == null
-                            ? kHeading2Color
+                            ? kblue
                             : kErrorColor,
                         fontWeight: FontWeight.w500))),
           ),
@@ -90,18 +90,18 @@ class _EditTextFieldState extends State<EditTextField> {
                         fontWeight: FontWeight.bold),
                     contentPadding: const EdgeInsets.only(bottom: 15),
                     enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: kTextColor, width: 0)),
+                        borderSide: BorderSide(color: kGrey, width: 0)),
                     focusedBorder: (_readOnly)
                         ? const UnderlineInputBorder(
                             borderSide: BorderSide(
-                            color: kTextColor,
+                            color: kGrey,
                           ))
                         : UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: widget.errorText == null
                                     ? kHeading1Color
                                     : kErrorColor)),
-                    fillColor: kHeading2Color,
+                    fillColor: kblue,
                   ),
                   onChanged: widget.onChanged,
                 )),
@@ -114,7 +114,7 @@ class _EditTextFieldState extends State<EditTextField> {
               },
               child: Icon(
                 Icons.edit,
-                color: widget.errorText == null ? kHeading2Color : kErrorColor,
+                color: widget.errorText == null ? kblue : kErrorColor,
               ))
         ],
       ),

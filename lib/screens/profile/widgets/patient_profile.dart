@@ -244,7 +244,7 @@ class _PatientProfileState extends State<PatientProfile>{
           Container(
               width: kDefaultWidth*5.6,
               padding: const EdgeInsets.only(right: 20),
-              child: Text(_ageError??'Age',style: TextStyle(fontSize: 13,color:_ageError==null?kHeading2Color:kErrorColor,fontWeight: FontWeight.w500,overflow: TextOverflow.fade))),
+              child: Text(_ageError??'Age',style: TextStyle(fontSize: 13,color:_ageError==null?kblue:kErrorColor,fontWeight: FontWeight.w500,overflow: TextOverflow.fade))),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -254,7 +254,7 @@ class _PatientProfileState extends State<PatientProfile>{
                     setState(() {
                     });
                   },
-                  child: Icon(Icons.remove,color:_ageError==null? kHeading2Color:kErrorColor,size: 25,)
+                  child: Icon(Icons.remove,color:_ageError==null? kblue:kErrorColor,size: 25,)
               ),
               const SizedBox(width: 8,),
               Text('${_patient.age}',style: const TextStyle(color: kInputTextColor,fontSize: 15),),
@@ -265,7 +265,7 @@ class _PatientProfileState extends State<PatientProfile>{
                     setState(() {
                     });
                   },
-                  child: Icon(Icons.add,color: _ageError==null?kHeading2Color:kErrorColor,size: 25,)
+                  child: Icon(Icons.add,color: _ageError==null?kblue:kErrorColor,size: 25,)
               )
             ],
           )
@@ -287,7 +287,7 @@ class _PatientProfileState extends State<PatientProfile>{
                     title,
                     style: const TextStyle(
                         fontSize: 13,
-                        color:kHeading2Color,
+                        color:kblue,
                         fontWeight: FontWeight.w500))),
           ),
           const SizedBox(width: kDefaultWidth*2.5,),
@@ -307,12 +307,12 @@ class _PatientProfileState extends State<PatientProfile>{
               cursorColor: kHeading1Color,
               decoration: InputDecoration(
                 hintText: 'Add Disease',
-                hintStyle: const TextStyle(color: kTextColor,fontSize: 10),
+                hintStyle: const TextStyle(color: kGrey,fontSize: 10),
                 suffixIcon: GestureDetector(
                     onTap: addDisease,
                     child: const Icon(FontAwesomeIcons.bacteria,size: 20,color: kInputTextColor)),
                 contentPadding: const EdgeInsets.only(bottom: 10),
-                enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: kTextColor, width: 0)),
+                enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: kGrey, width: 0)),
                 focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color:kHeading1Color,width: 0)),
                  ),
             ),
@@ -336,7 +336,7 @@ class _PatientProfileState extends State<PatientProfile>{
                 child: _isExpand
                     ?const Icon(
                   Icons.edit,
-                  color: kHeading2Color,
+                  color: kblue,
                 )
                     :IntrinsicHeight(
                       child: Row(
@@ -345,7 +345,7 @@ class _PatientProfileState extends State<PatientProfile>{
                   children: const [
                       Icon(
                         Icons.edit,
-                        color: kHeading2Color,
+                        color: kblue,
                       ),
                       Text('Click Here',style: TextStyle(fontSize: 10),)
                   ],

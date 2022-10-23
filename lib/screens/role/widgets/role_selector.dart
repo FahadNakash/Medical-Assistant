@@ -32,7 +32,7 @@ class _RoleSelectorState extends State<RoleSelector> {
                 });
               },
               child: RoleSelectorButton(
-                icon: Icon(FontAwesomeIcons.userDoctor,size: 40,color:_isDoctor?Colors.white:kTextColor),
+                icon: Icon(FontAwesomeIcons.userDoctor,size: 40,color:_isDoctor?Colors.white:kGrey),
                 text: 'Doctor',
                 isSelect: _isDoctor,
               ),
@@ -47,7 +47,7 @@ class _RoleSelectorState extends State<RoleSelector> {
                 });
               },
               child: RoleSelectorButton(
-                icon: Icon(FontAwesomeIcons.userInjured,size: 40,color: _isPatient?Colors.white:kTextColor,),
+                icon: Icon(FontAwesomeIcons.userInjured,size: 40,color: _isPatient?Colors.white:kGrey,),
                 text: 'Patient', isSelect:_isPatient,
               ),
             ),

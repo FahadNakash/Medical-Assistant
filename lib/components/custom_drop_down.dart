@@ -39,7 +39,7 @@ class CustomDropDown<T> extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
-                color: kHeading2Color.withOpacity(0.6),
+                color: kblue.withOpacity(0.6),
                 spreadRadius: -4,
                 offset: const Offset(-0, 6),
                 blurRadius: 5
@@ -65,7 +65,7 @@ class CustomDropDown<T> extends StatelessWidget {
             color: kPrimaryColor,
           ),
           filled: true,
-          fillColor: kInputBgColor,
+          fillColor: kCream,
         ),
         maxHeight:maxHeight,
         enabled: true,
@@ -74,7 +74,7 @@ class CustomDropDown<T> extends StatelessWidget {
         //clearButton: Icon(Icons.clear,color: kErrorColor),
         dropDownButton: const Icon(Icons.arrow_drop_down, color: kPrimaryColor),
         showSelectedItem: true,
-        popupBackgroundColor: kInputBgColor,
+        popupBackgroundColor: kCream,
         popupBarrierColor: Colors.black.withOpacity(0.5),
         popupShape:const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -91,7 +91,7 @@ class CustomDropDown<T> extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: kInputTextColor),
                 borderRadius: BorderRadius.all(Radius.circular(70))),
-            fillColor: kInputBgColor,
+            fillColor: kCream,
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 borderSide: BorderSide(color: kInputTextColor)),

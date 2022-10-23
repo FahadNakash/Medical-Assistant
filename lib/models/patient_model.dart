@@ -15,8 +15,7 @@ class Patient{
     city=map['city'];
     age=map['age'];
     diseases=List<String>.from(map['diseases']);
-    // addDoctors=List<String>.from(map['addDoctors'])
-    ;}
+    }
 
   Map<String,dynamic> toMap()=>{
     'name':name,

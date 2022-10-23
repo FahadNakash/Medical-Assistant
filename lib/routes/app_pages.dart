@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 
-import '../screens/message/contact_list_screen.dart';
 import '../screens/message/messages_list_screen.dart';
 import '../screens/my_contacts/my_contacts_screen.dart';
+import '../screens/search_disease/search_disease_screen.dart';
+import '../screens/search_drug/drugs_detail_screen.dart';
 import '../screens/splash_screen.dart';
 import '../screens/auth/auth_screen.dart';
 import '../screens/role/role_screen.dart';
@@ -15,6 +16,7 @@ import '../binding/auth_binding.dart';
 import '../binding/role_binding.dart';
 import '../binding/user_profile_binding.dart';
 import '../screens/message/chat_screen.dart';
+import '../screens/search_drug/search_drug_screen.dart';
 
  part 'app_routes.dart';
 class AppPages{
@@ -62,7 +64,7 @@ class AppPages{
     ),
     GetPage(
       name: Routes.message_list,
-      page: ()=> MessagesListScreen(),
+      page: ()=> const MessagesListScreen(),
       transition: Transition.leftToRight,
     ),
     GetPage(
@@ -77,8 +79,22 @@ class AppPages{
     ),
     GetPage(
       name: Routes.chat,
-      page: ()=>  ChatScreen(),
+      page: ()=>  const ChatScreen(),
     ),
+    GetPage(
+      name: Routes.search_drug,
+      page: ()=>  const SearchDrugScreen(),
+    ),
+    GetPage(
+      name: Routes.drug_detail,
+      page: ()=>   DrugDetailScreen(),
+    ),
+    GetPage(
+      name: Routes.search_disease,
+      page: ()=>  const SearchDiseaseScreen(),
+      transition: Transition.fadeIn
+    ),
+
   ];
 
 

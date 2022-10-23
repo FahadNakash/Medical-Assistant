@@ -113,7 +113,7 @@ class _SearchedDoctorDetailScreenState
                     },
                     icon: const Icon(
                       Icons.arrow_back,
-                      color: kHeading2Color,
+                      color: kblue,
                     )),
                 Row(
                   children: [
@@ -149,7 +149,7 @@ class _SearchedDoctorDetailScreenState
                               ? 'Dr ${userDetail.userName.capitalize}'
                               : userDetail.userName.capitalize!,
                           style: const TextStyle(
-                              color: kHeading2Color,
+                              color: kblue,
                               fontFamily: 'Montserrat',
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
@@ -186,7 +186,7 @@ class _SearchedDoctorDetailScreenState
                                 ',' +
                                 userDetail.patient.country,
                             style: const TextStyle(
-                                color: kTextColor, fontSize: 12),
+                                color: kGrey, fontSize: 12),
                           )
                       ],
                     )
@@ -332,7 +332,7 @@ class _SearchedDoctorDetailScreenState
                             ),
                             const SizedBox(height: kDefaultHeight / 3),
                             Divider(
-                              color: kTextColor.withOpacity(0.5),
+                              color: kGrey.withOpacity(0.5),
                             ),
                           ],
                         ),
@@ -435,7 +435,7 @@ class _SearchedDoctorDetailScreenState
     final List<Widget> _chipsButtons = [];
     for (var speciality in userDetail.doctor.specialities) {
       _chipsButtons.add(InkWell(
-        splashColor: kHeading2Color,
+        splashColor: kblue,
         highlightColor: Colors.white,
         onTap: () {
           Get.dialog(diagnoseDialogueBox(speciality));
@@ -447,10 +447,10 @@ class _SearchedDoctorDetailScreenState
               vertical: kDefaultPadding / 3, horizontal: kDefaultPadding / 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: kHeading2Color.withOpacity(0.7)),
+            border: Border.all(color: kblue.withOpacity(0.7)),
           ),
           child: Text(speciality,
-              style: const TextStyle(color: kHeading2Color, fontSize: 12)),
+              style: const TextStyle(color: kblue, fontSize: 12)),
         ),
       ));
     }
@@ -461,7 +461,7 @@ class _SearchedDoctorDetailScreenState
     final List<Widget> _chipsButtons = [];
     for (var disease in userDetail.patient.diseases) {
       _chipsButtons.add(InkWell(
-        splashColor: kHeading2Color,
+        splashColor: kblue,
         highlightColor: Colors.white,
         onTap: () {},
         borderRadius: BorderRadius.circular(20),
@@ -471,10 +471,10 @@ class _SearchedDoctorDetailScreenState
               vertical: kDefaultPadding / 3, horizontal: kDefaultPadding / 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: kHeading2Color.withOpacity(0.7)),
+            border: Border.all(color: kblue.withOpacity(0.7)),
           ),
           child: Text(disease,
-              style: const TextStyle(color: kHeading2Color, fontSize: 12)),
+              style: const TextStyle(color: kblue, fontSize: 12)),
         ),
       ));
     }
@@ -514,7 +514,7 @@ class _SearchedDoctorDetailScreenState
           ),
           Flexible(
               fit: FlexFit.loose,
-              child: Divider(color: kTextColor.withOpacity(0.5))),
+              child: Divider(color: kGrey.withOpacity(0.5))),
           InkWell(
             highlightColor: Colors.white,
             splashColor: Colors.white,

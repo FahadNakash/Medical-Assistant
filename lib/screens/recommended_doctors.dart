@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../components/shimmer_effect.dart';
 import '../models/user_model.dart';
 import '../constant.dart';
-import '../components/custom_circle_progress_indicator.dart';
 import '../components/doctor_card.dart';
 import '../controllers/app_controller.dart';
 import '../services/firestore_helper.dart';
@@ -14,7 +14,7 @@ class RecommendedDoctors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 165,
       margin:const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,7 @@ class RecommendedDoctors extends StatelessWidget {
             ],
           ),
           const SizedBox(height: kDefaultHeight/2,),
-           Expanded(child: _drawRecommededDocTiles())
+           Flexible(child: _drawRecommededDocTiles())
         ],
       ),
     );
@@ -43,7 +43,7 @@ class RecommendedDoctors extends StatelessWidget {
         future: firestoreHelper.allDoctors(appController.user.uid),
         builder: (context,snapShot){
           if (snapShot.connectionState==ConnectionState.waiting) {
-            return const Center(child: CustomCircleProgressIndicator());
+            return const ShimmerEffect();
           }if (snapShot.hasError){
             return const Center(
               child: Text('Oops Something Wrong',

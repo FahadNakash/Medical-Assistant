@@ -29,7 +29,7 @@ class RoleSelectorButton extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ):null,
-          border: Border.all(color: kTextColor.withOpacity(0.5)
+          border: Border.all(color: kGrey.withOpacity(0.5)
           )
       ),
       child: Column(

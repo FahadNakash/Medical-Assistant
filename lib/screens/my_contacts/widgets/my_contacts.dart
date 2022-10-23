@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:patient_assistant/settings/preferences.dart';
 import 'package:get/get.dart';
@@ -26,7 +25,6 @@ class _MyContactsState extends State<MyContacts> {
 
   Future<void> deleteAddedDoctor(String selectedDocUid) async {
     appController.user.contacts.removeWhere((uid) => uid == selectedDocUid);
-    // firestoreHelper.addedContacts.removeWhere((user) => user.uid == selectedDocUid);
     await firestoreHelper.setCloudData(appController.user);
     await Preferences.preferencesGetter.saveUserSession(appController.user);
   }
@@ -45,7 +43,8 @@ class _MyContactsState extends State<MyContacts> {
                           height: 10,
                         ),
                     itemCount: appController.user.contacts.length,
-                    itemBuilder: (context, index) => const ShimmerEffect()));
+                    itemBuilder: (context, index) => const ShimmerEffect())
+            );
           }
           if (snapshot.hasError) {
             return const Text('Oops Something Wrong',

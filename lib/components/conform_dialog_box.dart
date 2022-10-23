@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:patient_assistant/components/custom_circle_progress_indicator.dart';
 
 import '../constant.dart';
 

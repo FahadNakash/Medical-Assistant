@@ -43,7 +43,7 @@ bool isLogin=true;
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(isLogin?'Need an Account?':'Already have an Account',style: const TextStyle(fontSize: 10,color: kTextColor),),
+              Text(isLogin?'Need an Account?':'Already have an Account',style: const TextStyle(fontSize: 10,color: kGrey),),
               AppButton(
                   textSize: 10,defaultLinearGradient: false,
                   height: 20,
@@ -94,7 +94,7 @@ class FormType extends StatelessWidget {
       child: Column(
         children: [
           Text(isLogin?'Login':'Sign Up',style: Theme.of(context).textTheme.headline5),
-          Divider(color: kTextColor,endIndent: (orientation==Orientation.portrait)?40:0,indent: (orientation==Orientation.portrait)?40:0,),
+          Divider(color: kGrey,endIndent: (orientation==Orientation.portrait)?40:0,indent: (orientation==Orientation.portrait)?40:0,),
         ],
       ),
     );

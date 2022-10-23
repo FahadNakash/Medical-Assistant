@@ -310,11 +310,11 @@ class _DoctorProfileState extends State<DoctorProfile> {
               },
             dropdownSearchBuilder:(_doctor.practiceType==appController.user.doctor.practiceType && _doctor.specialities.length == appController.user.doctor.specialities.length )
                   ?(context, string, b)=>Text('"${appController.user.doctor.specialities.length} Select"',
-                style: const TextStyle(color: kTextColor, fontSize: 15),
+                style: const TextStyle(color: kGrey, fontSize: 15),
               )
                   :(context, string, b)=>Text(
                 '"${_doctor.specialities.length} Select"',
-                style: const TextStyle(color: kTextColor, fontSize: 15),
+                style: const TextStyle(color: kGrey, fontSize: 15),
               )
           ),
           const SizedBox(height: kDefaultHeight),
@@ -415,7 +415,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
         children: [
           const SizedBox(
               width: kDefaultWidth*6,
-              child: Text('Work \nExperience:',style: TextStyle(fontSize: 13,color: kHeading2Color,fontWeight: FontWeight.w500))),
+              child: Text('Work \nExperience:',style: TextStyle(fontSize: 13,color: kblue,fontWeight: FontWeight.w500))),
           Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
