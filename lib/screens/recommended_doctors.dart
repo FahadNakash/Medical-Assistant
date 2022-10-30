@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:lottie/lottie.dart';
 
 import '../components/shimmer_effect.dart';
 import '../models/user_model.dart';
@@ -6,17 +9,49 @@ import '../constant.dart';
 import '../components/doctor_card.dart';
 import '../controllers/app_controller.dart';
 import '../services/firestore_helper.dart';
-class RecommendedDoctors extends StatelessWidget {
-  RecommendedDoctors({Key? key}) : super(key: key);
-  final appController=AppController.appGetter;
-  final firestoreHelper=FirestoreHelper.firestoreGetter;
+class RecommendedDoctors extends StatefulWidget {
+  const RecommendedDoctors({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<RecommendedDoctors> createState() => _RecommendedDoctorsState();
+}
+
+class _RecommendedDoctorsState extends State<RecommendedDoctors> {
+  final appController=AppController.appGetter;
+  final firestoreHelper=FirestoreHelper.firestoreGetter;
+  final InternetConnectionChecker _internetConnectionChecker=InternetConnectionChecker();
+  late final StreamSubscription _streamSubscription;
+
+  bool _isConnected=false;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _streamSubscription=_internetConnectionChecker.onStatusChange.listen((event) {
+      if (InternetConnectionStatus.connected==event) {
+        _isConnected=true;
+        setState(() {});
+      }else{
+        _isConnected=false;
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _streamSubscription.cancel();
+  }
+
+  @override
+  Widget build(BuildContext context){
     return Container(
       height: 165,
       margin:const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
+      child:_isConnected
+          ?Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children:  [
           const SizedBox(height: kDefaultHeight/2),
@@ -34,6 +69,14 @@ class RecommendedDoctors extends StatelessWidget {
           const SizedBox(height: kDefaultHeight/2,),
            Flexible(child: _drawRecommededDocTiles())
         ],
+      )
+          :Container(
+        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding/2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: const Color(0xff371A45),width: 2),
+        ),
+        child:Lottie.asset('assets/lotti/no_internet.json',animate: true,repeat: true),
       ),
     );
   }

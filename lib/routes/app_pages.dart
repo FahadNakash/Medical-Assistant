@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../screens/message/messages_list_screen.dart';
 import '../screens/my_contacts/my_contacts_screen.dart';
+import '../screens/search_disease/disease_detail_screen.dart';
 import '../screens/search_disease/search_disease_screen.dart';
 import '../screens/search_drug/drugs_detail_screen.dart';
 import '../screens/splash_screen.dart';
@@ -93,6 +94,11 @@ class AppPages{
       name: Routes.search_disease,
       page: ()=>  const SearchDiseaseScreen(),
       transition: Transition.fadeIn
+    ),
+    GetPage(
+        name: Routes.disease_detail,
+        page: ()=>  DiseaseDetailScreen(),
+        transition: Transition.downToUp
     ),
 
   ];

@@ -24,7 +24,7 @@ const kDefaultPosition=20.0;
 ///strings
 const String kAssets='assets/images';
 const String kBaseUrl='https://healthos.co/api/v1';
-const String kNoConErrMsg='Please Make Sure that your device connect to the internet';
+const String kNoConErrMsg='Please Make Sure that your device connect to the internet.';
 const kAnimationDuration = Duration(milliseconds: 400);
 
 ///Gradient

@@ -50,14 +50,14 @@ class _SearchDrugScreenState extends State<SearchDrugScreen>{
       _timer=null;
     }
     _timer=Timer(_duration,()async{
-      await _requestData(v);
+      await _requestDrugData(v);
     });
   }
 
   Future<String> _getToken()async{
     const String url='https://healthos.co/api/v1/oauth/token.json';
     // Todo change auth credentials
-    final response=await Dio().post(url, data:healthOsCredentialsB,options: Options(
+    final response=await Dio().post(url, data:healthOsCredentialsA,options: Options(
         method: 'POST',
         validateStatus: (_)=>true
     ));
@@ -67,33 +67,33 @@ class _SearchDrugScreenState extends State<SearchDrugScreen>{
     return _authToken;
   }
 
-  Future<void> _requestData(String v)async{
+  Future<void> _requestDrugData(String v)async{
+    FocusManager.instance.primaryFocus?.unfocus();
    try{
      final _token=_authToken.isEmpty?await _getToken():_authToken;
      final url='$kBaseUrl/search/medicines/generics/$v';
      final response=await _dio.get(url,options: Options(headers: { 'Authorization':'Bearer $_token' },));
      if (response.statusCode==200) {
        _drugData=List<Map<String,dynamic>>.from(response.data);
-       FocusManager.instance.primaryFocus?.unfocus();
-       setState(() {
-         _isError=false;
-         _isLoading=false;
-       });
      }
      _isError=false;
      _isLoading=false;
      setState(() {});
    }on DioError catch (e){
      _errorCode=e.response!.statusCode.toString();
-     _errorMsg=e.response!.data['error_message'];
+     _errorMsg='${e.response!.statusMessage}';
+     _drugData=null;
      _isError=true;
      _isLoading=false;
      setState(() {});
    }catch(_){
-
+     _errorCode='404';
+     _errorMsg='Something Wrong';
+     _isError=true;
+     _isLoading=false;
+     _drugData=null;
+     setState(() {});
    }
-
-
   }
 
 
@@ -152,7 +152,7 @@ class _SearchDrugScreenState extends State<SearchDrugScreen>{
 
 
   Widget _drawSearchResultTile(){
-    return _isConnected
+    return !_isConnected
         ?const Empty(middleText: kNoConErrMsg,icon: Icons.wifi_off,)
         :(_drugData==null)?Empty(error: _isError,middleText:_isError?'$_errorMsg.\nError code : $_errorCode':'Suggestion will be show here',image:_isError?'$kAssets/caution.svg':'$kAssets/suggestions.svg',)
         :_drugData!.isEmpty?const Empty(middleText: 'No requested data has been found.',image: '$kAssets/empty_data.svg', )

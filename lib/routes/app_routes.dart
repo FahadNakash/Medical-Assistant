@@ -17,6 +17,7 @@ abstract class Routes{
   static const search_drug=_Paths.search_drug;
   static const drug_detail=_Paths.drug_detail;
   static const search_disease=_Paths.search_disease;
+  static const disease_detail=_Paths.disease_detail;
 }
 abstract class _Paths{
   static const splash='/splash';
@@ -34,6 +35,7 @@ abstract class _Paths{
   static const search_drug='/search_drug';
   static const drug_detail='/drug_detail';
   static const search_disease='/search_disease';
+  static const disease_detail='/disease_detail';
 
 
 

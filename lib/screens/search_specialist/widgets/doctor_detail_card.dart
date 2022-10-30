@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../../constant.dart';
-import '../../../components/custom_text_button.dart';
+import '../../../components/custom_outline_button.dart';
 import '../../../models/user_model.dart';
 import 'custom_filter_chip.dart';
 import '../../../providers/country_data.dart';
@@ -125,7 +125,7 @@ class DoctorDetailCard extends StatelessWidget{
               ),
             ),
           ),
-           CustomTextButton(
+           CustomOutlineButton(
              text: 'Detail',
                width: 50,
                onTap: (){

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../constant.dart';
-class CustomTextButton extends StatelessWidget {
+class CustomOutlineButton extends StatelessWidget {
   final double height;
   final double width;
   final VoidCallback onTap;
   final String text;
   final double borderRadius;
   final double fontSize;
-  const CustomTextButton({Key? key,this.height=30,this.width=50,required this.onTap,required this.text,this.borderRadius=15,this.fontSize=10}) : super(key: key);
+  const CustomOutlineButton({Key? key,this.height=30,this.width=50,required this.onTap,required this.text,this.borderRadius=15,this.fontSize=10}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

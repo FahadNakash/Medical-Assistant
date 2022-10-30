@@ -5,7 +5,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../../components/app_button.dart';
 import '../../routes/app_pages.dart';
-import '../../../components/custom_text_button.dart';
+import '../../../components/custom_outline_button.dart';
 import '../../../providers/country_data.dart';
 import '../../../providers/practice_data.dart';
 import '../../../constant.dart';
@@ -276,7 +276,7 @@ class _SearchedDoctorDetailScreenState
                             ),
                           ),
                           const Spacer(),
-                          CustomTextButton(
+                          CustomOutlineButton(
                             text: 'Direction',
                             onTap: () {},
                             width: 70,
@@ -360,7 +360,7 @@ class _SearchedDoctorDetailScreenState
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CustomTextButton(
+                                  CustomOutlineButton(
                                       onTap: () async {
                                         appController.user.contacts
                                             .add(userDetail.uid);

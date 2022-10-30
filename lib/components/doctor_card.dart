@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../constant.dart';
 import '../models/user_model.dart';
 import '../screens/search_specialist/search_specialist_detail_screen.dart';
-import 'custom_text_button.dart';
+import 'custom_outline_button.dart';
 class DoctorCard extends StatelessWidget {
   final UserModel user;
   const DoctorCard({Key? key, required this.user}) : super(key: key);
@@ -69,7 +69,7 @@ class DoctorCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                CustomTextButton(
+                CustomOutlineButton(
                         text: 'Detail',
                         width: 70,
                         onTap: (){

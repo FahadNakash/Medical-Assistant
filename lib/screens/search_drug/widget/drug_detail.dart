@@ -23,18 +23,20 @@ class _DrugDetailState extends State<DrugDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _detailText(),
-          _categories(),
-          _usedFor(),
-          _instructions(),
-          _work(),
-          _sideEffect(),
-          _drugInteractions(),
-        ],
+    return Flexible(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _detailText(),
+            _categories(),
+            _usedFor(),
+            _instructions(),
+            _work(),
+            _sideEffect(),
+            _drugInteractions(),
+          ],
+        ),
       ),
     );
   }

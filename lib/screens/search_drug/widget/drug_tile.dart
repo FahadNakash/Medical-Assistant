@@ -57,15 +57,13 @@ class _DrugTileState extends State<DrugTile>{
 
   }
 
-
-
-
   @override
-  Widget build(BuildContext context){
-    return  Theme(
+  Widget build(BuildContext context) {
+    return Theme(
+      key: UniqueKey(),
       data: ThemeData(
-        splashColor:Colors.white,
-        highlightColor: Colors.white
+          splashColor:Colors.white,
+          highlightColor: Colors.white
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: kDefaultPadding/2,),
@@ -90,7 +88,6 @@ class _DrugTileState extends State<DrugTile>{
             :SizedBox(child: Icon(_isError?Icons.replay:Icons.download,color: _isError?kErrorColor:kHeading1Color.withOpacity(0.5),)),
         onTap: ()async{
           await _drugDetail();
-
         },
       ),
     );

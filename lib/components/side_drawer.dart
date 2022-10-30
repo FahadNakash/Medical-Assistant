@@ -262,12 +262,11 @@ class CustomMenuClipper extends CustomClipper<Path> {
     path.close();
     return path;
 
-    // TODO: implement getClip
   }
 
   @override
   bool shouldReclip(covariant CustomClipper oldClipper) {
-    // TODO: implement shouldReclip
+
     return true;
   }
 }

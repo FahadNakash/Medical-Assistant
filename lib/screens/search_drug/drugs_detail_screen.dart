@@ -20,7 +20,7 @@ class DrugDetailScreen extends StatelessWidget {
         body:Column(
           children: [
             _customAppbar(),
-            Flexible(child: DrugDetail(drugInfo: _drugInfo, drugInteract: _drugInteract))
+            DrugDetail(drugInfo: _drugInfo, drugInteract: _drugInteract)
 
           ],
         )
