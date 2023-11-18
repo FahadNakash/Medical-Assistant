@@ -24,13 +24,13 @@ dependencies:
     sdk: flutter
   android_intent_plus: ^3.1.5
   animations: ^2.0.2
-  cloud_firestore: ^3.1.10
+  cloud_firestore: ^4.13.1
   cupertino_icons: ^1.0.2
   dropdown_selection: ^2.0.1
   dio: ^4.0.6
-  firebase_core: ^1.13.1
-  firebase_auth: ^3.3.10
-  firebase_storage: ^10.2.9
+  firebase_core: ^2.22.0
+  firebase_auth: ^4.14.0
+  firebase_storage: ^11.5.1
   flutter_svg: ^0.22.0
   font_awesome_flutter: ^10.0.0
   get: ^4.2.1+1
